@@ -1,0 +1,8 @@
+displayName = 诡秘之主 (Lord of the Mysteries)
+author = zhou
+version = 0.4.4.94
+homepage = https://space.bilibili.com/433573566
+side = Both
+strongDependencies = StructureHelper, SubworldLibrary
+modReferences = StructureHelper, SubworldLibrary
+buildIgnore = .git*, .vs*, .vscode*, bin*, obj*, *.csproj.user, *.gitattributes, *.gitignore

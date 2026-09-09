@@ -1,0 +1,1537 @@
+Mods: {
+	zhashi: {
+		# ==========================================
+		#              Custom Messages
+		# ==========================================
+		Messages: {
+			SpiritualityExhausted: Spirituality exhausted!
+			RitualComplete: Ritual Complete: {0}
+			ParasiteSuccess: Parasitized {0} (Regen Mode)
+			ParasiteDeep: Deeply Parasitized {0} (Control/Steal Mode)
+			ParasiteFail: Not enough Spirituality to parasitize!
+			NoTarget: No valid target found.
+			DeceitDomainOn: Deceit Domain: Reality distorted.
+			DeceitDomainOff: Deceit Domain: Deactivated.
+			TimeClockOn: Authority of Time: The Ancient Clock descends.
+			TimeClockOff: Time phantom dissipates.
+			MiracleWish: "[Miracle Wish]: {0} (Hold to cast)"
+			MiracleLife: Life Restoration
+			MiracleDestroy: Cataclysm
+			MiracleTeleport: Teleportation
+			MiracleDayNight: Day/Night Cycle
+			PaperFigurine: Paper Figurine Substitute!
+			DamageAvoided: Damage Avoided!
+			AntiDivination: Anti-Divination triggered!
+			IntuitionDodge: Intuitive Dodge!
+			StealModeOn: Theft Mode: ON
+			StealModeOff: Theft Mode: OFF
+			StealSuccess: Stolen!
+			FateSteal: Fate Stolen!
+			TimeSteal: Time Stolen! -{0}
+		}
+
+		Items: {
+			# ==========================================
+			#              Special Items
+			# ==========================================
+			BlasphemySlate: {
+				DisplayName: Blasphemy Slate
+				Tooltip:
+					'''
+					This ancient slate is inscribed with blasphemous text...
+					It records lost potion formulas.
+					[c/FFA500:【Consumable】Can be used as a material for any Sequence Potion]
+					(The slate will shatter upon use)
+					'''
+			}
+
+			PaperCard: {
+				DisplayName: Tarot Card
+				Tooltip:
+					'''
+					Sequence 8: Clown's common weapon.
+					Seemingly ordinary cards, but sharp as blades when infused with spirituality.
+					'''
+			}
+
+			ExtraordinaryBlood: {
+				DisplayName: Extraordinary Blood
+				Tooltip: Blood containing extraordinary power.
+			}
+
+			TestSummon: {
+				DisplayName: Test Summon Staff
+				Tooltip: Developer item for testing summon mechanics.
+			}
+
+			RoselleDiary: {
+				DisplayName: Roselle's Diary
+				Tooltip:
+					'''
+					"The taste of a Demoness isn't bad..."
+					But this page seems to be about something else.
+					<Left Click to read the beginner's guide>
+					'''
+			}
+
+			UnshadowedCross: {
+				DisplayName: Unshadowed Cross
+				Tooltip:
+					'''
+					[c/FFD700:【Unique Artifact】]
+					"Praise the Sun!"
+
+					[c/FFA07A:Effect:]
+					Use to precipitate Beyonder characteristics from your body.
+					Lowers your Sequence level by 1 each use (e.g., Seq 1 -> Seq 2).
+					Repeated use will eventually revert you to a mortal.
+					This item contains eternal divinity and will not be consumed or destroyed.
+					'''
+			}
+
+			PaperFigurine: {
+				DisplayName: Paper Figurine
+				Tooltip: A medium for the Sequence 4: Paper Figurine Substitute ability.
+			}
+
+			DogItem: {
+				DisplayName: Dog Whistle
+				Tooltip: Used to call your Extraordinary Dog.
+			}
+
+			ResurrectionReset: {
+				DisplayName: Reset Resurrection (Test)
+				Tooltip: Instantly resets all resurrection cooldowns.
+			}
+
+			RitualInstaComplete: {
+				DisplayName: Instant Ritual (Test)
+				Tooltip: Instantly completes the current potion ritual.
+			}
+
+			SpiritualityRefill: {
+				DisplayName: Refill Spirituality (Test)
+				Tooltip: Instantly refills spirituality.
+			}
+
+			# ==========================================
+			#              Special Weapons
+			# ==========================================
+			# Giant Pathway
+			TwilightGiantSword: {
+				DisplayName: Twilight Giant Sword
+				Tooltip:
+					'''
+					Sequence 2: Symbol of the Glory.
+					Every strike ends with this, containing the authority of decay and twilight.
+					Releases a twilight storm on attack, disintegrating enemy defense.
+					'''
+			}
+
+			SwordOfDawn: {
+				DisplayName: Sword of Dawn
+				Tooltip:
+					'''
+					Sequence 6: Companion weapon of the Dawn Knight.
+					Slashes release the brilliance of dawn, dealing devastating damage to undead.
+					"Dawn arrives, darkness dissipates."
+					'''
+			}
+
+			SilverRapier: {
+				DisplayName: Silver Rapier
+				Tooltip:
+					'''
+					Sequence 3: Rapier of the Silver Knight.
+					The blade flows like mercury, attacking with extreme speed.
+					'''
+			}
+
+			# Hunter Pathway
+			ConquerorSword: {
+				DisplayName: Iron-blooded Sword
+				Tooltip:
+					'''
+					Sequence 4: Weapon of the Iron-blooded Knight.
+					Forged in blood and fire, yearning for battle.
+					Hits may ignite enemies.
+					'''
+			}
+
+			ReaperScythe: {
+				DisplayName: Reaper Scythe
+				Tooltip:
+					'''
+					Sequence 5: Weapon of the Reaper.
+					Specially designed to harvest the weaknesses of life, guaranteed critical hits.
+					'''
+			}
+
+			ConquerorLance: {
+				DisplayName: Conqueror's Lance
+				Tooltip:
+					'''
+					Sequence 1: Weapon of the Conqueror.
+					Indomitable, conquering all who disobey.
+					'''
+			}
+
+			# Fool Pathway
+			AirBullet: {
+				DisplayName: Air Bullet
+				Tooltip:
+					'''
+					Invisible bullets compressed from air.
+					Power increases with Sequence advancement.
+					Seq 7: Pistol
+					Seq 5: Rifle
+					Seq 4: Cannon
+					Seq 3: Coastal Artillery
+					'''
+			}
+
+			# ==========================================
+			#              Core Materials
+			# ==========================================
+			WeatherRune: {
+				DisplayName: Weather Rune
+				Tooltip:
+					'''
+					A rune containing ancient weather power, crackling with lightning and frost.
+					Key medium for advancing to Sequence 2: Weather Warlock.
+					'''
+			}
+
+			ConquerorCharacteristic: {
+				DisplayName: Conqueror Characteristic
+				Tooltip:
+					'''
+					A crystal precipitated from the Red Priest Pathway Sequence 1 characteristic.
+					Holding it, you feel the majesty of commanding armies.
+					Used for advancing to Sequence 1: Conqueror.
+					'''
+			}
+
+			WhisperOfSpiritWorld: {
+				DisplayName: Whisper of the Spirit World
+				Tooltip:
+					'''
+					Vague information from the depths of the Spirit World.
+					Use it to attempt to decipher a 'True Name'.
+					[Warning]: Failure will result in backlash from the Moon (Heavy Damage/Debuff).
+					'''
+			}
+
+			TrueNameInscription: {
+				DisplayName: True Name Inscription
+				Tooltip:
+					'''
+					A segment of special information defined and intertwined with your fate.
+					Core material for the Sequence 3: Summoning Master potion.
+					'''
+			}
+
+			# ==========================================
+			#              Moon Pathway Potions
+			# ==========================================
+			ApothecaryPotion: {
+				DisplayName: Sequence 9: Apothecary Potion
+				Tooltip:
+					'''
+					Advance to Apothecary.
+					Grants poison resistance and increased life regeneration.
+					Skilled in concocting potions and healing.
+					'''
+			}
+
+			BeastTamerPotion: {
+				DisplayName: Sequence 8: Beast Tamer Potion
+				Tooltip:
+					'''
+					Advance to Beast Tamer.
+					Allows you to tame beasts, increases minion slots.
+					Grants danger sense.
+					'''
+			}
+
+			VampirePotion: {
+				DisplayName: Sequence 7: Vampire Potion
+				Tooltip:
+					'''
+					Advance to Vampire.
+					Grants Wings of Darkness and super self-healing.
+					An elegant hunter in the dark, but detests sunlight.
+					'''
+			}
+
+			PotionsProfessorPotion: {
+				DisplayName: Sequence 6: Potions Professor Potion
+				Tooltip:
+					'''
+					Advance to Potions Professor.
+					Master the mysteries of alchemy.
+					Can use Alchemical Grenades and Elixirs of Life.
+					'''
+			}
+
+			ScarletScholarPotion: {
+				DisplayName: Sequence 5: Scarlet Scholar Potion
+				Tooltip:
+					'''
+					Advance to Scarlet Scholar.
+					Control moonlight and shadows.
+					Unlocks Full Moon Domain, grants Moonlight Transformation.
+					'''
+			}
+
+			WitchKingPotion: {
+				DisplayName: Sequence 4: Shaman King Potion
+				Tooltip:
+					'''
+					Advance to Shaman King.
+					The beginning of demigodhood, extremely long lifespan.
+					Grants Bat Swarm, Paper Figurine Substitute, and Gaze of Darkness.
+					'''
+			}
+
+			SummoningMasterPotion: {
+				DisplayName: Sequence 3: Summoning Master Potion
+				Tooltip:
+					'''
+					Advance to Summoning Master.
+					Can open the Summoning Door to call spirit world creatures for aid.
+					Drastically improves summoning capabilities.
+					'''
+			}
+
+			LifeGiverPotion: {
+				DisplayName: Sequence 2: Life Giver Potion
+				Tooltip:
+					'''
+					Advance to Life Giver.
+					Master of life, possessing incredible healing and creative powers.
+					Unlocks Creation Domain, purifies the land, creates miracles of life.
+					'''
+			}
+
+			BeautyGoddessPotion: {
+				DisplayName: Sequence 1: Beauty Goddess Potion
+				Tooltip:
+					'''
+					Advance to Beauty Goddess.
+					The embodiment of beauty, all things bow down.
+					[Warning]: Gender will be converted to Female upon consumption.
+					Grants Charm Aura and god-level power.
+					'''
+			}
+
+			# ==========================================
+			#              Hunter Pathway Potions
+			# ==========================================
+			HunterPotion: {
+				DisplayName: Sequence 9: Hunter Potion
+				Tooltip:
+					'''
+					Advance to Hunter.
+					Excellent physical fitness and senses.
+					Grants creature detection ability.
+					'''
+			}
+
+			ProvokerPotion: {
+				DisplayName: Sequence 8: Provoker Potion
+				Tooltip:
+					'''
+					Advance to Provoker.
+					Skilled in attracting aggro and making traps.
+					'''
+			}
+
+			PyromaniacPotion: {
+				DisplayName: Sequence 7: Pyromaniac Potion
+				Tooltip:
+					'''
+					Advance to Pyromaniac.
+					Control the power of fire.
+					Grants Pyrokinesis, Fireballs, and Fire Resistance.
+					'''
+			}
+
+			ConspiratorPotion: {
+				DisplayName: Sequence 6: Conspirator Potion
+				Tooltip:
+					'''
+					Advance to Conspirator.
+					Quick-witted, skilled in guiding the battle.
+					Grants Flash (Teleport) and Weapon Enchantment.
+					'''
+			}
+
+			ReaperPotion: {
+				DisplayName: Sequence 5: Reaper Potion
+				Tooltip:
+					'''
+					Advance to Reaper.
+					Deadly weakness attacks.
+					Grants Deadly Slash, drastically increases critical strike chance.
+					'''
+			}
+
+			IronBloodedKnightPotion: {
+				DisplayName: Sequence 4: Iron-blooded Knight Potion
+				Tooltip:
+					'''
+					Advance to Iron-blooded Knight.
+					Will and body of steel.
+					Grants Flame Form and Army of One ability.
+					'''
+			}
+
+			WarBishopPotion: {
+				DisplayName: Sequence 3: War Bishop Potion
+				Tooltip:
+					'''
+					Advance to War Bishop.
+					Commander of the battlefield, mental connection.
+					'''
+			}
+
+			WeatherWarlockPotion: {
+				DisplayName: Sequence 2: Weather Warlock Potion
+				Tooltip:
+					'''
+					Advance to Weather Warlock.
+					Call wind and rain, control the weather.
+					Grants Lightning Strike and Ice Age abilities.
+					'''
+			}
+
+			ConquerorPotion: {
+				DisplayName: Sequence 1: Conqueror Potion
+				Tooltip:
+					'''
+					Advance to Conqueror.
+					Conquer all who disobey.
+					Stops enemy spawns nearby, overwhelming stats.
+					'''
+			}
+
+			# ==========================================
+			#              Giant Pathway Potions
+			# ==========================================
+			WarriorPotion: {
+				DisplayName: Sequence 9: Warrior Potion
+				Tooltip: Increases melee capabilities.
+			}
+
+			PugilistPotion: {
+				DisplayName: Sequence 8: Pugilist Potion
+				Tooltip: Improves fighting techniques and knockback resistance.
+			}
+
+			WeaponMasterPotion: {
+				DisplayName: Sequence 7: Weapon Master Potion
+				Tooltip: Mastery of all weapons.
+			}
+
+			DawnKnightPotion: {
+				DisplayName: Sequence 6: Dawn Knight Potion
+				Tooltip: Grants Dawn Armor, shining light everywhere.
+			}
+
+			GuardianPotion: {
+				DisplayName: Sequence 5: Guardian Potion
+				Tooltip: Guardian Stance, indestructible.
+			}
+
+			DemonHunterPotion: {
+				DisplayName: Sequence 4: Demon Hunter Potion
+				Tooltip: Immune to curses, restrains evil.
+			}
+
+			SilverKnightPotion: {
+				DisplayName: Sequence 3: Silver Knight Potion
+				Tooltip: Become mercury, elusive.
+			}
+
+			GloryPotion: {
+				DisplayName: Sequence 2: Glory Potion
+				Tooltip: Twilight Resurrection, immortal glory.
+			}
+
+			# ==========================================
+			#              Fool Pathway Potions
+			# ==========================================
+			SeerPotion: {
+				DisplayName: Sequence 9: Seer Potion
+				Tooltip:
+					'''
+					Advance to Seer.
+					Grants Spirit Vision and Divination, avoiding danger.
+					'''
+			}
+
+			ClownPotion: {
+				DisplayName: Sequence 8: Clown Potion
+				Tooltip: Advance to Clown.
+			}
+
+			MagicianPotion: {
+				DisplayName: Sequence 7: Magician Potion
+				Tooltip:
+					'''
+					Advance to Magician.
+					Grants Damage Transfer, Bone Softening, Air Bullet.
+					Grants Flame Jump and Paper Figurine Substitute.
+					'''
+			}
+
+			FacelessPotion: {
+				DisplayName: Sequence 6: Faceless Potion
+				Tooltip:
+					'''
+					Advance to Faceless.
+					Changeable, grants Faceless Disguise.
+					'''
+			}
+
+			MarionettistPotion: {
+				DisplayName: Sequence 5: Marionettist Potion
+				Tooltip:
+					'''
+					Advance to Marionettist.
+					Control Spirit Body Threads, convert all things into puppets.
+					'''
+			}
+
+			BizarroSorcererPotion: {
+				DisplayName: Sequence 4: Bizarro Sorcerer Potion
+				Tooltip:
+					'''
+					Advance to Bizarro Sorcerer (Demigod).
+					Possess Spirit Worms, Marionette Swap, and Spirit Control.
+					'''
+			}
+
+			ScholarOfYorePotion: {
+				DisplayName: Sequence 3: Scholar of Yore Potion
+				Tooltip:
+					'''
+					Advance to Scholar of Yore (Saint).
+					Borrow power from history, summon phantoms of the past.
+					'''
+			}
+
+			MiracleInvokerPotion: {
+				DisplayName: Sequence 2: Miracle Invoker Potion
+				Tooltip:
+					'''
+					Advance to Miracle Invoker (Angel).
+					A miracle walking in reality, interfere with fate, grant wishes.
+					'''
+			}
+
+			AttendantPotion: {
+				DisplayName: Sequence 1: Attendant of Mysteries Potion
+				Tooltip:
+					'''
+					Advance to Attendant of Mysteries (King of Angels).
+					Dominate the Spirit World, graft concepts, establish a divine kingdom.
+					'''
+			}
+
+			# ==========================================
+			#              Marauder Pathway Potions
+			# ==========================================
+			MarauderPotion: {
+				DisplayName: Sequence 9: Marauder Potion
+				Tooltip:
+					'''
+					Advance to Marauder.
+					Agile body, nimble fingers.
+					Grants [Theft] ability, gaining extra loot from enemies.
+					'''
+			}
+
+			SwindlerPotion: {
+				DisplayName: Sequence 8: Swindler Potion
+				Tooltip:
+					'''
+					Advance to Swindler.
+					Skilled in deception and misleading.
+					Chance to get discounts when buying items.
+					'''
+			}
+
+			CryptologistPotion: {
+				DisplayName: Sequence 7: Cryptologist Potion
+				Tooltip:
+					'''
+					Advance to Cryptologist.
+					Sharp intuition, skilled at finding weaknesses.
+					Increases critical chance and armor penetration.
+					'''
+			}
+
+			PrometheusPotion: {
+				DisplayName: Sequence 6: Prometheus Potion
+				Tooltip:
+					'''
+					Advance to Prometheus.
+					A thief who steals power.
+					Increases theft success rate, can steal enemy buffs.
+					'''
+			}
+
+			DreamStealerPotion: {
+				DisplayName: Sequence 5: Dream Stealer Potion
+				Tooltip:
+					'''
+					Advance to Dream Stealer.
+					Invade dreams, manipulate consciousness.
+					Attacks may confuse or put enemies to sleep.
+					'''
+			}
+
+			ParasitePotion: {
+				DisplayName: Sequence 4: Parasite Potion
+				Tooltip:
+					'''
+					Advance to Parasite (Demigod).
+					Parasitize all things, gain immortality.
+					Press [P] to parasitize target, reform body with worms.
+					'''
+			}
+
+			MentorPotion: {
+				DisplayName: Sequence 3: Mentor of Deceit Potion
+				Tooltip:
+					'''
+					Advance to Mentor of Deceit (Saint).
+					Deceive rules, mislead all living things.
+					Unlock Deceit Domain, distort enemy cognition.
+					'''
+			}
+
+			TrojanHorsePotion: {
+				DisplayName: Sequence 2: Trojan Horse of Destiny Potion
+				Tooltip:
+					'''
+					Advance to Trojan Horse of Destiny (Angel).
+					Steal fate, tamper with the future.
+					Grants Fate Theft ability, substitute death with past self.
+					'''
+			}
+
+			WormOfTimePotion: {
+				DisplayName: Sequence 1: Worm of Time Potion
+				Tooltip:
+					'''
+					Advance to Worm of Time (King of Angels).
+					Toy with time, steal years.
+					Gain Time Domain, steal enemy time and life.
+					'''
+			}
+
+			BardPotion: {
+				DisplayName: Bard Potion
+				Tooltip: ""
+			}
+
+			LightSupplicantPotion: {
+				Tooltip: ""
+				DisplayName: Light Supplicant Potion
+			}
+
+			SolarHighPriestPotion: {
+				DisplayName: Solar High Priest Potion
+				Tooltip: ""
+			}
+
+			NotaryPotion: {
+				Tooltip: ""
+				DisplayName: Notary Potion
+			}
+
+			PriestPotion: {
+				DisplayName: Priest Potion
+				Tooltip: ""
+			}
+
+			UnshadowedPotion: {
+				DisplayName: Unshadowed Potion
+				Tooltip: ""
+			}
+
+			JusticeMentorPotion: {
+				DisplayName: Justice Mentor Potion
+				Tooltip: ""
+			}
+
+			LightSeekerPotion: {
+				Tooltip: ""
+				DisplayName: Light Seeker Potion
+			}
+
+			WhiteAngelPotion: {
+				Tooltip: ""
+				DisplayName: White Angel Potion
+			}
+
+			HandOfGod: {
+				Tooltip: ""
+				DisplayName: Hand Of God
+			}
+
+			HandOfGodPotion: {
+				Tooltip: ""
+				DisplayName: Hand Of God Potion
+			}
+
+			HandOfGodCharacteristic: {
+				Tooltip: ""
+				DisplayName: Hand Of God Characteristic
+			}
+
+			TrueLoveHeart: {
+				DisplayName: True Love Heart
+				Tooltip: ""
+			}
+
+			ArrodesItem: {
+				DisplayName: Arrodes Item
+				Tooltip: ""
+			}
+
+			FoolCard: {
+				DisplayName: Fool Card
+				Tooltip: ""
+			}
+
+			StrengthCard: {
+				Tooltip: ""
+				DisplayName: Strength Card
+			}
+
+			LoversCard: {
+				Tooltip: ""
+				DisplayName: Lovers Card
+			}
+
+			RedPriestCard: {
+				Tooltip: ""
+				DisplayName: Red Priest Card
+			}
+
+			SunCard: {
+				Tooltip: ""
+				DisplayName: Sun Card
+			}
+
+			MoonCard: {
+				Tooltip: ""
+				DisplayName: Moon Card
+			}
+
+			DoorCard: {
+				DisplayName: Door Card
+				Tooltip: ""
+			}
+
+			WhiteTowerCard: {
+				Tooltip: ""
+				DisplayName: White Tower Card
+			}
+
+			VisionaryCard: {
+				DisplayName: Visionary Card
+				Tooltip: ""
+			}
+
+			BlackEmperorCard: {
+				Tooltip: ""
+				DisplayName: Black Emperor Card
+			}
+
+			TyrantCard: {
+				Tooltip: ""
+				DisplayName: Tyrant Card
+			}
+
+			HangedManCard: {
+				Tooltip: ""
+				DisplayName: Hanged Man Card
+			}
+
+			DarknessCard: {
+				DisplayName: Darkness Card
+				Tooltip: ""
+			}
+
+			DeathCard: {
+				DisplayName: Death Card
+				Tooltip: ""
+			}
+
+			DemonessCard: {
+				DisplayName: Demoness Card
+				Tooltip: ""
+			}
+
+			JusticiarCard: {
+				DisplayName: Justiciar Card
+				Tooltip: ""
+			}
+
+			AbyssCard: {
+				DisplayName: Abyss Card
+				Tooltip: ""
+			}
+
+			ChainedCard: {
+				DisplayName: Chained Card
+				Tooltip: ""
+			}
+
+			PerfectionistCard: {
+				Tooltip: ""
+				DisplayName: Perfectionist Card
+			}
+
+			HermitCard: {
+				Tooltip: ""
+				DisplayName: Hermit Card
+			}
+
+			MotherCard: {
+				DisplayName: Mother Card
+				Tooltip: ""
+			}
+
+			WheelOfFortuneCard: {
+				DisplayName: Wheel Of Fortune Card
+				Tooltip: ""
+			}
+
+			GoldenGun: {
+				Tooltip: ""
+				DisplayName: Golden Gun
+			}
+
+			KleinsDiary: {
+				Tooltip: ""
+				DisplayName: Kleins Diary
+			}
+
+			ExorcismBullet: {
+				DisplayName: Exorcism Bullet
+				Tooltip: ""
+			}
+
+			NighthawkPistol: {
+				DisplayName: Nighthawk Pistol
+				Tooltip: ""
+			}
+
+			MysteryMusicBox1: {
+				Tooltip: ""
+				DisplayName: Mystery Music Box1
+			}
+
+			AssassinPotion: {
+				Tooltip: ""
+				DisplayName: Assassin Potion
+			}
+
+			InstigatorPotion: {
+				Tooltip: ""
+				DisplayName: Instigator Potion
+			}
+
+			WitchPotion: {
+				Tooltip: ""
+				DisplayName: Witch Potion
+			}
+
+			PleasureDemonessPotion: {
+				DisplayName: Pleasure Demoness Potion
+				Tooltip: ""
+			}
+
+			AfflictionDemonessPotion: {
+				Tooltip: ""
+				DisplayName: Affliction Demoness Potion
+			}
+
+			DespairDemonessPotion: {
+				DisplayName: Despair Demoness Potion
+				Tooltip: ""
+			}
+
+			UnagingDemonessPotion: {
+				Tooltip: ""
+				DisplayName: Unaging Demoness Potion
+			}
+
+			CatastropheDemonessPotion: {
+				Tooltip: ""
+				DisplayName: Catastrophe Demoness Potion
+			}
+
+			ApocalypseDemonessPotion: {
+				Tooltip: ""
+				DisplayName: Apocalypse Demoness Potion
+			}
+
+			SpiritWorldKey: {
+				Tooltip: ""
+				DisplayName: Spirit World Key
+			}
+
+			MirrorKey: {
+				DisplayName: Mirror Key
+				Tooltip: ""
+			}
+
+			CreepingHunger: {
+				Tooltip: ""
+				DisplayName: Creeping Hunger
+			}
+
+			LuckEnhancementRitual: {
+				DisplayName: Luck Enhancement Ritual
+				Tooltip: ""
+			}
+
+			Monocle: {
+				Tooltip: ""
+				DisplayName: Monocle
+			}
+
+			DaqianLuItem: {
+				DisplayName: Daqian Lu Item
+				Tooltip: ""
+			}
+
+			CopperCoinMask: {
+				Tooltip: ""
+				DisplayName: Copper Coin Mask
+			}
+
+			SacrificialCasket: {
+				DisplayName: Sacrificial Casket
+				Tooltip: ""
+			}
+
+			RitualKnife: {
+				DisplayName: Ritual Knife
+				Tooltip: ""
+			}
+
+			RitualBrush: {
+				DisplayName: Ritual Brush
+				Tooltip: ""
+			}
+
+			StarfallEtcher: {
+				Tooltip: ""
+				DisplayName: Starfall Etcher
+			}
+
+			BloodEtcher: {
+				Tooltip: ""
+				DisplayName: Blood Etcher
+			}
+
+			MonsterPotion: {
+				DisplayName: Monster Potion
+				Tooltip: ""
+			}
+
+			RobotPotion: {
+				DisplayName: Robot Potion
+				Tooltip: ""
+			}
+
+			LuckyPotion: {
+				Tooltip: ""
+				DisplayName: Lucky Potion
+			}
+
+			CalamityPriestPotion: {
+				DisplayName: Calamity Priest Potion
+				Tooltip: ""
+			}
+
+			BadLuckPotion: {
+				DisplayName: Bad Luck Potion
+				Tooltip: ""
+			}
+
+			WinnerPotion: {
+				DisplayName: Winner Potion
+				Tooltip: ""
+			}
+
+			MisfortuneDie: {
+				DisplayName: Misfortune Die
+				Tooltip: ""
+			}
+
+			PolyhedronOfFate: {
+				DisplayName: Polyhedron of Fate
+				Tooltip:
+					'''
+					[c/FF0064:Sequence 1 Serpent's Sacred Relic]
+					A die that picks its own number of faces, wrapped in mercury serpent scales.
+					Right-click to throw: consume 800 Spirituality, randomly rolls [c/64A0FF:D4] / [c/78E682:D6] / [c/B46EFF:D8] / [c/FFD750:D10] / [c/FF8C3C:D12] / [c/FF3C50:D20].
+					Each die has a totally different effect pool - elemental burn / group buff / fate rip / zodiac / final judgment...
+					[c/FFD750:D20=20: Perfect Strike - max judgment on all enemies, full party restoration]
+					[c/FF6464:D20=1:  Critical Fail - lose 3/4 HP, but 10 seconds of fury]
+					"You watch the die leave your hand, and see every possible outcome of its landing..."
+					'''
+			}
+
+			MisfortuneMagePotion: {
+				DisplayName: Sequence 4: Misfortune Mage Potion
+				Tooltip:
+					'''
+					Ascend to the Misfortune Mage (Demigod).
+					[c/FF0000:Ritual: Defeat Skeletron Prime while wearing the Gray Clover]
+					You see the river of fate and become the master of misfortune.
+					[Passive] Massive luck, crit chance and movement speed; demigod body.
+					[Passive] Senses danger, creatures, and pierces darkness.
+					[Active] Misfortune Domain: enemies in range suffer curses, may drop dead.
+					[Active] Fate's Blessing: overdraw fate to grant powerful buffs to you and allies.
+					'''
+			}
+
+			AnomalyPotion: {
+				DisplayName: Sequence 3: Anomaly Potion
+				Tooltip:
+					'''
+					Ascend to the Anomaly (Saint).
+					[c/FF0000:Ritual: While at Sequence 4, survive and recover to 60%+ HP from below 10% HP three times]
+					You become the unpredictable cog in fate's machinery.
+					[Passive] Anomaly Eye: +30% critical damage.
+					[Passive] Improbability: 30% chance to nullify a lethal hit (30s cooldown).
+					[Passive] Probability Backlash: each debuff on you grants +0.2 luck (max +1.0).
+					[Passive] Chain of Misfortune: enemies dropped dead by your domain infect their neighbors.
+					[Active] Fate Dice (M): consume 200 Spirituality to roll a die; each face triggers a different fate.
+					'''
+			}
+
+			ProphetPotion: {
+				DisplayName: Sequence 2: Prophet Potion
+				Tooltip:
+					'''
+					Ascend to the Prophet (Demigod - the complete mythical form).
+					[c/FF0000:Ritual: While at Sequence 3, trigger \"Improbability\" successfully 5 times]
+					Become Fate's darling, wielding three lesser authorities: Luck, Misfortune, and Foreknowledge.
+					[Passive] Fate Insight: +20% additional critical damage (total +50%).
+					[Passive] Fate's Darling: +2.0 luck.
+					[Passive] Mercury Body: immunity to all damage and debuffs for 10s after being hit (60s CD).
+					[Passive] Prophecy: chance to prophesy your next strike upon killing; the next hit one-shots (Bosses take 20% HP).
+					[Active] Words of Fortune (default K, 30s CD): 300 Spirituality, 4000-tile allies get 60s of 10 buffs, full heal & spirituality.
+					[Active] Words of Misfortune (default L, 30s CD): 300 Spirituality, 4000-tile enemies take 25% current HP true damage (10% for bosses) + 60s of 8 debuffs.
+					[Active] Fate's Revelation (default U, 60s CD): 500 Spirituality, 10s where all chance events lean toward the optimal outcome.
+					'''
+			}
+
+			SerpentPotion: {
+				DisplayName: Sequence 1: Serpent Potion
+				Tooltip:
+					'''
+					Ascend to the Serpent (Sequence-1 Aspect of Fate / Mercury Serpent / Ouroboros).
+					[c/FF0000:Ritual: While at Sequence 2, trigger Revelation 5 times AND defeat the Moon Lord]
+					Become Fate incarnate, wielding the lesser authorities of Cycle, Preservation, and Choice.
+					[Passive] Serpent Body: +2500 HP / +50% dmg / +35 crit / +80 def / +20% endurance / +40% atk speed / +50% move speed
+					[Passive] Serpent of All: +30% crit damage (total +80%)
+					[Passive] Avatar of Fate: +5.0 luck
+					[Passive] Hidden Fate: immunity to nearly all debuffs
+					[Passive] Mercury Phase: every 10 seconds enter 3 seconds of total invincibility
+					[Passive] Restart Cycle: upon death, consume 5000 Spirituality to revert to 10 seconds ago (10min CD)
+					[Active] Fate Loop (default Y): 1000 Spirituality, 800-tile range; after 5s, rolls back enemy positions (excludes Bosses)
+					[Active] Manual Restart (default H): 3000 Spirituality, retreat to 10s ago with full HP & cleared debuffs (3min CD)
+					'''
+			}
+
+			ApprenticePotion: {
+				DisplayName: Apprentice Potion
+				Tooltip: ""
+			}
+
+			TricksterPotion: {
+				DisplayName: Trickster Potion
+				Tooltip: ""
+			}
+
+			AstrologerPotion: {
+				Tooltip: ""
+				DisplayName: Astrologer Potion
+			}
+
+			RecorderPotion: {
+				DisplayName: Recorder Potion
+				Tooltip: ""
+			}
+
+			TravelerPotion: {
+				DisplayName: Traveler Potion
+				Tooltip: ""
+			}
+		}
+
+		# ==========================================
+		#              Projectiles
+		# ==========================================
+		Projectiles: {
+			AlchemicalGrenade.DisplayName: Alchemical Grenade
+			BatSwarmProjectile.DisplayName: Vampire Bat
+			SummoningDoorProjectile.DisplayName: Summoning Door
+			CreationDomainProjectile.DisplayName: Creation Domain
+			FullMoonCircle.DisplayName: Full Moon Circle
+			AbyssShackleProjectile.DisplayName: Abyss Shackle
+			PyromaniacBomb.DisplayName: Fire Bomb
+			PyromaniacFireball.DisplayName: Fireball
+			ReaperSlashProjectile.DisplayName: Reaper Slash
+			WeatherStrikeLightning.DisplayName: Weather Lightning
+			GuardianShieldProjectile.DisplayName: Guardian Shield
+			# Fool Projectiles
+			AirBulletProjectile.DisplayName: Air Bullet
+			MarionetteMinion.DisplayName: Marionette
+			HistoricalBossProjectile.DisplayName: Historical Projection
+			HistoricalSceneProjectile.DisplayName: Historical Scene
+			PaperCardProjectile.DisplayName: Tarot Card
+			# Giant/Boss Projectiles
+			DawnBladeProjectile.DisplayName: Dawn Blade
+			TwilightStormProjectile.DisplayName: Twilight Storm
+			TwilightSwordBeam.DisplayName: Twilight Sword Beam
+			AurmirBossStorm.DisplayName: Destruction Storm
+			AurmirSkyLance.DisplayName: Sky Lance
+			AurmirTwilightOrb.DisplayName: Twilight Orb
+			# Marauder Projectiles
+			TimeClockVisual.DisplayName: Time Clock
+			ConquerorSwordProjectile.DisplayName: Iron-blooded Slash
+			LightStormController.DisplayName: Storm Core
+			PyromaniacExplosionVisual.DisplayName: Fire Explosion
+			PyromaniacFireballWhite.DisplayName: White Fireball
+			DogHealingOrb.DisplayName: Healing Orb
+			DogTimeClock.DisplayName: Dog's Clock
+			HolyLightBeam.DisplayName: Holy Light Beam
+			SunFireTrap.DisplayName: Sun Fire Trap
+			FlaringSun.DisplayName: Flaring Sun
+			UnshadowedSpear.DisplayName: Unshadowed Spear
+			JusticeJudgment.DisplayName: Justice Judgment
+			SunMessengerVisual.DisplayName: Sun Messenger Visual
+			PureWhiteLight.DisplayName: Pure White Light
+			HandOfGodProjectile.DisplayName: Hand Of God Projectile
+			HandOfGodCharge.DisplayName: Hand Of God Charge
+			HandOfGodAirCannon.DisplayName: Hand Of God Air Cannon
+			ExorcismBulletProjectile.DisplayName: Exorcism Bullet Projectile
+			DemonessMirrorShard.DisplayName: Demoness Mirror Shard
+			DemonessSpiderSilk.DisplayName: Demoness Spider Silk
+			MirrorCloneProjectile.DisplayName: Mirror Clone Projectile
+			DemonessHairProjectile.DisplayName: Demoness Hair Projectile
+			DemonessSpiderSilkProjectile.DisplayName: Demoness Spider Silk Projectile
+			DespairIceProjectile.DisplayName: Despair Ice Projectile
+			CatastropheDomain.DisplayName: Catastrophe Domain
+			CatastropheController.DisplayName: Catastrophe Controller
+			RitualBrushProjectile.DisplayName: Ritual Brush Projectile
+			RitualExplosion.DisplayName: Ritual Explosion
+			RitualBrushPro_Ink.DisplayName: Ritual Brush Pro_ Ink
+			RitualFallingStar.DisplayName: Ritual Falling Star
+			RitualBrushPro_Star.DisplayName: Ritual Brush Pro_ Star
+			RitualBrushPro_Blood.DisplayName: Ritual Brush Pro_ Blood
+			PolyhedronDieVisual.DisplayName: Polyhedron Die Visual
+			ZodiacConstellation.DisplayName: Zodiac Constellation
+			CurseStar.DisplayName: Curse Star
+		}
+
+		# ==========================================
+		#              NPCs (Monsters/Bosses)
+		# ==========================================
+		NPCs: {
+			Aurmir.DisplayName: Aurmir, the Twilight Giant
+			TestBoss.DisplayName: Test Boss
+
+			DogNPC: {
+				DisplayName: Curly-haired Baboon
+
+				TownNPCMood: {
+					Princess_LovesNPC: I like {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					HateCrowded: I hate how crowded it is.
+					DislikeCrowded: I dislike how crowded it is.
+					LoveSpace: I love having so much space.
+					FarFromHome: I am too far from home.
+					NoHome: I hate not having a home.
+					Content: I am content.
+				}
+			}
+
+			DunnSmith: {
+				TownNPCMood: {
+					Princess_LovesNPC: 我喜欢 {NPCName}。
+					LikeNPC_Princess: 我喜欢 {NPCName}。
+					HateCrowded: 我讨厌这么拥挤。
+					DislikeCrowded: 我不喜欢这么拥挤。
+					LoveSpace: 我非常喜欢有这么大的空间。
+					FarFromHome: 我离家太远了。
+					NoHome: 我讨厌没有家。
+					Content: 我很满足。
+				}
+
+				DisplayName: Dunn Smith
+			}
+
+			OldNeil: {
+				TownNPCMood: {
+					Princess_LovesNPC: 我喜欢 {NPCName}。
+					LikeNPC_Princess: 我喜欢 {NPCName}。
+					HateCrowded: 我讨厌这么拥挤。
+					DislikeCrowded: 我不喜欢这么拥挤。
+					LoveSpace: 我非常喜欢有这么大的空间。
+					FarFromHome: 我离家太远了。
+					NoHome: 我讨厌没有家。
+					Content: 我很满足。
+				}
+
+				DisplayName: Old Neil
+			}
+		}
+
+		# ==========================================
+		#              Buffs
+		# ==========================================
+		Buffs: {
+			TamedBuff: {
+				DisplayName: Blood Servant Pact
+				Description: This creature has been tamed and will fight for you!
+			}
+
+			ConquerorWill: {
+				DisplayName: Conqueror's Will
+				Description: Suppressed by the Conqueror's pressure, unable to move.
+			}
+
+			YesterdayBuff: {
+				DisplayName: Reenactment
+				Description: You borrowed power from your past self, stats drastically increased!
+			}
+
+			MarionetteTownNPCBuff: {
+				DisplayName: Marionette
+				Description: This person has become your puppet...
+			}
+
+			SpiritControlDebuff: {
+				DisplayName: Spirit Body Controlled
+				Description: Thoughts are sluggish, body is stiff.
+			}
+
+			AbyssShacklesDebuff: {
+				DisplayName: Abyss Shackles
+				Description: Bound by the cold chains of the abyss, unable to move.
+			}
+
+			FoolCurseBuff: {
+				Description: Mods.zhashi.Buffs.FoolCurseBuff.Description
+				DisplayName: Fool Curse Buff
+			}
+
+			GiantCurseBuff: {
+				DisplayName: Giant Curse Buff
+				Description: Mods.zhashi.Buffs.GiantCurseBuff.Description
+			}
+
+			HunterCurseBuff: {
+				DisplayName: Hunter Curse Buff
+				Description: Mods.zhashi.Buffs.HunterCurseBuff.Description
+			}
+
+			MoonCurseBuff: {
+				DisplayName: Moon Curse Buff
+				Description: Mods.zhashi.Buffs.MoonCurseBuff.Description
+			}
+
+			SanityDangerBuff: {
+				DisplayName: Sanity Danger Buff
+				Description: Mods.zhashi.Buffs.SanityDangerBuff.Description
+			}
+
+			SunCurseBuff: {
+				DisplayName: Sun Curse Buff
+				Description: Mods.zhashi.Buffs.SunCurseBuff.Description
+			}
+
+			SunSuppressionDebuff: {
+				Description: Mods.zhashi.Buffs.SunSuppressionDebuff.Description
+				DisplayName: Sun Suppression Debuff
+			}
+
+			AfflictionCurseBuff: {
+				Description: Mods.zhashi.Buffs.AfflictionCurseBuff.Description
+				DisplayName: Affliction Curse Buff
+			}
+
+			TimeStagnationBuff: {
+				Description: Mods.zhashi.Buffs.TimeStagnationBuff.Description
+				DisplayName: Time Stagnation Buff
+			}
+
+			DemonessCurseBuff: {
+				Description: Mods.zhashi.Buffs.DemonessCurseBuff.Description
+				DisplayName: Demoness Curse Buff
+			}
+
+			ExtremeBadLuckBuff: {
+				DisplayName: Extreme Bad Luck Buff
+				Description: Mods.zhashi.Buffs.ExtremeBadLuckBuff.Description
+			}
+
+			WheelCurseBuff: {
+				DisplayName: Calamity of the Stars
+				Description:
+					'''
+					[c/FF0000:Fate Side Effect Active]
+					You gazed into the river of fate, and now you are part of it.
+					At night above ground, the stars fall in accordance with your fate - upon you.
+					[c/FFD000:Higher sequence = denser star fall, higher per-hit damage]
+					'''
+			}
+		}
+
+		# ==========================================
+		#              Conditions
+		# ==========================================
+		Conditions: {
+			NeedAnySlate: Requires any [Blasphemy Slate]
+			IsSequence9: Requires Sequence 9 or higher
+			ConquerorOnly: Requires Sequence 1: Conqueror
+			IsSequence6: Requires Sequence 6: Dawn Knight
+			DogNotOwned: Not summoned
+			IsLightSupplicant: Mods.zhashi.Conditions.IsLightSupplicant
+			HasBlasphemySlate: 需消耗亵渎石板
+			NoCard: 未持有对应亵渎之牌
+			HasBottledWater: 需消耗水瓶
+		}
+
+		# ==========================================
+		#              Keybinds
+		# ==========================================
+		Keybinds: {
+			# --- Hunter ---
+			"红祭司: 形态切换 (火焰/巨人).DisplayName": Hunter: Form Switch (Fire/Giant) (K)
+			"红祭司: 闪现.DisplayName": Hunter: Flash (V)
+			"红祭司: 火焰炸弹.DisplayName": Hunter: Fire Bomb (X)
+			"红祭司: 火焰披风.DisplayName": Hunter: Flame Cloak (Z)
+			"红祭司: 收割/斩击.DisplayName": Hunter: Slash (G)
+			"红祭司: 武器附魔.DisplayName": Hunter: Enchant (T)
+			"红祭司: 操纵火焰/挑衅.DisplayName": Hunter: Pyrokinesis (F)
+			"红祭司: 集众.DisplayName": Hunter: Army of One (J)
+			"红祭司: 雷击.DisplayName": Hunter: Lightning Strike (Mouse2)
+			"红祭司: 冰河.DisplayName": Hunter: Ice Age (R)
+			# --- Giant ---
+			"巨人: 水银化.DisplayName": Giant: Mercury Form (C)
+			"巨人: 守护姿态.DisplayName": Giant: Guardian Stance (X)
+			"巨人: 黎明铠甲.DisplayName": Giant: Dawn Armor (Z)
+			# --- Moon ---
+			"月亮: 黑暗之翼.DisplayName": Moon: Wings of Darkness (K)
+			"月亮: 深渊枷锁/闪现.DisplayName": Moon: Abyss Shackles/Flash (V)
+			"月亮: 深渊枷锁.DisplayName": Moon: Abyss Shackles
+			"月亮: 炼金手雷.DisplayName": Moon: Alchemical Grenade (X)
+			"月亮: 生命灵液.DisplayName": Moon: Elixir of Life (Z)
+			"月亮: 月光化.DisplayName": Moon: Moonlight Form (C)
+			"月亮: 满月领域.DisplayName": Moon: Full Moon/Creation Domain (G)
+			"月亮: 蝙蝠化身.DisplayName": Moon: Bat Swarm (T)
+			"月亮: 月亮纸人.DisplayName": Moon: Paper Figurine/Transform (J)
+			"月亮: 黑暗凝视.DisplayName": Moon: Gaze (F)
+			"月亮: 召唤之门.DisplayName": Moon: Summoning Door (R)
+			# --- Fool ---
+			"愚者: 灵视开关.DisplayName": Fool: Spirit Vision (C)
+			"愚者: 占卜术.DisplayName": Fool: Divination (J)
+			"愚者: 火焰跳跃.DisplayName": Fool: Flame Jump (F)
+			"愚者: 无面伪装.DisplayName": Fool: Faceless/Spirit Form (V)
+			"愚者: 干扰直觉.DisplayName": Fool: Distort/Grafting (G)
+			"愚者: 灵体之线.DisplayName": Fool: Spirit Body Threads (Z)
+			"愚者: 秘偶互换.DisplayName": Fool: Marionette Swap (T)
+			"愚者: 控灵/麻痹.DisplayName": Fool: Spirit Control (R)
+			"愚者: 历史投影.DisplayName": Fool: Historical Projection (Y)
+			"愚者: 昨日重现.DisplayName": Fool: Reenactment (U)
+			"愚者: 奇迹愿望.DisplayName": Fool: Miracle Wish (Shift+V)
+			"愚者: 嫁接.DisplayName": Fool: Grafting (G)
+			"愚者: 灵肉转化.DisplayName": Fool: Spirit Form (V)
+			# --- Marauder ---
+			"错误: 寄生/领域.DisplayName": Error: Parasite/Domain (P)
+			"错误: 寄生.DisplayName": Error: Parasite
+			"错误: 窃取/时间.DisplayName": Error: Theft/Time (O)
+			"错误: 偷窃.DisplayName": Error: Steal (O)
+			"错误: 概念窃取 (位置/距离).DisplayName": Error: Concept Theft (Shift+O)
+			# --- Misc ---
+			"月亮: 纸人替身.DisplayName": Moon: Paper Figurine
+			"月亮: 满月/创生.DisplayName": Moon: Full Moon/Creation
+			"猎人: 形态切换.DisplayName": Hunter: Form Switch
+			"猎人: 火焰闪现.DisplayName": Hunter: Fire Flash
+			"猎人: 炸弹.DisplayName": Hunter: Bomb
+			"猎人: 火焰披风.DisplayName": Hunter: Flame Cloak
+			"猎人: 收割斩击.DisplayName": Hunter: Slash
+			"猎人: 武器附魔.DisplayName": Hunter: Enchant
+			"猎人: 蓄力火球.DisplayName": Hunter: Fireball
+			"猎人: 集众.DisplayName": Hunter: Army of One
+			"猎人: 天气操控.DisplayName": Hunter: Weather Control
+			"猎人: 冰河世纪.DisplayName": Hunter: Ice Age
+			"巨人: 晨曦之铠.DisplayName": Giant: Dawn Armor
+			"月亮: 驯兽.DisplayName": Moon: Taming Mode
+			太阳：歌颂/赞美.DisplayName: 太阳：歌颂/赞美
+			太阳：日照/光之术.DisplayName: 太阳：日照/光之术
+			太阳：召唤圣光.DisplayName: 太阳：召唤圣光
+			太阳：神圣誓约.DisplayName: 太阳：神圣誓约
+			太阳：光明之火.DisplayName: 太阳：光明之火
+			太阳：公证.DisplayName: 太阳：公证
+			"太阳: 太阳使者.DisplayName": 太阳: 太阳使者
+			"错误: 窃取被动开关.DisplayName": 错误: 窃取被动开关
+			"魔女: 魅惑.DisplayName": 魔女: 魅惑
+			"魔女: 蛛丝.DisplayName": 魔女: 蛛丝
+			"魔女: 镜子替身.DisplayName": 魔女: 镜子替身
+			"魔女: 镜子分身.DisplayName": 魔女: 镜子分身
+			"魔女: 头发攻击.DisplayName": 魔女: 头发攻击
+			"魔女: 蛛丝控制.DisplayName": 魔女: 蛛丝控制
+			"魔女: 黑焱冰晶.DisplayName": 魔女: 黑焱冰晶
+			"魔女: 石化.DisplayName": 魔女: 石化
+			"魔女: 时间石化.DisplayName": 魔女: 时间石化
+			"魔女:天灾 .DisplayName": 魔女:天灾
+			"魔女:毁灭 .DisplayName": 魔女:毁灭
+			"愚者: 诡秘之境开关.DisplayName": 愚者: 诡秘之境开关
+			大千录：祭.DisplayName: 大千录：祭
+			"愚者,命运: 占卜术.DisplayName": 愚者,命运: 占卜术
+			命运：精神风暴.DisplayName: 命运：精神风暴
+			命运：命运赐福.DisplayName: 命运：命运赐福
+			命运：灾祸光环/厄运领域.DisplayName: 命运：灾祸光环/厄运领域
+			命运：投掷命运骰子.DisplayName: 命运：投掷命运骰子
+			命运：福祸之言-福（给友军）.DisplayName: 命运：福祸之言-福（给友军）
+			命运：福祸之言-祸（给敌人）.DisplayName: 命运：福祸之言-祸（给敌人）
+			命运：命运启示.DisplayName: 命运：命运启示
+			命运：命运循环（巨蛇）.DisplayName: 命运：命运循环（巨蛇）
+			命运：重启循环（巨蛇）.DisplayName: 命运：重启循环（巨蛇）
+			学徒：开门（穿墙）.DisplayName: 学徒：开门（穿墙）
+			戏法大师：释放戏法.DisplayName: 戏法大师：释放戏法
+			戏法大师：切换戏法.DisplayName: 戏法大师：切换戏法
+			门：开门（穿墙）.DisplayName: 门：开门（穿墙）
+			门：切换戏法.DisplayName: 门：切换戏法
+			门：释放戏法.DisplayName: 门：释放戏法
+			占星人：占星术.DisplayName: 占星人：占星术
+			记录官：使用神性记录.DisplayName: 记录官：使用神性记录
+			记录官：使用普通记录.DisplayName: 记录官：使用普通记录
+			旅行家：旅行家之门(传送).DisplayName: 旅行家：旅行家之门(传送)
+			旅行家：闪现.DisplayName: 旅行家：闪现
+		}
+
+		# ==========================================
+		#              Configs
+		# ==========================================
+		Configs: {
+			LotMConfig: {
+				DisplayName: Lord of the Mysteries Config
+
+				Headers: {
+					平衡性设置: Balance Settings
+					BaseSettings: Base Settings Header
+					ChallengeSettings: Challenge Settings Header
+					OtherSettings: Other Settings Header
+					超凡生物模式: 超凡生物模式 Header
+				}
+
+				DynamicProgression: {
+					Label: Enable Dynamic World Level
+					Tooltip:
+						'''
+						Adjusts stats dynamically based on defeated bosses (Supports Calamity/Thorium).
+						Recommended for the best experience.
+						'''
+				}
+
+				NerfDivineAbilities: {
+					Label: Balance Mechanics
+					Tooltip:
+						'''
+						ON: Replaces 'Invincibility/Insta-kill' with 'High Damage Reduction/Percentage Damage'.
+						OFF: Restores original OP strength (Canon Accurate).
+						'''
+				}
+
+				GlobalPowerMultiplier: {
+					Label: Global Power Multiplier
+					Tooltip:
+						'''
+						Globally adjusts health, damage, and defense added by the mod.
+						1.0 is standard, 0.5 is halved.
+						'''
+				}
+
+				EnableSanitySystem: {
+					Label: Enable Sanity System
+					Tooltip: ""
+				}
+
+				EnableWorldRestriction: {
+					Label: Enable World Restriction
+					Tooltip: ""
+				}
+
+				EnableDivineCurse: {
+					Label: Enable Divine Curse
+					Tooltip: ""
+				}
+
+				CalamityAdaptationMode: {
+					Label: 灾厄适配模式
+					Tooltip:
+						'''
+						开启后：
+						1. 玩家造成的伤害降低 60%，防御降低 40%
+						2. 只有击败特定 Boss 后才能服用对应序列的魔药
+						'''
+				}
+
+				EnableBeyonderCreatures: {
+					Label: 生物超凡化
+					Tooltip:
+						'''
+						开启后:全游戏所有生成的生物有几率成为某途径某序列的超凡者
+						序列越低=几率越小=强度越高
+						序列9=10%, 序列8=5%, 序列7=1%, ..., 序列0=0.0001%
+						超凡生物拥有强化数值+自动技能+Boss血条+丰厚掉落
+						[序列0生物可以秒杀玩家,慎开]
+						'''
+				}
+			}
+
+			ZhashiConfig: {
+				DisplayName: UI Configuration
+				Headers.灵性条设置: Spirituality Bar Settings
+
+				BarScale: {
+					Label: Scale
+					Tooltip: Adjust the size of the spirituality bar.
+				}
+
+				BarPosition: {
+					Label: Position
+					Tooltip: Adjust the position of the spirituality bar on the screen.
+				}
+			}
+		}
+
+		Tiles.MysteryMusicBox1Tile.MapEntry: Mystery Music Box1 Tile
+
+		Biomes: {
+			OriginCastleBiome: {
+				DisplayName: Origin Castle Biome
+				TownNPCDialogueName: the Origin Castle Biome
+			}
+		}
+
+		DamageClasses.RitualDamage.DisplayName: Ritual Damage
+	}
+}

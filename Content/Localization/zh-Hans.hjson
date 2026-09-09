@@ -1,0 +1,2290 @@
+Mods: {
+	zhashi: {
+		# ==========================================
+		#              Custom Messages
+		# ==========================================
+		Messages: {
+			// SpiritualityExhausted: Spirituality exhausted!
+			// RitualComplete: Ritual Complete: {0}
+			// ParasiteSuccess: Parasitized {0} (Regen Mode)
+			// ParasiteDeep: Deeply Parasitized {0} (Control/Steal Mode)
+			// ParasiteFail: Not enough Spirituality to parasitize!
+			// NoTarget: No valid target found.
+			// DeceitDomainOn: Deceit Domain: Reality distorted.
+			// DeceitDomainOff: Deceit Domain: Deactivated.
+			// TimeClockOn: Authority of Time: The Ancient Clock descends.
+			// TimeClockOff: Time phantom dissipates.
+			// MiracleWish: "[Miracle Wish]: {0} (Hold to cast)"
+			// MiracleLife: Life Restoration
+			// MiracleDestroy: Cataclysm
+			// MiracleTeleport: Teleportation
+			// MiracleDayNight: Day/Night Cycle
+			// PaperFigurine: Paper Figurine Substitute!
+			// DamageAvoided: Damage Avoided!
+			// AntiDivination: Anti-Divination triggered!
+			// IntuitionDodge: Intuitive Dodge!
+			// StealModeOn: Theft Mode: ON
+			// StealModeOff: Theft Mode: OFF
+			// StealSuccess: Stolen!
+			// FateSteal: Fate Stolen!
+			// TimeSteal: Time Stolen! -{0}
+		}
+
+		Items: {
+			# ==========================================
+			#              Special Items
+			# ==========================================
+			BlasphemySlate: {
+				DisplayName: 亵渎石板
+				Tooltip:
+					'''
+					这块古老的石板上刻满了亵渎的文字...
+					记载着失落的魔药配方。
+					[c/FFA500:【消耗品】可作为任意序列魔药的合成材料]
+					(合成时石板将破碎消失)
+					'''
+			}
+
+			PaperCard: {
+				DisplayName: 塔罗牌
+				Tooltip:
+					'''
+					序列8：小丑的常用武器。
+					看似普通的纸牌，在灌注灵性后锋利如刀。
+					'''
+			}
+
+			ExtraordinaryBlood: {
+				DisplayName: 非凡血液
+				Tooltip: 蕴含着非凡力量的血液。
+			}
+
+			TestSummon: {
+				DisplayName: 测试召唤杖
+				Tooltip: 用于测试召唤机制的开发者物品。
+			}
+
+			RoselleDiary: {
+				DisplayName: 罗塞尔的随记
+				Tooltip:
+					'''
+					"魔女的滋味真不错啊..."
+					但这页似乎写的是别的东西。
+					<点击左键阅读新手指引>
+					'''
+			}
+
+			UnshadowedCross: {
+				DisplayName: 无暗十字
+				Tooltip:
+					'''
+					[c/FFD700:【唯一神物】]
+					"赞美太阳！"
+
+					[c/FFA07A:作用：]
+					将所有途径重置，变回凡人
+					此物品蕴含永恒的神性，不会损坏或消耗
+					'''
+			}
+
+			PaperFigurine: {
+				DisplayName: 纸人
+				Tooltip: 纸人技能所需的媒介。
+			}
+
+			DogItem: {
+				DisplayName: 狗牌
+				Tooltip: 用于呼唤非凡猎犬。
+			}
+
+			ResurrectionReset: {
+				DisplayName: 重置复活冷却 (测试)
+				Tooltip: 立即重置所有复活技能的冷却时间。
+			}
+
+			RitualInstaComplete: {
+				DisplayName: 仪式瞬间完成 (测试)
+				Tooltip: 立即完成当前正在进行的魔药仪式。
+			}
+
+			SpiritualityRefill: {
+				DisplayName: 灵性回满 (测试)
+				Tooltip: 瞬间补满灵性值。
+			}
+
+			# ==========================================
+			#              Special Weapons
+			# ==========================================
+			# Giant Pathway
+			TwilightGiantSword: {
+				DisplayName: 黄昏巨剑
+				Tooltip:
+					'''
+					序列2：荣耀者的象征武器。
+					每一击都以此为终结，蕴含着衰败与黄昏的权柄。
+					攻击时会释放黄昏风暴，瓦解敌人的防御。
+					'''
+			}
+
+			SwordOfDawn: {
+				DisplayName: 黎明巨剑
+				Tooltip:
+					'''
+					序列6：黎明骑士的伴生武器。
+					挥舞时会斩出破晓的光辉，对不死生物造成毁灭性打击。
+					“黎明到来，黑暗消散。”
+					'''
+			}
+
+			SilverRapier: {
+				DisplayName: 银白细剑
+				Tooltip:
+					'''
+					序列3：银骑士的佩剑。
+					剑身如水银般流动，攻击速度极快。
+					'''
+			}
+
+			# Hunter Pathway
+			ConquerorSword: {
+				DisplayName: 铁血长剑
+				Tooltip:
+					'''
+					在鲜血与火焰中铸造，渴望战斗。
+					击中敌人可能使其燃烧。
+					'''
+			}
+
+			ReaperScythe: {
+				DisplayName: 收割者镰刀
+				Tooltip:
+					'''
+					序列5：收割者的武器。
+					专门为了收割生命的弱点而生，必定造成暴击。
+					'''
+			}
+
+			ConquerorLance: {
+				DisplayName: 征服者长枪
+				Tooltip:
+					'''
+					序列1：征服者的武器。
+					一往无前，征服一切不服。
+					'''
+			}
+
+			# Fool Pathway
+			AirBullet: {
+				DisplayName: 空气弹
+				Tooltip:
+					'''
+					由空气压缩而成的无形子弹
+					威力随序列晋升而提升
+					序列7: 手枪
+					序列5: 步枪
+					序列4: 炮弹
+					序列3: 岸防炮
+					'''
+			}
+
+			# ==========================================
+			#              Core Materials
+			# ==========================================
+			WeatherRune: {
+				DisplayName: 天气符文
+				Tooltip:
+					'''
+					蕴含着古老天气力量的符文，表面闪烁着雷光与冰霜。
+					用于晋升序列2：天气术士的关键媒介。
+					'''
+			}
+
+			ConquerorCharacteristic: {
+				DisplayName: 征服者非凡特性
+				Tooltip:
+					'''
+					析出红祭司途径序列1特性的结晶。
+					握在手中能感受到统御万军的威严。
+					用于晋升序列1：征服者。
+					'''
+			}
+
+			WhisperOfSpiritWorld: {
+				DisplayName: 灵界低语
+				Tooltip:
+					'''
+					来自灵界深处的模糊信息。
+					使用它尝试解析'真名'。
+					[警告]：如果解析失败，你将遭受月亮的反噬（重伤/Debuff）。
+					'''
+			}
+
+			TrueNameInscription: {
+				DisplayName: 真名拓本
+				Tooltip:
+					'''
+					一段被定义的、与你命运缠绕的特殊信息。
+					序列3：召唤大师魔药的核心材料。
+					'''
+			}
+
+			# ==========================================
+			#              Moon Pathway Potions
+			# ==========================================
+			ApothecaryPotion: {
+				DisplayName: 序列9：药师魔药
+				Tooltip:
+					'''
+					服用后晋升为药师。
+					获得抗毒能力，生命回复提升。
+					擅长调配药剂和治疗。
+					'''
+			}
+
+			BeastTamerPotion: {
+				DisplayName: 序列8：驯兽师魔药
+				Tooltip:
+					'''
+					服用后晋升为驯兽师。
+					允许你驯化野兽，增加召唤栏位。
+					获得危险感知能力。
+					'''
+			}
+
+			VampirePotion: {
+				DisplayName: 序列7：吸血鬼魔药
+				Tooltip:
+					'''
+					服用后晋升为吸血鬼。
+					获得黑暗之翼与超强自愈力。
+					即使在黑夜中也是优雅的猎手，但厌恶阳光。
+					'''
+			}
+
+			PotionsProfessorPotion: {
+				DisplayName: 序列6：魔药教授魔药
+				Tooltip:
+					'''
+					服用后晋升为魔药教授。
+					掌握炼金术的奥秘。
+					可以使用炼金手雷和生命灵液。
+					'''
+			}
+
+			ScarletScholarPotion: {
+				DisplayName: 序列5：深红学者魔药
+				Tooltip:
+					'''
+					服用后晋升为深红学者。
+					掌控月光与阴影。
+					开启满月领域，获得月光化能力。
+					'''
+			}
+
+			WitchKingPotion: {
+				DisplayName: 序列4：巫王魔药
+				Tooltip:
+					'''
+					在满月服用后晋升为巫王。
+					半神之始，寿命极长。
+					获得蝙蝠化身、纸人替身与黑暗凝视。
+					'''
+			}
+
+			SummoningMasterPotion: {
+				DisplayName: 序列3：召唤大师魔药
+				Tooltip:
+					'''
+					服用后晋升为召唤大师。
+					能打开召唤之门，召唤灵界生物助战。
+					大幅提升召唤能力。
+					'''
+			}
+
+			LifeGiverPotion: {
+				DisplayName: 序列2：创生者魔药
+				Tooltip:
+					'''
+					服用后晋升为创生者。
+					生命的主宰，拥有不可思议的治愈与创造力。
+					开启创生领域，净化大地，创造生命奇迹。
+					'''
+			}
+
+			BeautyGoddessPotion: {
+				DisplayName: 序列1：美神魔药
+				Tooltip:
+					'''
+					服用后晋升为美神。
+					美的具象化，万物倾倒。
+					[警告]：服用后性别将转化为女性。
+					获得魅惑光环与神级力量。
+					'''
+			}
+
+			# ==========================================
+			#              Hunter Pathway Potions
+			# ==========================================
+			HunterPotion: {
+				DisplayName: 序列9：猎人魔药
+				Tooltip:
+					'''
+					服用后晋升为猎人。
+					优秀的身体素质与感官。
+					获得生物探测能力。
+					'''
+			}
+
+			ProvokerPotion: {
+				DisplayName: 序列8：挑衅者魔药
+				Tooltip:
+					'''
+					服用后晋升为挑衅者。
+					擅长吸引仇恨与陷阱制作。
+					'''
+			}
+
+			PyromaniacPotion: {
+				DisplayName: 序列7：纵火家魔药
+				Tooltip:
+					'''
+					服用后晋升为纵火家。
+					掌控火焰的力量。
+					获得操纵火焰、火球术与火焰抗性。
+					'''
+			}
+
+			ConspiratorPotion: {
+				DisplayName: 序列6：阴谋家魔药
+				Tooltip:
+					'''
+					服用后晋升为阴谋家。
+					思维敏捷，擅长引导战斗。
+					获得闪现与武器附魔能力。
+					'''
+			}
+
+			ReaperPotion: {
+				DisplayName: 序列5：收割者魔药
+				Tooltip:
+					'''
+					服用后晋升为收割者。
+					致命的弱点攻击。
+					获得致命斩击能力，暴击大幅提升。
+					'''
+			}
+
+			IronBloodedKnightPotion: {
+				DisplayName: 序列4：铁血骑士魔药
+				Tooltip:
+					'''
+					服用后晋升为铁血骑士。
+					钢铁般的意志与身躯。
+					获得火焰形态与集众能力。
+					'''
+			}
+
+			WarBishopPotion: {
+				DisplayName: 序列3：战争主教魔药
+				Tooltip:
+					'''
+					服用后晋升为战争主教。
+					战场的指挥官，心灵连接。
+					'''
+			}
+
+			WeatherWarlockPotion: {
+				DisplayName: 序列2：天气术士魔药
+				Tooltip:
+					'''
+					服用后晋升为天气术士。
+					呼风唤雨，掌控天象。
+					获得雷击与冰河世纪能力。
+					'''
+			}
+
+			ConquerorPotion: {
+				DisplayName: 序列1：征服者魔药
+				Tooltip:
+					'''
+					服用后晋升为征服者。
+					征服一切不服。
+					周围敌怪停止刷新，属性碾压。
+					'''
+			}
+
+			# ==========================================
+			#              Giant Pathway Potions
+			# ==========================================
+			WarriorPotion: {
+				DisplayName: 序列9：战士魔药
+				Tooltip: 提升近战能力。
+			}
+
+			PugilistPotion: {
+				DisplayName: 序列8：格斗家魔药
+				Tooltip: 提升格斗技巧与抗击退。
+			}
+
+			WeaponMasterPotion: {
+				DisplayName: 序列7：武器大师魔药
+				Tooltip: 精通各类武器。
+			}
+
+			DawnKnightPotion: {
+				DisplayName: 序列6：黎明骑士魔药
+				Tooltip: 获得黎明铠甲，光耀四方。
+			}
+
+			GuardianPotion: {
+				DisplayName: 序列5：守护者魔药
+				Tooltip: 守护姿态，坚不可摧。
+			}
+
+			DemonHunterPotion: {
+				DisplayName: 序列4：猎魔者魔药
+				Tooltip: 免疫诅咒，克制邪恶。
+			}
+
+			SilverKnightPotion: {
+				DisplayName: 序列3：银骑士魔药
+				Tooltip: 化身水银，难以捉摸。
+			}
+
+			GloryPotion: {
+				DisplayName: 序列2：荣耀者魔药
+				Tooltip: 黄昏复活，不朽荣光。
+			}
+
+			# ==========================================
+			#              Fool Pathway Potions
+			# ==========================================
+			SeerPotion: {
+				DisplayName: 序列9：占卜家魔药
+				Tooltip:
+					'''
+					服用后晋升为占卜家。
+					获得灵视与占卜能力，趋吉避凶。
+					'''
+			}
+
+			ClownPotion: {
+				DisplayName: 序列8：小丑魔药
+				Tooltip: 服用后晋升为小丑。
+			}
+
+			MagicianPotion: {
+				DisplayName: 序列7：魔术师魔药
+				Tooltip:
+					'''
+					服用后晋升为魔术师。
+					获得伤害转移、骨骼软化与空气弹。获得火焰跳跃与纸人替身。
+					'''
+			}
+
+			FacelessPotion: {
+				DisplayName: 序列6：无面人魔药
+				Tooltip:
+					'''
+					服用后晋升为无面人。
+					千变万化，获得无面伪装能力。
+					'''
+			}
+
+			MarionettistPotion: {
+				DisplayName: 序列5：秘偶大师魔药
+				Tooltip:
+					'''
+					服用后晋升为秘偶大师。
+					掌控灵体之线，将万物转化为傀儡。
+					'''
+			}
+
+			BizarroSorcererPotion: {
+				DisplayName: 序列4：诡法师魔药
+				Tooltip:
+					'''
+					服用后晋升为诡法师 (半神)。
+					拥有灵之虫、秘偶互换与控灵能力。
+					'''
+			}
+
+			ScholarOfYorePotion: {
+				DisplayName: 序列3：古代学者魔药
+				Tooltip:
+					'''
+					服用后晋升为古代学者 (圣者)。
+					向历史借取力量，召唤旧日幻影。
+					'''
+			}
+
+			MiracleInvokerPotion: {
+				DisplayName: 序列2：奇迹师魔药
+				Tooltip:
+					'''
+					服用后晋升为奇迹师 (天使)。
+					行走于现实的奇迹，干扰命运，实现愿望。
+					'''
+			}
+
+			AttendantPotion: {
+				DisplayName: 序列1：诡秘侍者魔药
+				Tooltip:
+					'''
+					服用后晋升为诡秘侍者 (天使之王)。
+					支配灵界，概念嫁接，建立神国。
+					'''
+			}
+
+			# ==========================================
+			#              Marauder Pathway Potions
+			# ==========================================
+			MarauderPotion: {
+				DisplayName: 序列9：偷盗者魔药
+				Tooltip:
+					'''
+					服用后晋升为偷盗者。
+					身体灵巧，手指修长。
+					获得[窃取]能力，从敌人身上获取额外收益。
+					'''
+			}
+
+			SwindlerPotion: {
+				DisplayName: 序列8：诈骗师魔药
+				Tooltip:
+					'''
+					服用后晋升为诈骗师。
+					擅长欺诈与误导。
+					购买物品时可能获得折扣。
+					'''
+			}
+
+			CryptologistPotion: {
+				DisplayName: 序列7：解密学者魔药
+				Tooltip:
+					'''
+					服用后晋升为解密学者。
+					直觉敏锐，擅长发现弱点。
+					提升暴击与破甲能力。
+					'''
+			}
+
+			PrometheusPotion: {
+				DisplayName: 序列6：盗火人魔药
+				Tooltip:
+					'''
+					服用后晋升为盗火人。
+					窃取力量的窃贼。
+					窃取成功率提升，可窃取敌人Buff。
+					'''
+			}
+
+			DreamStealerPotion: {
+				DisplayName: 序列5：窃梦家魔药
+				Tooltip:
+					'''
+					服用后晋升为窃梦家。
+					潜入梦境，操纵意识。
+					攻击可能使敌人混乱或沉睡。
+					'''
+			}
+
+			ParasitePotion: {
+				DisplayName: 序列4：寄生者魔药
+				Tooltip:
+					'''
+					服用后晋升为寄生者 (半神)。
+					寄生于万物，获得不死之身。
+					按键[P]寄生目标，半虫化重组身体。
+					'''
+			}
+
+			MentorPotion: {
+				DisplayName: 序列3：欺瞒导师魔药
+				Tooltip:
+					'''
+					服用后晋升为欺瞒导师 (圣者)。
+					欺诈规则，误导众生。
+					开启欺瞒领域，扭曲敌人的认知。
+					'''
+			}
+
+			TrojanHorsePotion: {
+				DisplayName: 序列2：命运木马魔药
+				Tooltip:
+					'''
+					服用后晋升为命运木马 (天使)。
+					窃取命运，篡改未来。
+					获得命运窃取能力，替死重生。
+					'''
+			}
+
+			WormOfTimePotion: {
+				DisplayName: 序列1：时之虫魔药
+				Tooltip:
+					'''
+					服用后晋升为时之虫 (天使之王)。
+					玩弄时间，窃取岁月。
+					获得时间领域，窃取敌人时间与生命。
+					'''
+			}
+
+			BardPotion: {
+				DisplayName: 序列9：歌颂者魔药
+				Tooltip:
+					'''
+					服用后晋升为歌颂者。
+					擅长用歌声鼓舞队友。
+					获得[勇气]与[力量]光环。
+					'''
+			}
+
+			LightSupplicantPotion: {
+				Tooltip:
+					'''
+					服用后晋升为祈光人。
+					能够施展光亮术与圣光术。
+					对死灵生物造成额外伤害。
+					'''
+				DisplayName: 序列8：祈光人魔药
+			}
+
+			SolarHighPriestPotion: {
+				DisplayName: 序列7：太阳神官魔药
+				Tooltip:
+					'''
+					服用后晋升为太阳神官。
+					精通各类光之神术。
+					获得召唤圣光与制造圣水的能力。
+					'''
+			}
+
+			NotaryPotion: {
+				Tooltip:
+					'''
+					服用后晋升为公证人。
+					公证誓言，强化友军或削弱敌人。
+					获得[公证]能力。
+					'''
+				DisplayName: 序列6：公证人魔药
+			}
+
+			PriestPotion: {
+				DisplayName: 序列5：光之祭司魔药
+				Tooltip:
+					'''
+					服用后晋升为光之祭司。
+					光明的传播者，净化的执行者。
+					获得神圣之光与光之风暴。
+					'''
+			}
+
+			UnshadowedPotion: {
+				DisplayName: 序列4：无暗者魔药
+				Tooltip:
+					'''
+					服用后晋升为无暗者 (半神)。
+					彻底净化一切污秽与阴影。
+					开启[无暗领域]，清除所有负面状态。
+					'''
+			}
+
+			JusticeMentorPotion: {
+				DisplayName: 序列3：正义导师魔药
+				Tooltip:
+					'''
+					服用后晋升为正义导师 (圣者)。
+					拥有洞察人心与执行正义的权柄。
+					获得[正义审判]能力。
+					'''
+			}
+
+			LightSeekerPotion: {
+				Tooltip:
+					'''
+					服用后晋升为逐光者 (天使)。
+					化身为光，追逐光芒。
+					获得光速移动与融化万物的能力。
+					'''
+				DisplayName: 序列2：逐光者魔药
+			}
+
+			WhiteAngelPotion: {
+				Tooltip:
+					'''
+					服用后晋升为白天使 (天使之王)。
+					纯粹的神圣，太阳的代行者。
+					获得[神圣光辉]与[天使降临]。
+					'''
+				DisplayName: 序列1：白天使魔药
+			}
+
+			HandOfGod: {
+				Tooltip:
+					'''
+					序列1：神之手的具象化武器。
+					看似虚无的手掌，却能轻易撕裂钢铁与法则。
+					攻击无视敌人的防御与伤害减免。
+					切记不要向着家的方向右键蓄力。
+					'''
+				DisplayName: 神之手
+			}
+
+			HandOfGodPotion: {
+				Tooltip:
+					'''
+					服用后晋升为神之手 (天使之王)。
+					巨人的顶点，掌握扭曲与撕裂的权柄。
+					获得[黄昏神躯]与[衰败权柄]。
+					'''
+				DisplayName: 序列1：神之手魔药
+			}
+
+			HandOfGodCharacteristic: {
+				Tooltip:
+					'''
+					析出巨人途径序列1特性的结晶。
+					蕴含着极度危险的撕裂规则。
+					用于晋升序列1：神之手。
+					'''
+				DisplayName: 神之手非凡特性
+			}
+
+			TrueLoveHeart: {
+				// DisplayName: True Love Heart
+				// Tooltip: ""
+			}
+
+			ArrodesItem: {
+				DisplayName: 【封印物2-111】阿罗德斯
+				Tooltip:
+					'''
+					<right>与魔镜交谈
+					"崇高的主人，您忠诚的谦卑的仆人阿罗德斯听候您的差遣"
+					'''
+			}
+
+			FoolCard: {
+				DisplayName: 亵渎之牌 · 愚者
+				Tooltip:
+					'''
+					[c/A9A9A9:“不属于这个时代的愚者，]
+					[c/A9A9A9:  灰雾之上的神秘主宰，]
+					[c/A9A9A9:  执掌好运的黄黑之王。”]
+
+					这张看似普通的塔罗牌表面流淌着灰白的雾气，
+					背面描绘着一位身穿华丽衣物、背着行囊、由狗陪伴走向悬崖的年轻人。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了占卜家途径通往神座的秘密。
+
+					[c/FFD700:=== 神性权柄 ===]
+					[c/E6E6FA:✦ 命运隐匿：] 获得极高位格的[c/BA55D3:反占卜]效果，干扰一切针对你的恶意窥探
+					[c/E6E6FA:✦ 灵界主宰：] (愚者途径) [c/FFA500:火焰跳跃]获得神性升华，无需火焰媒介即可穿梭虚空
+					[c/E6E6FA:✦ 诡秘侍者：] 魔力上限大幅提升，并加快魔力回复速度
+
+					[c/FF4500:=== 代价与诅咒 ===]
+					此物位格极高，凡人难以承载。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性以维持其存在。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“这是开始，也是结束。”]
+					'''
+			}
+
+			StrengthCard: {
+				Tooltip:
+					'''
+					[c/A9A9A9:“伟大的战神，]
+					[c/A9A9A9:  黄昏的象征，]
+					[c/A9A9A9:  不朽的巨人，]
+					[c/A9A9A9:  衰败君王，]
+					[c/A9A9A9:  守护之神。”]
+
+					它是通往“战神”途径的钥匙，蕴含着足以撼动大地的力量。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了战士途径通往神座的秘密。
+
+					[c/FFD700:=== 神性权柄 ===]
+					[c/E6E6FA:✦ 战争主宰：] 你的[c/FF4500:防御]与[c/FF4500:近战伤害]翻倍！
+					[c/E6E6FA:✦ 泰坦之躯：] 获得极强的生命恢复能力，且免疫击退
+					[c/E6E6FA:✦ 震荡打击：] 具现泰坦拳套，近战攻击附带震荡波并[c/87CEEB:粉碎敌人护甲]
+
+					[c/FF4500:=== 代价与诅咒 ===]
+					此物位格极高，凡人难以承载。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+					'''
+				DisplayName: 亵渎之牌 · 巨人
+			}
+
+			LoversCard: {
+				Tooltip:
+					'''
+					[c/A9A9A9:“拨动时光的时针，]
+					[c/A9A9A9:  欺诈命运的轨迹，]
+					[c/A9A9A9:  祂是错误的化身。”]
+
+					这张牌的质地如同水晶般通透，却总是让人产生视觉上的错位感。
+					背面描绘着一位穿着古典长袍、右眼戴着单片眼镜、嘴角含笑的男子。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了偷盗者途径通往神座的秘密。
+
+					[c/FFD700:=== 神性权柄 ===]
+					[c/E0FFFF:✦ 逻辑扭曲：] 你的攻击将被视为[c/483D8B:Bug]，利用规则漏洞造成极高的护甲穿透与暴击
+					[c/E0FFFF:✦ 窃取权柄：] (错误途径) [c/9370DB:万物窃取]，窃取必定成功
+					[c/E0FFFF:✦ 命运欺诈：] 获得[c/483D8B:时之虫]的庇护，极大幅度提升闪避率，免疫困惑，降低仇恨
+
+					[c/FF4500:=== 代价与诅咒 ===]
+					小心，它可能会欺诈它的持有者。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性以维持其存在。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“你的命运，我就收下了。”]
+					'''
+				DisplayName: 亵渎之牌 · 错误
+			}
+
+			RedPriestCard: {
+				Tooltip:
+					'''
+					[c/A9A9A9:“战争是政治的延续，]
+					[c/A9A9A9:  铁血是军人的勋章，]
+					[c/A9A9A9:  祂是征服者的象征。”]
+
+					这张牌散发着灼热的气息，表面仿佛有流动的岩浆。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了猎人途径通往神座的秘密。
+
+					[c/FFD700:=== 神性权柄 ===]
+					[c/FF4500:✦ 战争挑衅：] 大幅增加敌人对你的[c/FF0000:仇恨]，但你免疫一切火焰伤害
+					[c/FF4500:✦ 铁血军团：] (猎人途径) 获得[c/FFA500:炼狱光环]，并在周围持续造成真实伤害
+					[c/FF4500:✦ 陷阱大师：] 获得极敏锐的直觉，能察觉附近的生物与陷阱
+					[c/FF4500:✦ 绝境战神：] 生命值越低，防御力与生命恢复速度越高
+
+					[c/FF4500:=== 代价与诅咒 ===]
+					渴望战争的本能会让你难以平静。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性以维持其存在。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“活下来的，就是赢家。”]
+					'''
+				DisplayName: 亵渎之牌 · 红祭司
+			}
+
+			SunCard: {
+				Tooltip:
+					'''
+					[c/A9A9A9:“赞美太阳！]
+					[c/A9A9A9:  祂是永恒的烈阳，]
+					[c/A9A9A9:  是一切堕落与污秽的克星。”]
+
+					这张牌通体呈纯金色，拿在手中会感到明显的温热。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了太阳途径通往神座的秘密。
+
+					[c/FFD700:=== 神性权柄 ===]
+					[c/FFD700:✦ 太阳光辉：] 自身散发强烈的光芒，免疫一切黑暗与致盲效果
+					[c/FFD700:✦ 无暗之域：] (太阳途径) 周围化作[c/FFA500:神圣领域]，持续灼烧敌人，对[c/AAAAAA:亡灵]造成双倍伤害
+					[c/FFD700:✦ 纯净之躯：] 获得极高的生命回复速度，并免疫中毒、流血等污秽效果
+					[c/FFD700:✦ 荣耀契约：] 大幅提升防御力与伤害减免
+
+					[c/FF4500:=== 代价与诅咒 ===]
+					绝对的光明眼中容不得沙子。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性以维持其存在。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“让光芒洒满大地。”]
+					'''
+				DisplayName: 亵渎之牌 · 太阳
+			}
+
+			MoonCard: {
+				Tooltip:
+					'''
+					[c/DC143C:“月亮代表着生命与美丽的堕落。]
+					[c/DC143C:  祂是绯红的满月，]
+					[c/DC143C:  是所有灵性生物的主宰。”]
+
+					这张牌触感冰冷，仿佛是用凝固的月光雕刻而成。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了月亮途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 月之眼：] 获得夜视与水下呼吸能力，无视液体阻力
+					[c/BA55D3:✦ 暗夜眷属：] (月亮途径) 召唤栏位+3，召唤伤害+35%，鞭子范围扩大
+					[c/BA55D3:✦ 深红领域：] 展开吸血力场，持续伤害周围敌人并[c/FF0000:汲取生命]
+					[c/BA55D3:✦ 夜之女王：] 夜晚时全属性大幅提升，获得极强的生命再生
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					在这轮红月下，你必须时刻对抗内心深处疯狂的繁衍欲望。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“凡有灵的，必被其支配。”]
+					'''
+				DisplayName: 亵渎之牌 · 月亮
+			}
+
+			DoorCard: {
+				DisplayName: 亵渎之牌 · 门
+				Tooltip:
+					'''
+					[c/00FFFF:“门无处不在，]
+					[c/00FFFF:  只要你能找到钥匙。”]
+
+					这张牌呈现出半透明的晶体质感，内部仿佛有无数星辰在旋转。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了门途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 星之匙：] 移动速度大幅提升，挖掘与破坏障碍的速度加快
+					[c/BA55D3:✦ 漫游者：] (未实装) 你的法术伤害获得提升
+					[c/BA55D3:✦ 空间主宰：] (未实装) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					当你凝视星空时，星空也在注视着你。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“他迷失在了回家的路上。”]
+					'''
+			}
+
+			WhiteTowerCard: {
+				Tooltip:
+					'''
+					[c/E0FFFF:“知识即是力量，]
+					[c/E0FFFF:  只有全知，才能全能。”]
+
+					这张牌通体洁白，表面没有任何花纹，却仿佛蕴含着无穷的信息。
+					当你注视它时，脑海中会不由自主地浮现出各种复杂的公式与真理。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了白塔途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 知识渊博：] 最大法力值+100，魔力消耗-20%
+					[c/BA55D3:✦ 洞悉弱点：] 暴击率+15%，并获得危险感知与生物探测能力
+					[c/BA55D3:✦ 解析万象：] (未实装) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					过度的知识会撑爆凡人的大脑。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“他死于知晓了不该知晓的秘密。”]
+					'''
+				DisplayName: 亵渎之牌 · 塔
+			}
+
+			VisionaryCard: {
+				DisplayName: 亵渎之牌 · 空想家
+				Tooltip:
+					'''
+					[c/FFD700:“所想即所见，]
+					[c/FFD700:  所见即真实。”]
+
+					当你触碰它时，你会感觉整个世界仿佛都只是你脑海中的一场梦境。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了空想家途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 观众：] 你隐于幕后，极大幅度降低敌人的仇恨
+					[c/BA55D3:✦ 空想具现：] 召唤栏与哨兵栏上限+2，并将想象转化为魔法力量
+					[c/BA55D3:✦ 噩梦之龙：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					现实与虚幻的界限逐渐模糊，你可能会忘记自己是谁。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“只要被所有人知晓，那就是真实。”]
+					'''
+			}
+
+			BlackEmperorCard: {
+				Tooltip:
+					'''
+					[c/2F4F4F:“皇帝归来，]
+					[c/2F4F4F:  重掌权柄。”]
+
+					这张牌如同黑铁铸造，沉重而冰冷。
+					牌面上绘制着一位头戴黑色皇冠、端坐于阴影王座之上的威严身影。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了黑皇帝途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 扭曲规则：] 护甲穿透+30，无视敌人的防御逻辑
+					[c/BA55D3:✦ 阴影庇护：] 获得10%几率闪避伤害，防御力+20
+					[c/BA55D3:✦ 秩序威压：] (未实装) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					秩序的重量令人窒息，你必须时刻对抗失控的疯狂。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“祂是混乱中的秩序，也是秩序中的阴影。”]
+					'''
+				DisplayName: 亵渎之牌 · 黑皇帝
+			}
+
+			TyrantCard: {
+				Tooltip:
+					'''
+					[c/1E90FF:“凡不臣服者，]
+					[c/1E90FF:  必将在风暴中毁灭。”]
+
+					这张牌表面仿佛有雷光在跳动，触摸时会感到明显的刺痛感。
+					牌面上绘制着一位手持三叉戟，驾驭着滔天巨浪与雷霆的狂暴神灵。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了暴君途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 海洋主宰：] 在水中行动自如，获得无限呼吸能力
+					[c/BA55D3:✦ 暴怒打击：] 近战伤害+25%，近战速度+20%，击退力增强
+					[c/BA55D3:✦ 神之躯：] 免疫击退，生命上限+50
+					[c/BA55D3:✦ 雷霆万钧：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					极其暴躁的怒火会时刻灼烧你的理智。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“祂是风暴，也是毁灭。”]
+					'''
+				DisplayName: 亵渎之牌 · 暴君
+			}
+
+			HangedManCard: {
+				Tooltip:
+					'''
+					[c/800080:“牧羊人放牧羔羊，]
+					[c/800080:  神灵放牧世人。”]
+
+					这张牌触感温热，像是一块活着的血肉，隐约能听到疯狂的呓语。
+					牌面上绘制着一位被倒吊在十字架上的受难者，周围缠绕着阴影与荆棘。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了倒吊人途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 血肉再生：] 极大幅度提升生命恢复速度
+					[c/BA55D3:✦ 荆棘冠冕：] 受到伤害时全额反弹给敌人 (荆棘效果)
+					[c/BA55D3:✦ 阴影之拥：] 受到的伤害减少12%，全伤害+15%
+					[c/BA55D3:✦ 堕落造物：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					耳边的呓语从未停止，你的血肉渴望着畸变。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“主说，要有光，于是就有了光。”]
+					'''
+				DisplayName: 亵渎之牌 · 倒吊人
+			}
+
+			DarknessCard: {
+				DisplayName: 亵渎之牌 · 黑暗
+				Tooltip:
+					'''
+					[c/483D8B:“黑夜比白昼更宽广，]
+					[c/483D8B:  隐秘比显露更尊贵。”]
+
+					这张牌深邃如同午夜的星空，注视它仿佛能让灵魂获得安宁。
+					牌面上绘制着一片点缀着无数繁星的黑色幕布。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了黑暗途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 不眠之眼：] 获得永久夜视与危险感知，免疫黑暗与沉默
+					[c/BA55D3:✦ 黑夜主宰：] 夜晚时全属性大幅提升 (伤害+20%/防御+15/移速+30%)
+					[c/BA55D3:✦ 隐秘之纱：] 站立不动时隐身，大幅降低敌人仇恨
+					[c/BA55D3:✦ 永恒安眠：] (未实装) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					你将永远失去睡眠的权利，黑夜中的恐怖时刻注视着你。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“赞美黑夜，赞美隐秘。”]
+					'''
+			}
+
+			DeathCard: {
+				DisplayName: 亵渎之牌 · 死神
+				Tooltip:
+					'''
+					[c/708090:“死亡是所有旅程的终点，]
+					[c/708090:  是永恒的安眠。”]
+
+					这张牌苍白如骨，表面没有任何色彩，就像是一块打磨过的墓碑。
+					触摸它时，你会感到一股直透灵魂的寒意，仿佛看见了静静流淌的冥河。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了死神途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 亡灵君主：] 召唤栏位+2，召唤伤害+20%
+					[c/BA55D3:✦ 死亡凋零：] 护甲穿透+15，攻击将腐蚀敌人的防御
+					[c/BA55D3:✦ 冥界寒躯：] 免疫寒冷、冻结与霜火效果
+					[c/BA55D3:✦ 苍白之灾：] (未实装) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					生者的气息令你厌恶，你渴望躺入棺椁。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“祂在冥河的尽头，注视着众生。”]
+					'''
+			}
+
+			DemonessCard: {
+				DisplayName: 亵渎之牌 · 魔女
+				Tooltip:
+					'''
+					[c/FF1493:“痛苦即是欢愉，]
+					[c/FF1493:  死亡即是恩赐。”]
+
+					这张牌散发着一股令人沉醉的甜腻香气，却又夹杂着血腥味。
+					牌面上绘制着一位在黑炎中起舞的绝美女子，她的笑容既圣洁又堕落。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了魔女途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 致命快感：] 暴击率+20%，移动速度大幅提升
+					[c/BA55D3:✦ 寒霜之触：] 攻击附加寒霜效果，受到伤害时反击星辰(黑炎)
+					[c/BA55D3:✦ 魅惑众生：] 受到伤害有机会使敌人混乱，并获得闪避能力
+					[c/BA55D3:✦ 妖之翱翔：] 女巫骑扫帚，很合理对吧？（快速坐骑按键）
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					你会逐渐沉迷于给他人带来痛苦，并且...你的身体会发生某种变化。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“魔女的滋味，真不错啊...”]
+					'''
+			}
+
+			JusticiarCard: {
+				DisplayName: 亵渎之牌 · 审判者
+				Tooltip:
+					'''
+					[c/A9A9A9:“此地禁止通行，]
+					[c/A9A9A9:  违者必受制裁。”]
+
+					这张牌如同黄铜铸造，沉重且边缘锋利，拿在手中仿佛握着一把法槌。
+					牌面上绘制着一柄竖直的巨剑和一架平衡的天平，象征着绝对的公平与暴力。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了审判者途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 秩序壁垒：] 防御力+20，免疫击退
+					[c/BA55D3:✦ 钢铁意志：] 免疫混乱与减速效果
+					[c/BA55D3:✦ 最终裁决：] 暴击率+10%，全伤害+15%
+					[c/BA55D3:✦ 律令禁止：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					你会变得僵化、固执，甚至想要审判你的朋友。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“在这个国家，秩序高于一切。”]
+					'''
+			}
+
+			AbyssCard: {
+				DisplayName: 亵渎之牌 · 深渊
+				Tooltip:
+					'''
+					[c/8B0000:“当你凝视深渊时，]
+					[c/8B0000:  深渊也在凝视你。”]
+
+					这张牌表面凹凸不平，仿佛流淌着滚烫的岩浆，散发着硫磺的气息。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了深渊途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 恶魔之体：] 免疫岩浆与火系异常，伤害减免+15%
+					[c/BA55D3:✦ 危险感知：] 你能敏锐地察觉到周围的陷阱与恶意
+					[c/BA55D3:✦ 污秽之语：] 攻击附加火焰伤害，全伤害+15%
+					[c/BA55D3:✦ 恶魔变身：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					杀戮的欲望难以抑制，你的理智在沸腾的血液中燃烧。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“即使是污秽，也是生命的温床。”]
+					'''
+			}
+
+			ChainedCard: {
+				DisplayName: 亵渎之牌 · 被缚者
+				Tooltip:
+					'''
+					[c/2F4F4F:“身在束缚，]
+					[c/2F4F4F:  心向自由。”]
+
+					这张牌缠绕着一圈圈虚幻的锁链，表面布满了抓痕与血迹。
+					牌面上绘制着一个被绷带和锁链层层包裹的怪异人形，正在痛苦地挣扎。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了被缚者途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 异种之躯：] 防御+25，伤害减免+15%，免疫击退
+					[c/BA55D3:✦ 狼人再生：] 获得极强的生命恢复能力 (静止时更强)
+					[c/BA55D3:✦ 挣脱束缚：] 免疫减速、蛛网、石化与沉默效果
+					[c/BA55D3:✦ 怨魂附体：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					诅咒深入骨髓，你必须时刻压抑内心的嗜血欲望。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“放纵是堕落的开始，节制是力量的源泉。”]
+					'''
+			}
+
+			PerfectionistCard: {
+				Tooltip:
+					'''
+					[c/B8860B:“文明源于工具，]
+					[c/B8860B:  升华于机械。”]
+
+					这张牌由无数精密的齿轮和微小的黄铜管道构成，仿佛拥有自己的生命。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了完美者途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 文明工匠：] 大幅提升挖掘/放置速度与操作距离
+					[c/BA55D3:✦ 机械武装：] 远程伤害+20%，哨兵栏位+2
+					[c/BA55D3:✦ 精密计算：] 远程暴击率+10%，防御+15
+					[c/BA55D3:✦ 知识荒野：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					你开始觉得血肉是苦弱的，渴望将自己改造成冰冷的机器。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“血肉苦弱，机械飞升。”]
+					'''
+				DisplayName: 亵渎之牌 · 完美者
+			}
+
+			HermitCard: {
+				Tooltip:
+					'''
+					[c/9370DB:“人类只有知道更多，]
+					[c/9370DB:  才能生存得更好。”]
+
+					这张牌散发着幽幽的紫光，仿佛由无数细小的符号和咒文编织而成。
+					牌面上绘制着一位在深山中独自提灯前行的长者，背景是一只巨大的眼睛。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了隐者途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 神秘学识：] 魔法伤害+25%，魔力消耗-15%
+					[c/BA55D3:✦ 窥秘之眼：] 魔法暴击率+15%，能看穿隐藏的生物与危险
+					[c/BA55D3:✦ 灵性灌注：] 极大幅度提升魔力自然恢复速度
+					[c/BA55D3:✦ 神秘再现：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					无数的知识疯狂地钻入你的脑海，你时刻处于失控的边缘。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“祂在注视着你，知识在追逐着你。”]
+					'''
+				DisplayName: 亵渎之牌 · 隐者
+			}
+
+			MotherCard: {
+				DisplayName: 亵渎之牌 · 母亲
+				Tooltip:
+					'''
+					[c/32CD32:“大地孕育万物，]
+					[c/32CD32:  母亲包容一切。”]
+
+					这张牌触感温润，仿佛是一片拥有心跳的巨大叶子，散发着泥土的芬芳。
+					牌面上绘制着一位怀抱婴儿、双脚化作树根深深扎入大地的慈爱女性。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了母亲途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 生命源泉：] 生命上限+100，生命恢复速度极大幅度提升
+					[c/BA55D3:✦ 药师本能：] 药水冷却时间减少25%，永久获得蜂蜜增益
+					[c/BA55D3:✦ 大地守护：] 防御+15，伤害减免+10%
+					[c/BA55D3:✦ 丰收女神：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					过盛的生命力有时也是一种毒药，你可能会长出不属于你的器官。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“她是生命的起源，也是归宿。”]
+					'''
+			}
+
+			WheelOfFortuneCard: {
+				DisplayName: 亵渎之牌 · 命运之轮
+				Tooltip:
+					'''
+					[c/C0C0C0:“命运是圆环，]
+					[c/C0C0C0:  也是无序的螺旋。”]
+
+					这张牌如同液态的水银一般在手中不断变换形状，难以握紧。
+					牌面上隐约浮现出一条首尾相衔的银色巨蛇，象征着无穷的循环。
+					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了命运之轮途径通往神座的秘密。
+
+					[c/BA55D3:=== 神性权柄 ===]
+					[c/BA55D3:✦ 命运眷顾：] 运气值大幅提升 (掉率/伤害波动/隐藏暴击)
+					[c/BA55D3:✦ 概率偏差：] 获得极高的闪避几率 (黑带+混乱之脑效果)
+					[c/BA55D3:✦ 致命一击：] 暴击率+15%，移动速度+30%
+					[c/BA55D3:✦ 命运重启：] (待觉醒) 尚未记录高序列能力...
+
+					[c/8B0000:=== 代价与诅咒 ===]
+					你窥视了命运的洪流，也可能在某一刻被厄运吞噬。
+					装备后每秒流逝 [c/FF0000:3%] 最大灵性。
+					[c/8C0000:警告：灵体不可贪婪。若同时持有两张亵渎之牌，你的灵体将即刻崩溃。]
+
+					[c/696969:“错的不是我，是这个世界的概率。”]
+					'''
+			}
+
+			GoldenGun: {
+				Tooltip:
+					'''
+					[c/FF0000:“有人用它杀了自己。”]
+					<right>以阅读内容
+					'''
+				DisplayName: 左轮
+			}
+
+			KleinsDiary: {
+				Tooltip:
+					'''
+					一本黑色封皮的笔记本，纸张因岁月的侵蚀而微微泛黄。
+					翻开它，你仿佛能闻到陈旧墨水与干涸血迹混合的味道。
+					字里行间记录了一个灵魂从迷茫走向疯狂的绝望过程。
+					[c/FF0000:“所有人都会死，包括我。”]
+					<right>以阅读内容
+					'''
+				DisplayName: 克莱恩的日记
+			}
+
+			ExorcismBullet: {
+				DisplayName: 猎魔子弹
+				Tooltip:
+					'''
+					表面刻有繁复赫密斯语铭文的特制炼金子弹。
+					在这个污秽潜藏的世界里，唯有附带神圣力量的银光能净化一切。
+					击中目标时会爆发出金色的灵性光辉，对亡灵与黑暗生物具有毁灭性的打击。
+					'''
+			}
+
+			NighthawkPistol: {
+				DisplayName: 值夜人制式手枪
+				Tooltip:
+					'''
+					阿霍瓦郡警察厅特殊行动部的标准配枪，枪管修长，通体漆黑。
+					握把上隐约刻着象征黑夜女神的繁星圣徽，入手沉重而冰冷。
+					它牺牲了部分射速以换取巨大的破坏力，那是对非凡生物的仁慈一击。
+					“恐惧来自于未知，而这把枪能带给你确定的安全感。”
+					'''
+			}
+
+			MysteryMusicBox1: {
+				Tooltip: 《渡月桥思君--小提琴版》作者：龚明威
+				DisplayName: 诡秘八音盒1
+			}
+
+			AssassinPotion: {
+				Tooltip:
+					'''
+					序列9: 刺客
+					获得夜视与生物探测能力
+					变得体态轻盈，擅长在阴影中潜伏
+					'''
+				DisplayName: 序列9: 刺客魔药
+			}
+
+			InstigatorPotion: {
+				Tooltip:
+					'''
+					序列8: 教唆者
+					擅长诱导敌人自相残杀
+					大幅降低自身仇恨，躲在幕后操纵战局
+					'''
+				DisplayName: 序列8: 教唆者魔药
+			}
+
+			WitchPotion: {
+				Tooltip:
+					'''
+					序列7: 女巫
+					习得黑魔法与诅咒，能造成霜冻与暗影伤害
+					获得隐身能力，魅力大幅提升
+					'''
+				DisplayName: 序列7: 女巫魔药
+			}
+
+			PleasureDemonessPotion: {
+				DisplayName: 序列6:  欢愉魔女魔药
+				Tooltip:
+					'''
+					序列6: 欢愉魔女
+					掌握魅惑与欢愉之触，能使用镜面替身
+					'''
+			}
+
+			AfflictionDemonessPotion: {
+				Tooltip:
+					'''
+					序列5: 痛苦魔女
+					散播疾病与痛楚，能操纵发丝与蛛网
+					'''
+				DisplayName: 序列5: 痛苦魔女魔药
+			}
+
+			DespairDemonessPotion: {
+				DisplayName: 序列4: 绝望魔女魔药
+				Tooltip:
+					'''
+					序列4: 绝望魔女 (半神)
+					制造黑焰与致命瘟疫，给世界带来绝望
+					'''
+			}
+
+			UnagingDemonessPotion: {
+				Tooltip:
+					'''
+					序列3: 不老魔女 (圣者)
+					获得青春永驻与死而复生的能力
+					能石化万物
+					'''
+				DisplayName: 序列3: 不老魔女魔药
+			}
+
+			CatastropheDemonessPotion: {
+				Tooltip:
+					'''
+					序列2: 灾难魔女 (天使)
+					化身为天灾，掌控风雨雷电与极寒
+					'''
+				DisplayName: 序列2: 灾难魔女魔药
+			}
+
+			ApocalypseDemonessPotion: {
+				Tooltip:
+					'''
+					序列1: 末日魔女 
+					象征着真正的末日与终结
+					'''
+				DisplayName: 序列1: 末日魔女魔药
+			}
+
+			SpiritWorldKey: {
+				Tooltip:
+					'''
+					向未知的存在祈求，打开通往灵界的大门
+					需长按右键以举行仪式
+					“凡涉足灵界者，必先献祭不属于这个世界的魔力与血肉……”
+					'''
+				DisplayName: 灵界之匙
+			}
+
+			MirrorKey: {
+				DisplayName: 镜子密钥
+				Tooltip:
+					'''
+					开启通往镜中世界的通道
+					只有掌握了欢愉与痛苦的魔女才能凝结此物
+					'''
+			}
+
+			CreepingHunger: {
+				Tooltip:
+					'''
+					一只由人皮缝制而成的手套，掌心裂开一张渴望进食的嘴。
+					能够"放牧"死者的灵魂，并驱使它们使用生前的能力。
+					[c/E11919:负面效果：] 极其贪婪。若每日未以强者(Boss/强怪)的血肉喂食，
+					它将反噬持有者，吞食其血肉与灵魂。
+					<right>打开灵界轮盘以切换或放逐灵魂。
+					<left>使用当前灵魂的非凡能力。
+					"凡所有相，皆是虚妄；唯有饥饿，永恒真实。"
+					'''
+				DisplayName: 蠕动的饥饿（测试版）
+			}
+
+			LuckEnhancementRitual: {
+				DisplayName: 转运仪式
+				Tooltip:
+					'''
+					"福生玄黄仙尊..."
+					"福生玄黄天君..."
+					"福生玄黄上帝..."
+					"福生玄黄天尊..."
+					长按以迈出逆时针的四步，并在最后一步进入灰雾之上。
+					'''
+			}
+
+			Monocle: {
+				Tooltip:
+					'''
+					“错误”途径的标志性装束。
+					看起来这只是普通的装饰，但戴上它的人总想摸摸右眼。
+					'''
+				DisplayName: 单片眼镜
+			}
+
+			DaqianLuItem: {
+				DisplayName: 大千录
+				Tooltip:
+					'''
+					[c/880000:“这根本不是什么修仙秘籍，这是来自地狱的催命账本。”]
+
+					[c/FFD700:【法宝特性】]
+					此物不详。佩戴者将时刻遭受 [c/FF0000:血肉渴望] 的侵蚀。
+					按下 [c/00FFFF:大千录：祭] 键，剜肉剔骨，以痛换力。
+
+					[c/B0C4DE:命运轮盘：]
+					[c/FF0000:大凶] - 邪神索命，万劫不复
+					[c/FFA500:上签] - 借假修真，神通自来
+					[c/FFFFFF:羽化] - [c/FF00FF:妈！我分清了！我是真的成仙了！！]
+
+					“哪怕是假的，只要能杀人，那就是真的。”
+					'''
+			}
+
+			CopperCoinMask: {
+				Tooltip:
+					'''
+					[c/B8860B:“用带着陈旧污血的红绳串起铜钱，严密地遮住了那张分不清真假的脸。”]
+
+					[c/FFD700:【心素的伪装】]
+					此物通灵，随心而变。
+
+					[c/32CD32:■ 理智高昂 (>70%) - 伪装:] 
+					铜钱辟邪，心若冰清。
+					获得额外的 [c/32CD32:防御力] 与 [c/32CD32:生命回复]，维持“正常人”的假象。
+
+					[c/DC143C:■ 理智崩溃 (<30%) - 发癫:] 
+					伪装撕裂，癫狂显化！
+					防御力失效，但获得 [c/DC143C:15% 伤害加成] 与 [c/DC143C:10% 伤害减免]。
+					耳边将回荡起铜钱碰撞的疯狂低语...
+
+					[c/808080:“戴上它，你就是坐忘道。或者...你一直都是？”]
+					'''
+				DisplayName: 铜钱面罩
+			}
+
+			SacrificialCasket: {
+				DisplayName: 献祭之匣
+				Tooltip:
+					'''
+					[c/FF0000:“贪婪的虚空渴望着一切”]
+					1. [右键] 拿起物品在背包中右键此匣：以 120% 价值转化为灵性
+					2. [左键] 手持使用：消耗 20 生命值换取 50 灵性
+					'''
+			}
+
+			RitualKnife: {
+				DisplayName: 仪式铭刻刀
+				Tooltip:
+					'''
+					按住左键消耗灵性绘制线条
+					当线条首尾相交闭合时，触发大范围爆炸
+					爆炸伤害取决于闭合圆环的面积
+					[c/FFD700:“以笔代刀，绘制死亡”]
+					'''
+			}
+
+			RitualBrush: {
+				DisplayName: 仪式毛笔
+				Tooltip:
+					'''
+					按住左键消耗灵性绘制墨痕
+					墨迹会在空中长久停留
+					[c/888888:“泼墨挥毫，皆为杀机”]
+					'''
+			}
+
+			StarfallEtcher: {
+				Tooltip:
+					'''
+					按住左键消耗灵性绘制粉紫色的星光轨迹
+					松开鼠标时，群星将沿着你绘制的路径坠落
+					[c/E180CE:“星辰回应了你的笔触”]
+					'''
+				DisplayName: 坠星之刻
+			}
+
+			BloodEtcher: {
+				Tooltip:
+					'''
+					[c/FF0000:以生命为墨]
+					按住左键消耗生命值绘制血痕
+					造成的伤害较高
+					[c/880000:“血肉苦弱，唯有牺牲永恒”]
+					'''
+				DisplayName: 血之刻
+			}
+
+			MonsterPotion: {
+				DisplayName: 序列9：怪物魔药
+				Tooltip:
+					'''
+					服用后晋升为怪物。
+					灵感超高，能听见别人听不见的声音。
+					获得[危险感知]与[生物探测]能力。
+					偶尔能窥见未来的画面，提升少量运气与暴击。
+					'''
+			}
+
+			RobotPotion: {
+				DisplayName: 序列8：机器魔药
+				Tooltip:
+					'''
+					服用后晋升为机器。
+					获得恐怖的计算能力与精准的控制力。
+					成为格斗与射击领域的天赋者。
+					获得[占卜]与[反占卜]能力。
+					'''
+			}
+
+			LuckyPotion: {
+				Tooltip:
+					'''
+					服用后晋升为幸运儿。
+					你的运气开始变得高低起伏，难以捉摸。
+					[被动] 经常能在路上捡到钱。
+					[被动] 战斗时偶尔会触发“人体描边”般的幸运闪避。
+					[被动] 暴击率会随时间波动，有时极高，有时平庸。
+					'''
+				DisplayName: 序列7：幸运儿魔药
+			}
+
+			CalamityPriestPotion: {
+				DisplayName: 序列6：灾祸教士魔药
+				Tooltip:
+					'''
+					服用后晋升为灾祸教士。
+					你将成为灾祸的管理者。
+					[被动] 身边会不断发生只针对敌人的“不幸事故”。
+					[主动] 精神风暴：引发精神层面的灾难，重创并混淆敌人。
+					'''
+			}
+
+			BadLuckPotion: {
+				// DisplayName: Bad Luck Potion
+				// Tooltip: ""
+			}
+
+			WinnerPotion: {
+				DisplayName: 序列5：赢家魔药
+				Tooltip:
+					'''
+					服用后晋升为赢家。
+					[c/FF0000:仪式要求：必须处于【厄运缠身】状态下服用]
+					你掌控了自身的幸运，能够驾驭厄运。
+					[被动] 幸运值大幅提升，压制厄运药剂的副作用。
+					[被动] 子弹有几率自动追踪敌人，且不消耗弹药。
+					[被动] 攻击使敌人倒霉（炸膛、破防、弱点攻击）。
+					[被动] 能够以戏剧性的方式化解致命危机。
+					'''
+			}
+
+			MisfortuneDie: {
+				DisplayName: 【封印物】灰色四叶草
+				Tooltip:
+					'''
+					[c/FF0000:危险级封印物]
+					装备后，你将遭受难以想象的厄运。
+					- 幸运值降至极低 (-10)
+					- 频繁发生致命意外（雷劈、炸膛、平地摔）
+					- 属性大幅削弱
+					“它唯一的用途就是让持有者倒大霉。”
+					[c/FF0000:警告：佩戴它即满足赢家晋升仪式的要求]
+					'''
+			}
+
+			PolyhedronOfFate: {
+				DisplayName: 命运多面骰
+				Tooltip:
+					'''
+					[c/FF0064:序列1巨蛇专属圣物]
+					一颗会自行选择面数的骰子,被命运之蛇的鳞片裹起来过.
+					右键投掷: 消耗 800 灵性, 随机投出 [c/64A0FF:D4] / [c/78E682:D6] / [c/B46EFF:D8] / [c/FFD750:D10] / [c/FF8C3C:D12] / [c/FF3C50:D20] 之一.
+					每种骰子有完全不同的效果池 —— 元素灼烧 / 群体增益 / 命运撕裂 / 黄道十二宫 / 终焉裁决...
+					[c/FFD750:D20=20: 完美一击 - 全场敌人受最高判决,全队彻底恢复]
+					[c/FF6464:D20=1:  致命暴击 - 砍去3/4血量, 但暴怒10秒]
+					"你看着骰子离开了你的手, 却看到了它落地的所有可能性..."
+					'''
+			}
+
+			MisfortuneMagePotion: {
+				DisplayName: 序列4：厄运法师魔药
+				Tooltip:
+					'''
+					服用后晋升为厄运法师 (半神)。
+					[c/FF0000:仪式要求：佩戴【灰色四叶草】击败机械骷髅王]
+					你看到了命运的长河，成为厄运的主宰。
+					[被动] 极高的运气、暴击率与移动速度，半神级肉体。
+					[被动] 察觉危险、生灵与黑暗。
+					[主动] 厄运领域：范围内敌人陷入诅咒，且有几率被命运反噬而暴毙。
+					[主动] 命运赐福：透支自身命运，赐予自己与友军一分钟的强大增益。
+					'''
+			}
+
+			AnomalyPotion: {
+				DisplayName: 序列3：混沌行者魔药
+				Tooltip:
+					'''
+					服用后晋升为怪人 (圣者)。
+					[c/FF0000:仪式要求：在序列4状态下，3次于<10%血量时存活并恢复至60%+生命]
+					你成了命运齿轮中无法被预测的那一环。
+					[被动] 怪人之眼：暴击伤害 +30%
+					[被动] 不可定数：致命伤30%几率被命运抹除 (30秒冷却)
+					[被动] 概率反噬：身上每一个减益，运气提升 (最高+1.0)
+					[被动] 厄运链：厄运领域的暴毙将传染给邻近敌人
+					[主动] 命运骰子 (M键)：消耗 200 灵性投出骰子,1-6点对应六种命运效果。
+					'''
+			}
+
+			ProphetPotion: {
+				DisplayName: 序列2：先知魔药
+				Tooltip:
+					'''
+					服用后晋升为先知 (半神 - 完整的神话生物形态)。
+					[c/FF0000:仪式要求：在序列3状态下，让\"不可定数\"成功触发5次]
+					你成了命运的宠儿，掌握了\"好运\"\"厄运\"\"预知\"三大下位权柄。
+					[被动] 命运洞察：暴击伤害再+20% (共+50%)
+					[被动] 命运的宠儿：幸运 +2.0
+					[被动] 水银之躯：受到伤害后10秒内免疫一切伤害与减益 (60秒CD)
+					[被动] 预言术：杀敌时几率预言下一击，命中即秒杀 (Boss扣20%血)
+					[主动] 福祸之言-福 (默认K，30s CD)：消耗300灵性，4000范围友军获60秒10种增益，立刻满血+满灵性。
+					[主动] 福祸之言-祸 (默认L，30s CD)：消耗300灵性，4000范围敌人受当前血25%真伤(Boss10%)，60秒8种厄运。
+					[主动] 命运启示 (默认U，60s CD)：消耗500灵性，10秒内所有概率事件偏向最优解。
+					'''
+			}
+
+			SerpentPotion: {
+				DisplayName: 序列1：水银之蛇魔药
+				Tooltip:
+					'''
+					服用后晋升为水银之蛇。
+					[c/FF0000:仪式要求：在序列2状态下,触发命运启示5次,且击败月亮领主]
+					你成了命运的化身,掌握\"循环\"\"保存\"\"选择\"三大下位权柄。
+					[被动] 命运之蛇之躯：生命+2500/通用伤+50%/暴击+35/防御+80/免伤+20%/攻速+40%/移速+50%
+					[被动] 万物之蛇：暴击伤害再+30% (累积+80%)
+					[被动] 命运的化身：幸运 +5.0
+					[被动] 隐藏命运：免疫几乎所有 debuff
+					[被动] 水银相位：每10秒进入3秒完全无敌
+					[被动] 重启循环：死亡瞬间消耗5000灵性,自动回到10秒前(10分钟CD)
+					[主动] 命运循环 (默认Y)：1000灵性,800范围5秒后回滚敌人位置(Boss除外)
+					[主动] 主动重启 (默认H)：3000灵性,主动撤退至10秒前(满血+清debuff,3分钟CD)
+					'''
+			}
+
+			ApprenticePotion: {
+				// DisplayName: Apprentice Potion
+				// Tooltip: ""
+			}
+
+			TricksterPotion: {
+				// DisplayName: Trickster Potion
+				// Tooltip: ""
+			}
+
+			AstrologerPotion: {
+				// Tooltip: ""
+				// DisplayName: Astrologer Potion
+			}
+
+			RecorderPotion: {
+				// DisplayName: Recorder Potion
+				// Tooltip: ""
+			}
+
+			TravelerPotion: {
+				// DisplayName: Traveler Potion
+				// Tooltip: ""
+			}
+		}
+
+		# ==========================================
+		#              Projectiles
+		# ==========================================
+		Projectiles: {
+			AlchemicalGrenade.DisplayName: 炼金手雷
+			BatSwarmProjectile.DisplayName: 吸血蝙蝠
+			SummoningDoorProjectile.DisplayName: 召唤之门
+			CreationDomainProjectile.DisplayName: 创生领域
+			FullMoonCircle.DisplayName: 满月法阵
+			AbyssShackleProjectile.DisplayName: 深渊枷锁
+			PyromaniacBomb.DisplayName: 火焰炸弹
+			PyromaniacFireball.DisplayName: 火球
+			ReaperSlashProjectile.DisplayName: 收割斩击
+			WeatherStrikeLightning.DisplayName: 天气雷击
+			GuardianShieldProjectile.DisplayName: 守护之盾
+			# Fool Projectiles
+			AirBulletProjectile.DisplayName: 空气弹
+			MarionetteMinion.DisplayName: 秘偶
+			HistoricalBossProjectile.DisplayName: 历史投影
+			HistoricalSceneProjectile.DisplayName: 历史场景
+			PaperCardProjectile.DisplayName: 纸牌
+			# Giant/Boss Projectiles
+			DawnBladeProjectile.DisplayName: 黎明之刃
+			TwilightStormProjectile.DisplayName: 黄昏风暴
+			TwilightSwordBeam.DisplayName: 黄昏剑气
+			AurmirBossStorm.DisplayName: 毁灭风暴
+			AurmirSkyLance.DisplayName: 天空长矛
+			AurmirTwilightOrb.DisplayName: 黄昏法球
+			# Marauder Projectiles
+			TimeClockVisual.DisplayName: 时之钟
+			ConquerorSwordProjectile.DisplayName: 铁血斩击
+			LightStormController.DisplayName: 风暴核心
+			PyromaniacExplosionVisual.DisplayName: 火焰爆炸
+			PyromaniacFireballWhite.DisplayName: 炽白火球
+			DogHealingOrb.DisplayName: 治愈法球
+			DogTimeClock.DisplayName: 狗的时钟
+			// HolyLightBeam.DisplayName: Holy Light Beam
+			// SunFireTrap.DisplayName: Sun Fire Trap
+			// FlaringSun.DisplayName: Flaring Sun
+			// UnshadowedSpear.DisplayName: Unshadowed Spear
+			// JusticeJudgment.DisplayName: Justice Judgment
+			// SunMessengerVisual.DisplayName: Sun Messenger Visual
+			// PureWhiteLight.DisplayName: Pure White Light
+			// HandOfGodProjectile.DisplayName: Hand Of God Projectile
+			// HandOfGodCharge.DisplayName: Hand Of God Charge
+			// HandOfGodAirCannon.DisplayName: Hand Of God Air Cannon
+			// ExorcismBulletProjectile.DisplayName: Exorcism Bullet Projectile
+			// DemonessMirrorShard.DisplayName: Demoness Mirror Shard
+			// DemonessSpiderSilk.DisplayName: Demoness Spider Silk
+			// MirrorCloneProjectile.DisplayName: Mirror Clone Projectile
+			// DemonessHairProjectile.DisplayName: Demoness Hair Projectile
+			// DemonessSpiderSilkProjectile.DisplayName: Demoness Spider Silk Projectile
+			// DespairIceProjectile.DisplayName: Despair Ice Projectile
+			// CatastropheDomain.DisplayName: Catastrophe Domain
+			// CatastropheController.DisplayName: Catastrophe Controller
+			// RitualBrushProjectile.DisplayName: Ritual Brush Projectile
+			// RitualExplosion.DisplayName: Ritual Explosion
+			// RitualBrushPro_Ink.DisplayName: Ritual Brush Pro_ Ink
+			// RitualFallingStar.DisplayName: Ritual Falling Star
+			// RitualBrushPro_Star.DisplayName: Ritual Brush Pro_ Star
+			// RitualBrushPro_Blood.DisplayName: Ritual Brush Pro_ Blood
+			// PolyhedronDieVisual.DisplayName: Polyhedron Die Visual
+			// ZodiacConstellation.DisplayName: Zodiac Constellation
+			// CurseStar.DisplayName: Curse Star
+		}
+
+		# ==========================================
+		#              NPCs (Monsters/Bosses)
+		# ==========================================
+		NPCs: {
+			Aurmir.DisplayName: 黄昏巨人·奥尔米尔
+			TestBoss.DisplayName: 测试Boss
+
+			DogNPC: {
+				DisplayName: 卷毛狒狒
+
+				TownNPCMood: {
+					Princess_LovesNPC: 我喜欢 {NPCName}。
+					LikeNPC_Princess: 我喜欢 {NPCName}。
+					HateCrowded: 我讨厌这么拥挤。
+					DislikeCrowded: 我不喜欢这么拥挤。
+					LoveSpace: 我非常喜欢有这么大的空间。
+					FarFromHome: 我离家太远了。
+					NoHome: 我讨厌没有家。
+					Content: 我很满足。
+				}
+			}
+
+			DunnSmith: {
+				TownNPCMood: {
+					// Princess_LovesNPC: 我喜欢 {NPCName}。
+					// LikeNPC_Princess: 我喜欢 {NPCName}。
+					HateCrowded: 太吵了...就像是有无数个疯狂的声音在耳边低语，我必须尽快离开这里。
+					DislikeCrowded: 周围的人太多了，各种杂乱的思绪混杂在一起，让我的太阳穴隐隐作痛。
+					LoveSpace: 这种空旷的环境很好，有助于安抚焦躁的灵性，减少失控的风险。
+					FarFromHome: 我离廷根市太远了，希望伦纳德和弗莱能处理好那里的突发状况。
+					NoHome: 我需要一个有屋顶的地方来存放查查林格协会的封印物，露宿街头太危险了。
+					Content: 这里很安静，灵性的波动也很平稳，非常适合思考案情。
+				}
+
+				DisplayName: 邓恩·史密斯
+			}
+
+			OldNeil: {
+				TownNPCMood: {
+					Princess_LovesNPC: 我想听听老尼尔讲关于神灵的故事！
+					LikeNPC_Princess: 多么可爱的孩子，让我想起了...
+					HateCrowded: 人太多了！我都听不清女神的启示了！
+					DislikeCrowded: 太吵了...这让我很难集中精神调配魔药。
+					LoveSpace: 这里很宽敞，即使在这练习格斗也没问题。
+					FarFromHome: 这里离廷根市太远了，我没法去熟悉的咖啡馆了。
+					NoHome: 我需要一个住处，最好离邓恩远一点，免得他催我工作。
+					Content: 这种安宁的感觉真不错...只要不用写报销单。
+				}
+
+				DisplayName: 老尼尔
+			}
+		}
+
+		# ==========================================
+		#              Buffs
+		# ==========================================
+		Buffs: {
+			TamedBuff: {
+				DisplayName: 血仆契约
+				Description: 这个生物已经被你驯服，将为你而战！
+			}
+
+			ConquerorWill: {
+				DisplayName: 征服意志
+				Description: 被征服者的威压震慑，无法动弹。
+			}
+
+			YesterdayBuff: {
+				DisplayName: 昨日重现
+				Description: 你向过去的自己借取了力量，全属性大幅提升！
+			}
+
+			MarionetteTownNPCBuff: {
+				DisplayName: 秘偶化
+				Description: 这个人已经成为了你的提线木偶...
+			}
+
+			SpiritControlDebuff: {
+				DisplayName: 灵体受控
+				Description: 思维迟缓，身体僵硬。
+			}
+
+			AbyssShacklesDebuff: {
+				DisplayName: 深渊枷锁
+				Description: 被深渊的寒冷锁链束缚，无法移动。
+			}
+
+			FoolCurseBuff: {
+				Description:
+					'''
+					[c/FF0000:副作用生效中]
+					你的肉体如纸般脆弱。
+					物理防御归零 | 生命上限降低40% | 受到接触伤害翻倍
+					'''
+				DisplayName: 体质孱弱
+			}
+
+			GiantCurseBuff: {
+				DisplayName: 神性僵化
+				Description:
+					'''
+					[c/FF0000:副作用生效中]
+					为了容纳巨人的力量，你的肉体密度已超越钢铁。
+					飞行能力被封印/削弱 | 移动速度上限锁死 | 无法二段跳
+					'''
+			}
+
+			HunterCurseBuff: {
+				DisplayName: 战争渴望
+				Description:
+					'''
+					[c/FF0000:副作用生效中]
+					没有鲜血的滋润，伤口无法愈合。
+					无法自然回血 | 基础防御降低 | (入水时惩罚翻倍)
+					'''
+			}
+
+			MoonCurseBuff: {
+				DisplayName: 吸血鬼体质
+				Description:
+					'''
+					[c/FF0000:副作用生效中]
+					阳光在灼烧你的血液！
+					生命极速流失 | 无法自然回血 | 攻击力减半
+					'''
+			}
+
+			SanityDangerBuff: {
+				DisplayName: 灵性枯竭
+				Description:
+					'''
+					[c/FF0000:警告：灵性低于30%]
+					意识正在模糊，现实开始扭曲...
+					防御与伤害大幅降低 | 归零时将直接[失控]并重伤
+					'''
+			}
+
+			SunCurseBuff: {
+				DisplayName: 阳极必阴
+				Description:
+					'''
+					[c/FF0000:副作用生效中]
+					太阳已沉没，凡人的躯壳无法承载神性的重量。
+					防御力归零 | 伤害降低60% | 受到伤害增加50% | 移动减慢
+					'''
+			}
+
+			SunSuppressionDebuff: {
+				Description: 你的超凡序列被暂时削弱了...
+				DisplayName: 无暗压制
+			}
+
+			AfflictionCurseBuff: {
+				// Description: Mods.zhashi.Buffs.AfflictionCurseBuff.Description
+				// DisplayName: Affliction Curse Buff
+			}
+
+			TimeStagnationBuff: {
+				// Description: Mods.zhashi.Buffs.TimeStagnationBuff.Description
+				// DisplayName: Time Stagnation Buff
+			}
+
+			DemonessCurseBuff: {
+				Description:
+					'''
+					魔女的宿命：痛苦与欢愉交织
+					防御力降低20%，受到的伤害增加10%，生命回复减少
+					身处火焰中时攻击力大幅降低
+					'''
+				DisplayName: 原初的诅咒
+			}
+
+			ExtremeBadLuckBuff: {
+				DisplayName: 厄运缠身
+				Description: 喝凉水都塞牙，走平地都摔跤...
+			}
+
+			WheelCurseBuff: {
+				DisplayName: 星辰之灾
+				Description:
+					'''
+					[c/FF0000:命运副作用生效中]
+					你窥见了命运长河, 也成为长河的一部分。
+					夜晚的地表, 星辰按照你的命运坠落 —— 砸向你。
+					[c/FFD000:序列越高, 星辰坠落越密集, 单次伤害越大]
+					'''
+			}
+		}
+
+		# ==========================================
+		#              Conditions
+		# ==========================================
+		Conditions: {
+			NeedAnySlate: 需要任意 [亵渎石板]
+			IsSequence9: 需序列9及以上
+			ConquerorOnly: 仅限序列1: 征服者
+			IsSequence6: 需序列6: 黎明骑士
+			DogNotOwned: 未召唤
+			// IsLightSupplicant: Mods.zhashi.Conditions.IsLightSupplicant
+			// HasBlasphemySlate: 需消耗亵渎石板
+			// NoCard: 未持有对应亵渎之牌
+			// HasBottledWater: 需消耗水瓶
+		}
+
+		# ==========================================
+		#              Keybinds
+		# ==========================================
+		Keybinds: {
+			# --- Hunter ---
+			"红祭司: 形态切换 (火焰/巨人).DisplayName": 红祭司: 形态切换 (K)
+			"红祭司: 闪现.DisplayName": 红祭司: 闪现 (V)
+			"红祭司: 火焰炸弹.DisplayName": 红祭司: 火焰炸弹 (X)
+			"红祭司: 火焰披风.DisplayName": 红祭司: 火焰披风 (Z)
+			"红祭司: 收割/斩击.DisplayName": 红祭司: 斩击 (G)
+			"红祭司: 武器附魔.DisplayName": 红祭司: 附魔 (T)
+			"红祭司: 操纵火焰/挑衅.DisplayName": 红祭司: 操纵火焰 (F)
+			"红祭司: 集众.DisplayName": 红祭司: 集众 (J)
+			"红祭司: 雷击.DisplayName": 红祭司: 雷击 (Mouse2)
+			"红祭司: 冰河.DisplayName": 红祭司: 冰河 (R)
+			# --- Giant ---
+			"巨人: 水银化.DisplayName": 巨人: 水银化 (C)
+			"巨人: 守护姿态.DisplayName": 巨人: 守护姿态 (X)
+			"巨人: 黎明铠甲.DisplayName": 巨人: 黎明铠甲 (Z)
+			# --- Moon ---
+			"月亮: 黑暗之翼.DisplayName": 月亮: 黑暗之翼 (K)
+			"月亮: 深渊枷锁/闪现.DisplayName": 月亮: 深渊枷锁/闪现 (V)
+			"月亮: 深渊枷锁.DisplayName": 月亮: 深渊枷锁
+			"月亮: 炼金手雷.DisplayName": 月亮: 炼金手雷 (X)
+			"月亮: 生命灵液.DisplayName": 月亮: 生命灵液 (Z)
+			"月亮: 月光化.DisplayName": 月亮: 月光化 (C)
+			"月亮: 满月领域.DisplayName": 月亮: 满月/创生领域 (G)
+			"月亮: 蝙蝠化身.DisplayName": 月亮: 蝙蝠化身 (T)
+			"月亮: 月亮纸人.DisplayName": 月亮: 纸人/转化 (J)
+			"月亮: 黑暗凝视.DisplayName": 月亮: 凝视 (F)
+			"月亮: 召唤之门.DisplayName": 月亮: 召唤之门 (R)
+			# --- Fool ---
+			"愚者: 灵视开关.DisplayName": 愚者: 灵视 (C)
+			"愚者: 占卜术.DisplayName": 愚者: 占卜 (J)
+			"愚者: 火焰跳跃.DisplayName": 愚者: 火焰跳跃 (F)
+			"愚者: 无面伪装.DisplayName": 愚者: 无面伪装/灵肉转化 (V)
+			"愚者: 干扰直觉.DisplayName": 愚者: 干扰/嫁接 (G)
+			"愚者: 灵体之线.DisplayName": 愚者: 灵体之线 (Z)
+			"愚者: 秘偶互换.DisplayName": 愚者: 秘偶互换 (T)
+			"愚者: 控灵/麻痹.DisplayName": 愚者: 控灵 (R)
+			"愚者: 历史投影.DisplayName": 愚者: 历史投影 (Y)
+			"愚者: 昨日重现.DisplayName": 愚者: 昨日重现 (U)
+			"愚者: 奇迹愿望.DisplayName": 愚者: 奇迹愿望 (Shift+V)
+			"愚者: 嫁接.DisplayName": 愚者: 嫁接 (G)
+			"愚者: 灵肉转化.DisplayName": 愚者: 灵肉转化 (V)
+			# --- Marauder ---
+			"错误: 寄生/领域.DisplayName": 错误: 寄生/领域 (P)
+			"错误: 寄生.DisplayName": 错误: 寄生
+			"错误: 窃取/时间.DisplayName": 错误: 窃取/时间 (O)
+			"错误: 偷窃.DisplayName": 错误: 偷窃 (O)
+			"错误: 概念窃取 (位置/距离).DisplayName": 错误: 概念窃取 (K)
+			# --- Misc ---
+			"月亮: 纸人替身.DisplayName": 月亮: 纸人替身
+			"月亮: 满月/创生.DisplayName": 月亮: 满月/创生
+			"猎人: 形态切换.DisplayName": 猎人: 形态切换
+			"猎人: 火焰闪现.DisplayName": 猎人: 火焰闪现
+			"猎人: 炸弹.DisplayName": 猎人: 炸弹
+			"猎人: 火焰披风.DisplayName": 猎人: 火焰披风
+			"猎人: 收割斩击.DisplayName": 猎人: 收割斩击
+			"猎人: 武器附魔.DisplayName": 猎人: 武器附魔
+			"猎人: 蓄力火球.DisplayName": 猎人: 蓄力火球
+			"猎人: 集众.DisplayName": 猎人: 集众
+			"猎人: 天气操控.DisplayName": 猎人: 天气操控
+			"猎人: 冰河世纪.DisplayName": 猎人: 冰河世纪
+			"巨人: 晨曦之铠.DisplayName": 巨人: 晨曦之铠
+			"月亮: 驯兽.DisplayName": 月亮: 驯兽
+			太阳：歌颂/赞美.DisplayName: 太阳：歌颂/赞美
+			太阳：日照/光之术.DisplayName: 太阳：日照/光之术
+			太阳：召唤圣光.DisplayName: 太阳：召唤圣光
+			太阳：神圣誓约.DisplayName: 太阳：神圣誓约
+			太阳：光明之火.DisplayName: 太阳：光明之火
+			太阳：公证.DisplayName: 太阳：公证
+			"太阳: 太阳使者.DisplayName": 太阳: 太阳使者
+			// "错误: 窃取被动开关.DisplayName": 错误: 窃取被动开关
+			// "魔女: 魅惑.DisplayName": 魔女: 魅惑
+			// "魔女: 蛛丝.DisplayName": 魔女: 蛛丝
+			// "魔女: 镜子替身.DisplayName": 魔女: 镜子替身
+			// "魔女: 镜子分身.DisplayName": 魔女: 镜子分身
+			// "魔女: 头发攻击.DisplayName": 魔女: 头发攻击
+			// "魔女: 蛛丝控制.DisplayName": 魔女: 蛛丝控制
+			// "魔女: 黑焱冰晶.DisplayName": 魔女: 黑焱冰晶
+			// "魔女: 石化.DisplayName": 魔女: 石化
+			// "魔女: 时间石化.DisplayName": 魔女: 时间石化
+			// "魔女:天灾 .DisplayName": 魔女:天灾
+			// "魔女:毁灭 .DisplayName": 魔女:毁灭
+			// "愚者: 诡秘之境开关.DisplayName": 愚者: 诡秘之境开关
+			// 大千录：祭.DisplayName: 大千录：祭
+			// "愚者,命运: 占卜术.DisplayName": 愚者,命运: 占卜术
+			// 命运：精神风暴.DisplayName: 命运：精神风暴
+			// 命运：命运赐福.DisplayName: 命运：命运赐福
+			// 命运：灾祸光环/厄运领域.DisplayName: 命运：灾祸光环/厄运领域
+			// 命运：投掷命运骰子.DisplayName: 命运：投掷命运骰子
+			// 命运：福祸之言-福（给友军）.DisplayName: 命运：福祸之言-福（给友军）
+			// 命运：福祸之言-祸（给敌人）.DisplayName: 命运：福祸之言-祸（给敌人）
+			// 命运：命运启示.DisplayName: 命运：命运启示
+			// 命运：命运循环（巨蛇）.DisplayName: 命运：命运循环（巨蛇）
+			// 命运：重启循环（巨蛇）.DisplayName: 命运：重启循环（巨蛇）
+			// 学徒：开门（穿墙）.DisplayName: 学徒：开门（穿墙）
+			// 戏法大师：释放戏法.DisplayName: 戏法大师：释放戏法
+			// 戏法大师：切换戏法.DisplayName: 戏法大师：切换戏法
+			// 门：开门（穿墙）.DisplayName: 门：开门（穿墙）
+			// 门：切换戏法.DisplayName: 门：切换戏法
+			// 门：释放戏法.DisplayName: 门：释放戏法
+			// 占星人：占星术.DisplayName: 占星人：占星术
+			// 记录官：使用神性记录.DisplayName: 记录官：使用神性记录
+			// 记录官：使用普通记录.DisplayName: 记录官：使用普通记录
+			// 旅行家：旅行家之门(传送).DisplayName: 旅行家：旅行家之门(传送)
+			// 旅行家：闪现.DisplayName: 旅行家：闪现
+		}
+
+		# ==========================================
+		#              Configs
+		# ==========================================
+		Configs: {
+			LotMConfig: {
+				DisplayName: 诡秘之主模组配置
+
+				Headers: {
+					// 平衡性设置: Balance Settings
+					BaseSettings: 基础设置
+					ChallengeSettings: 挑战与限制 (默认关闭)
+					OtherSettings: 其他设置
+					// 超凡生物模式: 超凡生物模式 Header
+				}
+
+				DynamicProgression: {
+					Label: 启用动态世界等级
+					Tooltip:
+						'''
+						根据当前世界击败的Boss（包括灾厄/瑟银等）动态调整属性。
+						建议开启以获得最佳体验。
+						'''
+				}
+
+				NerfDivineAbilities: {
+					Label: 削弱神性技能 (平衡模式)
+					Tooltip:
+						'''
+						开启后，无敌/秒杀类技能将变为高额减伤/高额伤害。
+						(推荐追求平衡体验的玩家开启)
+						'''
+				}
+
+				GlobalPowerMultiplier: {
+					Label: 属性强度倍率
+					Tooltip:
+						'''
+						全局调整模组增加的生命值、伤害和防御。
+						1.0 为标准，0.5 为减半。
+						'''
+				}
+
+				EnableSanitySystem: {
+					Label: "[方案1] 启用理智值系统"
+					Tooltip:
+						'''
+						开启后，维持高阶技能或开启领域将持续消耗理智。
+						理智低于30%会导致属性削弱、画面扭曲甚至直接死亡。
+						'''
+				}
+
+				EnableWorldRestriction: {
+					Label: "[方案2] 启用世界位格压制"
+					Tooltip:
+						'''
+						开启后，你的非凡能力上限将受限于泰拉瑞亚的世界进度。
+						(例如：肉山前最多发挥序列6的实力)
+						'''
+				}
+
+				EnableDivineCurse: {
+					Label: "[方案3] 启用神性副作用"
+					Tooltip:
+						'''
+						开启后，每条途径都会获得致命弱点。
+						(例如：太阳途径在夜晚防御减半，月亮途径在白天室外掉血，巨人途径移速降低，猎人途径一段时间内不攻击生物降低回血速度，愚者与错误防御归零等)
+						'''
+				}
+
+				CalamityAdaptationMode: {
+					// Label: 灾厄适配模式
+					/* Tooltip:
+						'''
+						开启后：
+						1. 玩家造成的伤害降低 60%，防御降低 40%
+						2. 只有击败特定 Boss 后才能服用对应序列的魔药
+						''' */
+				}
+
+				EnableBeyonderCreatures: {
+					// Label: 生物超凡化
+					/* Tooltip:
+						'''
+						开启后:全游戏所有生成的生物有几率成为某途径某序列的超凡者
+						序列越低=几率越小=强度越高
+						序列9=10%, 序列8=5%, 序列7=1%, ..., 序列0=0.0001%
+						超凡生物拥有强化数值+自动技能+Boss血条+丰厚掉落
+						[序列0生物可以秒杀玩家,慎开]
+						''' */
+				}
+			}
+
+			ZhashiConfig: {
+				DisplayName: 界面 UI 配置
+				Headers.灵性条设置: 灵性条设置
+
+				BarScale: {
+					Label: 缩放比例
+					Tooltip: 调整灵性条的大小
+				}
+
+				BarPosition: {
+					Label: 位置坐标
+					Tooltip: 调整灵性条在屏幕上的位置
+				}
+			}
+		}
+
+		// Tiles.MysteryMusicBox1Tile.MapEntry: Mystery Music Box1 Tile
+
+		Biomes: {
+			OriginCastleBiome: {
+				// DisplayName: Origin Castle Biome
+				// TownNPCDialogueName: the Origin Castle Biome
+			}
+		}
+
+		DamageClasses.RitualDamage.DisplayName: 仪式伤害
+	}
+}
