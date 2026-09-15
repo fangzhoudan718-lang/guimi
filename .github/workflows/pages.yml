@@ -10,17 +10,16 @@ on:
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
+# 只需要推送分支的权限，不需要 Pages 管理权限
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: 检出仓库
@@ -36,26 +35,8 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements-docs.txt
 
-      - name: 配置 Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: 构建站点
-        run: mkdocs build
-
-      - name: 上传站点产物
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: 部署到 GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: 构建站点并推送到 gh-pages 分支
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdocs gh-deploy --force
