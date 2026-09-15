@@ -29,8 +29,8 @@ namespace zhashi.Content.Dimensions
                 {
                     // 屏幕轻微扭曲/晃动效果
                     // 随着时间产生正弦波晃动
-                    Main.screenPosition.X += (float)System.Math.Sin(Main.GameUpdateCount / 20f) * 2f;
-                    Main.screenPosition.Y += (float)System.Math.Cos(Main.GameUpdateCount / 15f) * 2f;
+                    Main.screenPosition.X += (float)System.Math.Sin(Main.GameUpdateCount / 34f) * 0.45f;
+                    Main.screenPosition.Y += (float)System.Math.Cos(Main.GameUpdateCount / 41f) * 0.35f;
 
                     // 偶尔让屏幕色彩反转一下（模拟灵界的信息过载，可选）
                     if (Main.rand.NextBool(600)) // 每10秒大概一次

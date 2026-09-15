@@ -1,9 +1,22 @@
 ﻿using Terraria.ModLoader;
 
+using Terraria.GameInput;
+using Microsoft.Xna.Framework.Input;
+
 namespace zhashi
 {
     public class LotMKeybinds : ModSystem
     {
+        public static string GetBindingText(ModKeybind keybind, string fallback = "未绑定")
+        {
+            if (keybind == null) return fallback;
+            var keyboard = keybind.GetAssignedKeys(InputMode.Keyboard);
+            var gamepad = keybind.GetAssignedKeys(InputMode.XBoxGamepad);
+            if (keyboard.Count > 0 && gamepad.Count > 0) return $"{string.Join("/", keyboard)} · {string.Join("/", gamepad)}";
+            if (keyboard.Count > 0) return string.Join("/", keyboard);
+            if (gamepad.Count > 0) return string.Join("/", gamepad);
+            return "未绑定";
+        }
         // ===================================================
         // 1. 变量声明 (在这里定义所有按键)
         // ===================================================
@@ -107,6 +120,29 @@ namespace zhashi
         // --- 学徒/门途径 序列5 旅行家 ---
         public static ModKeybind Door_TravelerGate { get; private set; }       // 旅行家之门(远距传送)
         public static ModKeybind Door_Blink { get; private set; }              // 闪现(短距)
+
+        // --- 门途径高序列（序列4-1）---
+        public static ModKeybind Door_SecretSpace { get; private set; }        // 秘法师：空间隐藏
+        public static ModKeybind Door_Banish { get; private set; }             // 秘法师：放逐
+        public static ModKeybind Door_SpatialPrison { get; private set; }      // 漫游者：空间牢笼/仪式封印
+        public static ModKeybind Door_SpaceTear { get; private set; }           // 漫游者：撕裂空间
+        public static ModKeybind Door_DimensionalSight { get; private set; }   // 旅法师：维度之视
+        public static ModKeybind Door_Reenact { get; private set; }            // 旅法师：再现
+        public static ModKeybind Door_TimeSpaceMaze { get; private set; }      // 星之匙：时空迷宫
+        public static ModKeybind Door_SpaceShatter { get; private set; }       // 星之匙：空间破碎
+
+        // --- 黑皇帝途径 (BlackEmperor) ---
+        public static ModKeybind BlackEmperor_Contract { get; private set; }   // 契约 / 律令
+        public static ModKeybind BlackEmperor_Bribe { get; private set; }      // 贿赂
+        public static ModKeybind BlackEmperor_Twist { get; private set; }      // 扭曲与定义
+        public static ModKeybind BlackEmperor_Entropy { get; private set; }    // 熵之公爵：兑现
+        public static ModKeybind BlackEmperor_Lawless { get; private set; }     // 野蛮人：无法之地
+        public static ModKeybind BlackEmperor_Unstoppable { get; private set; } // 野蛮人：硬闯
+        public static ModKeybind BlackEmperor_Chaos { get; private set; }       // 混乱导师：混乱场
+        public static ModKeybind BlackEmperor_Gift { get; private set; }        // 堕落伯爵：赠予
+        public static ModKeybind BlackEmperor_Amplify { get; private set; }     // 堕落伯爵：放大
+        public static ModKeybind BlackEmperor_Rage { get; private set; }        // 狂乱法师：狂乱
+        public static ModKeybind BlackEmperor_Title { get; private set; }       // 名义：切换称号 / Shift 释放称号能力
         // ===================================================
         // 2. 注册按键 (Load)
         // ===================================================
@@ -195,22 +231,47 @@ namespace zhashi
             Wheel_Restart = KeybindLoader.RegisterKeybind(Mod, "命运：重启循环（巨蛇）", "H");
 
             // Door (学徒/门)
-            Door_OpenDoor = KeybindLoader.RegisterKeybind(Mod, "学徒：开门（穿墙）", "E");
+            Door_OpenDoor = KeybindLoader.RegisterKeybind(Mod, "门：开门（穿墙）", "E");
 
             // Door 序列8 戏法大师 (默认键可与其他途径重复,玩家可在控件更改)
-            Door_TrickSwitch = KeybindLoader.RegisterKeybind(Mod, "戏法大师：切换戏法", "T");
-            Door_TrickCast = KeybindLoader.RegisterKeybind(Mod, "戏法大师：释放戏法", "R");
+            Door_TrickSwitch = KeybindLoader.RegisterKeybind(Mod, "门：切换戏法", "T");
+            Door_TrickCast = KeybindLoader.RegisterKeybind(Mod, "门：释放戏法", "R");
 
             // Door 序列7 占星人
-            Door_Astrology = KeybindLoader.RegisterKeybind(Mod, "占星人：占星术", "G");
+            Door_Astrology = KeybindLoader.RegisterKeybind(Mod, "门：占星术", "G");
 
             // Door 序列6 记录官
-            Door_RecordNormal = KeybindLoader.RegisterKeybind(Mod, "记录官：使用普通记录", "F");
-            Door_RecordDivine = KeybindLoader.RegisterKeybind(Mod, "记录官：使用神性记录", "C");
+            Door_RecordNormal = KeybindLoader.RegisterKeybind(Mod, "门：使用普通记录", "F");
+            Door_RecordDivine = KeybindLoader.RegisterKeybind(Mod, "门：使用神性记录", "C");
 
             // Door 序列5 旅行家
-            Door_TravelerGate = KeybindLoader.RegisterKeybind(Mod, "旅行家：旅行家之门(传送)", "J");
-            Door_Blink = KeybindLoader.RegisterKeybind(Mod, "旅行家：闪现", "K");
+            Door_TravelerGate = KeybindLoader.RegisterKeybind(Mod, "门：旅行家之门（传送）", "J");
+            Door_Blink = KeybindLoader.RegisterKeybind(Mod, "门：闪现", "K");
+            Door_SecretSpace = KeybindLoader.RegisterKeybind(Mod, "门：空间隐藏", "Z");
+            Door_Banish = KeybindLoader.RegisterKeybind(Mod, "门：放逐", "X");
+            Door_SpatialPrison = KeybindLoader.RegisterKeybind(Mod, "门：空间牢笼", "Q");
+            Door_SpaceTear = KeybindLoader.RegisterKeybind(Mod, "门：撕裂空间", "V");
+            Door_DimensionalSight = KeybindLoader.RegisterKeybind(Mod, "门：维度之视", "B");
+            Door_Reenact = KeybindLoader.RegisterKeybind(Mod, "门：再现", "N");
+            Door_TimeSpaceMaze = KeybindLoader.RegisterKeybind(Mod, "门：时空迷宫", "M");
+            Door_SpaceShatter = KeybindLoader.RegisterKeybind(Mod, "门：空间破碎", "H");
+
+            // ===================================================
+            // 黑皇帝途径（律师 → 弑序亲王）
+            // 字母键已被现有途径占满，默认取标点区，零冲突；玩家可在「控件」里自行改键。
+            // 用 Keys 枚举重载注册，避免字符串默认值的解析歧义。
+            // ===================================================
+            BlackEmperor_Contract = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：契约", Keys.OemComma);
+            BlackEmperor_Bribe = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：贿赂", Keys.OemPeriod);
+            BlackEmperor_Twist = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：扭曲与定义", Keys.OemQuestion);
+            BlackEmperor_Entropy = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：兑现", Keys.OemSemicolon);
+            BlackEmperor_Lawless = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：无法之地", Keys.OemOpenBrackets);
+            BlackEmperor_Unstoppable = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：硬闯", Keys.OemCloseBrackets);
+            BlackEmperor_Chaos = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：混乱场", Keys.OemPipe);
+            BlackEmperor_Gift = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：赠予", Keys.OemQuotes);
+            BlackEmperor_Amplify = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：放大", Keys.OemPlus);
+            BlackEmperor_Rage = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：狂乱", Keys.OemMinus);
+            BlackEmperor_Title = KeybindLoader.RegisterKeybind(Mod, "黑皇帝：名义", Keys.OemTilde);
         }
 
         // ===================================================
@@ -308,6 +369,27 @@ namespace zhashi
             Door_RecordDivine = null;
             Door_TravelerGate = null;
             Door_Blink = null;
+            Door_SecretSpace = null;
+            Door_Banish = null;
+            Door_SpatialPrison = null;
+            Door_SpaceTear = null;
+            Door_DimensionalSight = null;
+            Door_Reenact = null;
+            Door_TimeSpaceMaze = null;
+            Door_SpaceShatter = null;
+
+            // BlackEmperor
+            BlackEmperor_Contract = null;
+            BlackEmperor_Bribe = null;
+            BlackEmperor_Twist = null;
+            BlackEmperor_Entropy = null;
+            BlackEmperor_Lawless = null;
+            BlackEmperor_Unstoppable = null;
+            BlackEmperor_Chaos = null;
+            BlackEmperor_Gift = null;
+            BlackEmperor_Amplify = null;
+            BlackEmperor_Rage = null;
+            BlackEmperor_Title = null;
         }
     }
 }

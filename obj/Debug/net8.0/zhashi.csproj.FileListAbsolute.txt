@@ -1,0 +1,5 @@
+C:\Users\王方舟\Documents\My Games\Terraria\tModLoader\ModSources\zhashi\obj\Debug\net8.0\zhashi.csproj.AssemblyReference.cache
+C:\Users\王方舟\Documents\My Games\Terraria\tModLoader\ModSources\zhashi\obj\Debug\net8.0\zhashi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\王方舟\Documents\My Games\Terraria\tModLoader\ModSources\zhashi\obj\Debug\net8.0\zhashi.AssemblyInfoInputs.cache
+C:\Users\王方舟\Documents\My Games\Terraria\tModLoader\ModSources\zhashi\obj\Debug\net8.0\zhashi.AssemblyInfo.cs
+C:\Users\王方舟\Documents\My Games\Terraria\tModLoader\ModSources\zhashi\obj\Debug\net8.0\zhashi.csproj.CoreCompileInputs.cache

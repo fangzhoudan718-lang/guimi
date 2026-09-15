@@ -4,6 +4,63 @@ Mods: {
 		#              Custom Messages
 		# ==========================================
 		Messages: {
+			SpiritCurrents: {
+				Haste: 灵流·疾行：远方正在拉近。
+				Insight: 灵流·洞察：隐藏的信息浮至表层。
+				Weightless: 灵流·失重：现实的牵引变得微弱。
+				Rest: 灵流·休憩：温和的灵性环绕着你。
+				Discovery: 你辨认出一片新的灵界区域（已发现：{0}）。
+			}
+
+			SealedArtifact: {
+				Restless: 灰色四叶草开始变得躁动。它带来的厄运正在由偶然变成必然。
+				Dangerous: 灰色四叶草的封印正在松动。取下它，或使用学徒途径非凡特性进行压制。
+				Suppressed: 非凡特性融入封印，灰色四叶草暂时安静下来。
+				Outbreak: 灰色四叶草短暂苏醒。某种东西循着你的厄运来到了现实。
+				TooltipActivity: "[活性 {0}/100] 装备越久，意外越严重；满值时会引发一次厄运爆发。"
+				TooltipContainment: "[收容] 取下后活性缓慢消退；学徒途径非凡特性可降低45点活性。"
+			}
+
+			SpiritTools: {
+				CompassHint: 灵界罗盘指向 {0}，最近的未知区域约有 {1} 个分区之遥。
+				CompassComplete: 罗盘缓缓停下。附近已经没有它能辨认的未知区域。
+			}
+
+			DoorCurioSpiritualityCost: 消耗 {0} 点灵性
+			DoorCurioNotEnoughSpirituality: 灵性不足，需要 {0} 点
+
+			Flavor: {
+				GuardianStandFirm: 你没有后退。
+				GuardianRescue: "{0}挡在了死亡之前。"
+				BloodMoonOmen: 水中的月亮正在渗出血色。
+				EclipseOmen: 太阳的边缘缺了一块，阴影里挤满了目光。
+				InvasionOmen: 许多杂乱的脚步正朝同一个方向汇聚。
+				SlimeRainOmen: 天空柔软得不太正常。
+				BossOmen: 一团庞大的阴影压住了命运的烛火。
+				GraveyardOmen: 地下有人在敲门，但最好不要回应。
+				RainOmen: 雨声里夹着一句尚未说完的警告。
+				DuskOmen: 最后一缕日光后面，似乎还跟着别的东西。
+				DawnOmen: 灰白色的命运正在东方翻页。
+				DiceRepeat: 骰子连续{1}次掷出了{0}。命运似乎在强调什么。
+				DiceTripleOne: 连续三个一点。至少下一次不会更差——大概。
+				DiceTripleSix: 连续三个六点。这枚骰子开始显得有些可疑。
+				DoorClosedBehind: 你身后的那扇门，自己合拢了。
+				MonocleOtherSide: 你记得镜片原本应该在另一边。
+			}
+
+			PathwayTownChat: {
+				GuideFool: 你今天看起来……和昨天不太一样。算了，这里每天都有更奇怪的事。
+				NurseMoon: 我不知道该给你输血，还是从你这里抽一点拿去研究。
+				ArmsDealerHunter: 你让我的生意和保险费用一起上涨了。
+				GoblinError: 我刚才明明把扳手放在这里……你为什么在笑？
+				WizardDoor: 门可以通往远方，也可以通往不该去的地方。后半句通常更重要。
+				TaxCollectorEmperor: 陛下，我们能不能私下谈谈今年的税率？
+				DryadSun: 你的光很温暖，但森林不喜欢被照得无处藏身。
+				ClothierDemoness: 镜子偶尔会撒谎。相信我，我在这方面吃过亏。
+				TavernkeepGiant: 能站在同伴前面的人，喝酒通常不用自己付钱。
+				PartyGirlWheel: 我抛硬币决定今晚办不办派对。它已经连续十次正面了！
+			}
+
 			// SpiritualityExhausted: Spirituality exhausted!
 			// RitualComplete: Ritual Complete: {0}
 			// ParasiteSuccess: Parasitized {0} (Regen Mode)
@@ -104,7 +161,7 @@ Mods: {
 
 			RitualInstaComplete: {
 				DisplayName: 仪式瞬间完成 (测试)
-				Tooltip: 立即完成当前正在进行的魔药仪式。
+				Tooltip: 立即完成所有途径（包含门途径）的魔药仪式，并恢复全部技能冷却。
 			}
 
 			SpiritualityRefill: {
@@ -930,9 +987,9 @@ Mods: {
 					它是罗塞尔·古斯塔夫制作的二十二张神之牌之一，记载了门途径通往神座的秘密。
 
 					[c/BA55D3:=== 神性权柄 ===]
-					[c/BA55D3:✦ 星之匙：] 移动速度大幅提升，挖掘与破坏障碍的速度加快
-					[c/BA55D3:✦ 漫游者：] (未实装) 你的法术伤害获得提升
-					[c/BA55D3:✦ 空间主宰：] (未实装) 尚未记录高序列能力...
+					[c/BA55D3:✦ 星之匙：] 移动、挖掘与施法速度提升，免疫常规空间控制
+					[c/BA55D3:✦ 漫游者：] 门途径序列4及以上额外获得5%减伤与10%施法速度
+					[c/BA55D3:✦ 空间主宰：] 门途径序列4至1的空间权柄技能灵性消耗降低20%
 
 					[c/8B0000:=== 代价与诅咒 ===]
 					当你凝视星空时，星空也在注视着你。
@@ -1004,8 +1061,10 @@ Mods: {
 
 					[c/BA55D3:=== 神性权柄 ===]
 					[c/BA55D3:✦ 扭曲规则：] 护甲穿透+30，无视敌人的防御逻辑
-					[c/BA55D3:✦ 阴影庇护：] 获得10%几率闪避伤害，防御力+20
-					[c/BA55D3:✦ 秩序威压：] (未实装) 尚未记录高序列能力...
+					[c/BA55D3:✦ 阴影庇护：] 全伤害+15%，获得10%几率闪避伤害，防御力+20
+					[c/BA55D3:✦ 秩序威压：] 受到伤害降低10%；对360像素内敌人造成的最终伤害提高12%
+					[c/BA55D3:✦ 权柄记录：] 黑皇帝途径技能的灵性消耗降低20%
+					[c/FFB060:仅黑皇帝途径超凡者能调用以上权柄；其他途径佩戴不会获得任何专属增益。]
 
 					[c/8B0000:=== 代价与诅咒 ===]
 					秩序的重量令人窒息，你必须时刻对抗失控的疯狂。
@@ -1509,6 +1568,7 @@ Mods: {
 					'''
 					“错误”途径的标志性装束。
 					看起来这只是普通的装饰，但戴上它的人总想摸摸右眼。
+					你记得镜片一直都在这一边。
 					'''
 				DisplayName: 单片眼镜
 			}
@@ -1763,28 +1823,239 @@ Mods: {
 			}
 
 			ApprenticePotion: {
-				// DisplayName: Apprentice Potion
-				// Tooltip: ""
+				DisplayName: 序列9：学徒魔药
+				Tooltip: 空间的门扉第一次向你敞开；必须由尚未踏入非凡之路的凡人饮用
+			}
+
+			LawyerPotion: {
+				DisplayName: 序列9：律师魔药
+				Tooltip: 黏糊糊的黑液，连周围空气都染上颜色；必须由尚未踏入非凡之路的凡人饮用。通往黑皇帝途径。
+			}
+
+			SavagePotion: {
+				DisplayName: 序列8：野蛮人魔药
+				Tooltip: 浮沉着微缩器官的半透明黑液；只有序列9律师可以饮用
+			}
+
+			BriberPotion: {
+				DisplayName: 序列7：贿赂者魔药
+				Tooltip: 不断冒着气泡、看起来非常好喝的清爽黑液；只有序列8野蛮人可以饮用
+			}
+
+			CorruptBaronPotion: {
+				DisplayName: 序列6：腐化男爵魔药
+				Tooltip: 甜美香气诱人、却隐隐透着腐朽味的半透明浅黑液体；只有序列7贿赂者可以饮用
+			}
+
+			ChaosMentorPotion: {
+				DisplayName: 序列5：混乱导师魔药
+				Tooltip: 自生漩涡与波浪、时而扩散时而收缩的漆黑液体；只有序列6腐化男爵可以饮用
+			}
+
+			FallenEarlPotion: {
+				DisplayName: 序列4：堕落伯爵魔药
+				Tooltip: 黑色液体核心处凝出半实质的眼珠，眼珠不断往外渗透着腐烂脓水；只有完成仪式的序列5混乱导师可以饮用
+			}
+
+			RageMagePotion: {
+				DisplayName: 序列3：狂乱法师魔药
+				Tooltip: 被漆黑黏液分隔成不相等三份的赤红岩浆；只有活过三场仪式战斗的序列4堕落伯爵可以饮用
+			}
+
+			EntropyDukePotion: {
+				DisplayName: 序列2：熵之公爵魔药
+				Tooltip: 内部有诸多黑色文字与符号交织成冠冕的透明液体；只有完成仪式的序列3狂乱法师可以饮用
+			}
+
+			UsurperPrincePotion: {
+				DisplayName: 序列1：弑序亲王魔药
+				Tooltip: 倒映出黄铜色扭曲人影的半透明黑液；只有完成仪式的序列2熵之公爵可以饮用
+			}
+
+			SpiritEssence: {
+				DisplayName: 学徒途径非凡特性
+				Tooltip:
+					'''
+					门途径超凡者陨落后析出的非凡特性；序列越高，析出的数量越多
+					持有活跃的封印物时使用，可降低45点活性
+					'''
+			}
+
+			SpiritCompass: {
+				DisplayName: 灵界罗盘
+				Tooltip: 在灵界使用时，指向最近尚未探索的区域\n它不指向北方，只指向你尚未知晓的地方
+			}
+
+			WallpassingKey: {
+				DisplayName: 穿墙钥匙
+				Tooltip:
+					'''
+					朝鼠标方向穿过一道至多160像素厚的墙
+					无法在熔岩或没有安全落点的位置开门
+					'''
+				NoPassageText: 门后没有安全的落脚处
+			}
+
+			SpatialPocket: {
+				DisplayName: 空间口袋
+				Tooltip:
+					'''
+					随身开启与存钱罐相连的私人储物空间
+					里面的物品仍属于原本的存钱罐空间
+					'''
+			}
+
+			TricksterWand: {
+				DisplayName: 戏法手杖
+				Tooltip:
+					'''
+					随机射出六种宝石戏法弹
+					每发弹道都会产生轻微偏折
+					'''
+			}
+
+			AstrologerCompass: {
+				DisplayName: 占星罗盘
+				Tooltip:
+					'''
+					显示宝藏、危险与附近生物
+					暴击率提高4%，幸运提高0.05
+					'''
+			}
+
+			RecordingQuill: {
+				DisplayName: 记录羽笔
+				Tooltip:
+					'''
+					记录第一次命中的伤害
+					短暂延迟后再现其中三分之一
+					'''
+			}
+
+			TravelerBoots: {
+				DisplayName: 旅行家短靴
+				Tooltip:
+					'''
+					移动速度提高14%，奔跑速度与跳跃能力提高
+					免疫摔落伤害
+					'''
+			}
+
+			BlinkDagger: {
+				DisplayName: 闪现短刃
+				Tooltip:
+					'''
+					命中敌人后优先闪现至目标另一侧的安全位置
+					狭窄地形会自动寻找邻近落点；闪现后获得短暂无敌时间
+					'''
+			}
+
+			BanishmentBell: {
+				DisplayName: 放逐铃
+				Tooltip:
+					'''
+					将300像素内的敌人推向现实边缘并施加缓慢
+					普通敌人还会短暂陷入混乱；Boss只受较弱推力
+					'''
+			}
+
+			MirrorDoorShard: {
+				DisplayName: 镜门残片
+				Tooltip:
+					'''
+					受到的伤害降低6%，延长受伤后的无敌时间
+					敌人更难将注意力停留在你身上
+					'''
+			}
+
+			StarThreadSpool: {
+				DisplayName: 星线轴
+				Tooltip:
+					'''
+					魔法伤害与攻击速度提高8%
+					魔法暴击率提高4%
+					'''
+			}
+
+			DoorwayChalk: {
+				DisplayName: 门扉粉笔
+				Tooltip:
+					'''
+					第一次使用记录脚下的位置，再次使用返回并擦除标记
+					标记不会跨世界或跨存档保留
+					'''
+				MarkedText: 已画下归返之门
+				ReturnedText: 归返之门已经合拢
+				BlockedText: 标记处已被实体方块占据
+			}
+
+			PocketDoorLantern: {
+				DisplayName: 袖珍门灯
+				Tooltip:
+					'''
+					提供柔和的空间微光与危险感知
+					略微降低敌人的仇恨
+					'''
+			}
+
+			LesserSpiritualityPotion: {
+				DisplayName: 弱效灵性恢复药水
+				Tooltip: 恢复少量灵性；墓碑或学徒途径非凡特性都能配出它
+			}
+
+			SpiritualityPotion: {
+				DisplayName: 灵性恢复药水
+				Tooltip: 恢复一部分灵性；墓碑或学徒途径非凡特性都能配出它
+			}
+
+			GreaterSpiritualityPotion: {
+				DisplayName: 强效灵性恢复药水
+				Tooltip: 恢复大半灵性；墓碑或学徒途径非凡特性都能配出它
+			}
+
+			SuperSpiritualityPotion: {
+				DisplayName: 超级灵性恢复药水
+				Tooltip: 近乎灌满灵性；墓碑或学徒途径非凡特性都能配出它
 			}
 
 			TricksterPotion: {
-				// DisplayName: Trickster Potion
-				// Tooltip: ""
+				DisplayName: 序列8：戏法大师魔药
+				Tooltip: 十二种微小戏法组合出无穷可能；仅序列9学徒可以饮用
 			}
 
 			AstrologerPotion: {
-				// Tooltip: ""
-				// DisplayName: Astrologer Potion
+				Tooltip: 群星带来启示，也预告危险；仅序列8戏法大师可以饮用
+				DisplayName: 序列7：占星人魔药
 			}
 
 			RecorderPotion: {
-				// DisplayName: Recorder Potion
-				// Tooltip: ""
+				DisplayName: 序列6：记录官魔药
+				Tooltip: 我来到，我看见，我记录；仅序列7占星人可以饮用
 			}
 
 			TravelerPotion: {
-				// DisplayName: Traveler Potion
-				// Tooltip: ""
+				DisplayName: 序列5：旅行家魔药
+				Tooltip: 距离不再是无法跨越的阻碍；仅序列6记录官可以饮用
+			}
+
+			KeyOfStarsPotion: {
+				DisplayName: 序列1：星之匙魔药
+				Tooltip: 深沉无光的液体吸引着遥远星辉；仅完成仪式的序列2旅法师可以饮用
+			}
+
+			PlaneswalkerPotion: {
+				DisplayName: 序列2：旅法师魔药
+				Tooltip: 无色液体中浮现着无数重叠的虚幻之门；仅完成仪式的序列3漫游者可以饮用
+			}
+
+			SecretsSorcererPotion: {
+				DisplayName: 序列4：秘法师魔药
+				Tooltip: 守秘、空间隐藏、幻化与放逐彼此交叠；仅完成仪式的序列5旅行家可以饮用
+			}
+
+			WandererPotion: {
+				DisplayName: 序列3：漫游者魔药
+				Tooltip: 灵界与星界都不再能阻挡你的脚步；仅完成仪式的序列4秘法师可以饮用
 			}
 		}
 
@@ -1792,6 +2063,8 @@ Mods: {
 		#              Projectiles
 		# ==========================================
 		Projectiles: {
+			RecordingQuillProjectile.DisplayName: 记录羽笔
+			RecordedEchoProjectile.DisplayName: 记录回声
 			AlchemicalGrenade.DisplayName: 炼金手雷
 			BatSwarmProjectile.DisplayName: 吸血蝙蝠
 			SummoningDoorProjectile.DisplayName: 召唤之门
@@ -1852,6 +2125,17 @@ Mods: {
 			// PolyhedronDieVisual.DisplayName: Polyhedron Die Visual
 			// ZodiacConstellation.DisplayName: Zodiac Constellation
 			// CurseStar.DisplayName: Curse Star
+			SpaceShatterProjectile.DisplayName: 空间破碎
+			SpaceShatterDebrisProjectile.DisplayName: 空间碎片
+			SpatialRiftProjectile.DisplayName: 空间裂隙
+			DoorAuthorityVisual.DisplayName: 虚幻之门
+			DoorRefugeVisual.DisplayName: 隐秘空间
+			DoorDomainProjectile.DisplayName: 空间权柄领域
+			DoorRecordedEcho.DisplayName: 记录投影
+			DoorEchoBolt.DisplayName: 再现星辉
+			// ChaosDomainProjectile.DisplayName: Chaos Domain Projectile
+			// BanishmentPulseProjectile.DisplayName: Banishment Pulse Projectile
+			// StandInProjectile.DisplayName: Stand In Projectile
 		}
 
 		# ==========================================
@@ -2041,6 +2325,41 @@ Mods: {
 					[c/FFD000:序列越高, 星辰坠落越密集, 单次伤害越大]
 					'''
 			}
+
+			BanishedBuff: {
+				DisplayName: 放逐
+				Description: 身处时空乱流，暂时与现实隔绝
+			}
+
+			MiniaturizedBuff: {
+				DisplayName: 玩具化
+				Description: 维度被收束，力量、速度和尺度一并缩小
+			}
+
+			SpatialPrisonBuff: {
+				DisplayName: 空间牢笼
+				Description: 隐藏空间已经闭合，行动受到封印
+			}
+
+			TimeSpaceMazeBuff: {
+				DisplayName: 时空迷宫
+				Description: 时间错位，空间循环，定位正在失效
+			}
+
+			CorruptedDebuff: {
+				DisplayName: 阴暗
+				Description: 心灵被一点点腐蚀，出手迟疑，身体也跟着松垮
+			}
+
+			BlackEmperorCurseBuff: {
+				DisplayName: 秩序的代价
+				Description: 身上没有立着律令，这具身体就没有东西撑着
+			}
+
+			DoorCurseBuff: {
+				DisplayName: 空间的排斥
+				Description: 太久没有穿过空间了，门后的世界正在把你按住——用一次瞬移就能慢慢退回去
+			}
 		}
 
 		# ==========================================
@@ -2062,6 +2381,18 @@ Mods: {
 		#              Keybinds
 		# ==========================================
 		Keybinds: {
+			# --- BlackEmperor ---
+			黑皇帝：契约.DisplayName: 黑皇帝: 契约
+			黑皇帝：贿赂.DisplayName: 黑皇帝: 贿赂
+			黑皇帝：扭曲与定义.DisplayName: 黑皇帝: 扭曲与定义
+			黑皇帝：兑现.DisplayName: 黑皇帝: 兑现
+			黑皇帝：无法之地.DisplayName: 黑皇帝: 无法之地
+			黑皇帝：硬闯.DisplayName: 黑皇帝: 硬闯
+			黑皇帝：混乱场.DisplayName: 黑皇帝: 混乱场
+			黑皇帝：赠予.DisplayName: 黑皇帝: 赠予
+			黑皇帝：放大.DisplayName: 黑皇帝: 放大
+			黑皇帝：狂乱.DisplayName: 黑皇帝: 狂乱
+			黑皇帝：名义.DisplayName: 黑皇帝: 名义
 			# --- Hunter ---
 			"红祭司: 形态切换 (火焰/巨人).DisplayName": 红祭司: 形态切换 (K)
 			"红祭司: 闪现.DisplayName": 红祭司: 闪现 (V)
@@ -2166,6 +2497,27 @@ Mods: {
 			// 记录官：使用普通记录.DisplayName: 记录官：使用普通记录
 			// 旅行家：旅行家之门(传送).DisplayName: 旅行家：旅行家之门(传送)
 			// 旅行家：闪现.DisplayName: 旅行家：闪现
+			// 秘法师：空间隐藏.DisplayName: 秘法师：空间隐藏
+			// 秘法师：放逐.DisplayName: 秘法师：放逐
+			// 门途径：空间牢笼.DisplayName: 门途径：空间牢笼
+			// 漫游者：撕裂空间.DisplayName: 漫游者：撕裂空间
+			// 旅法师：维度之视.DisplayName: 旅法师：维度之视
+			// 旅法师：再现.DisplayName: 旅法师：再现
+			// 星之匙：时空迷宫.DisplayName: 星之匙：时空迷宫
+			// 星之匙：空间破碎.DisplayName: 星之匙：空间破碎
+			// 门：占星术.DisplayName: 门：占星术
+			// 门：使用普通记录.DisplayName: 门：使用普通记录
+			// 门：使用神性记录.DisplayName: 门：使用神性记录
+			// 门：旅行家之门（传送）.DisplayName: 门：旅行家之门（传送）
+			// 门：闪现.DisplayName: 门：闪现
+			// 门：空间隐藏.DisplayName: 门：空间隐藏
+			// 门：放逐.DisplayName: 门：放逐
+			// 门：空间牢笼.DisplayName: 门：空间牢笼
+			// 门：撕裂空间.DisplayName: 门：撕裂空间
+			// 门：维度之视.DisplayName: 门：维度之视
+			// 门：再现.DisplayName: 门：再现
+			// 门：时空迷宫.DisplayName: 门：时空迷宫
+			// 门：空间破碎.DisplayName: 门：空间破碎
 		}
 
 		# ==========================================
@@ -2180,7 +2532,6 @@ Mods: {
 					BaseSettings: 基础设置
 					ChallengeSettings: 挑战与限制 (默认关闭)
 					OtherSettings: 其他设置
-					// 超凡生物模式: 超凡生物模式 Header
 				}
 
 				DynamicProgression: {
@@ -2233,7 +2584,8 @@ Mods: {
 					Tooltip:
 						'''
 						开启后，每条途径都会获得致命弱点。
-						(例如：太阳途径在夜晚防御减半，月亮途径在白天室外掉血，巨人途径移速降低，猎人途径一段时间内不攻击生物降低回血速度，愚者与错误防御归零等)
+						(例如：太阳途径在夜晚防御减半，月亮途径在白天室外掉血，巨人途径移速降低，猎人途径一段时间内不攻击生物降低回血速度，愚者与错误防御归零，
+						门途径一段时间不用瞬移就会被空间按住、移速最多慢 80%，黑皇帝途径身上没有律令时防御减半、受到的伤害多一半等)
 						'''
 				}
 
@@ -2244,18 +2596,6 @@ Mods: {
 						开启后：
 						1. 玩家造成的伤害降低 60%，防御降低 40%
 						2. 只有击败特定 Boss 后才能服用对应序列的魔药
-						''' */
-				}
-
-				EnableBeyonderCreatures: {
-					// Label: 生物超凡化
-					/* Tooltip:
-						'''
-						开启后:全游戏所有生成的生物有几率成为某途径某序列的超凡者
-						序列越低=几率越小=强度越高
-						序列9=10%, 序列8=5%, 序列7=1%, ..., 序列0=0.0001%
-						超凡生物拥有强化数值+自动技能+Boss血条+丰厚掉落
-						[序列0生物可以秒杀玩家,慎开]
 						''' */
 				}
 			}

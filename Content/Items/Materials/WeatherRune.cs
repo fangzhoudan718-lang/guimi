@@ -60,16 +60,25 @@ namespace zhashi.Content.Items.Materials
                 }
                 // ----------------
 
-                // 原有的天气切换功能
-                if (Main.raining)
+                // 联机天气必须由服务器修改，否则只会在使用者画面中短暂改变。
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    Main.StopRain();
-                    if (modPlayer.weatherRitualComplete) Main.NewText("风雨平息...", 100, 255, 255);
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)LotMNetMsg.RequestWeatherToggle);
+                    packet.Send();
                 }
                 else
                 {
-                    Main.StartRain();
-                    if (modPlayer.weatherRitualComplete) Main.NewText("风暴降临！", 0, 200, 255);
+                    if (Main.raining)
+                    {
+                        Main.StopRain();
+                        if (modPlayer.weatherRitualComplete) Main.NewText("风雨平息...", 100, 255, 255);
+                    }
+                    else
+                    {
+                        Main.StartRain();
+                        if (modPlayer.weatherRitualComplete) Main.NewText("风暴降临！", 0, 200, 255);
+                    }
                 }
             }
             return true;

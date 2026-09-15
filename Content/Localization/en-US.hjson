@@ -4,6 +4,63 @@ Mods: {
 		#              Custom Messages
 		# ==========================================
 		Messages: {
+			SpiritCurrents: {
+				Haste: Spirit Current—Haste. The distance ahead draws closer.
+				Insight: Spirit Current—Insight. Hidden information rises to the surface.
+				Weightless: Spirit Current—Weightless. Reality's pull grows faint.
+				Rest: Spirit Current—Rest. Gentle spirituality gathers around you.
+				Discovery: You identify a new region of the Spirit World (discovered: {0}).
+			}
+
+			SealedArtifact: {
+				Restless: The Gray Clover grows restless. Its misfortune is becoming certainty rather than chance.
+				Dangerous: The Gray Clover's seal is loosening. Remove it or suppress it with an Apprentice Pathway Beyonder Characteristic.
+				Suppressed: The characteristic merges into the seal, and the Gray Clover falls quiet for now.
+				Outbreak: The Gray Clover briefly awakens. Something follows your misfortune into reality.
+				TooltipActivity: "[Activity {0}/100] Accidents worsen while equipped; at full Activity, misfortune erupts."
+				TooltipContainment: "[Containment] Activity fades while unequipped; an Apprentice characteristic reduces it by 45."
+			}
+
+			SpiritTools: {
+				CompassHint: The Spirit Compass points {0}; the nearest unknown region is about {1} sectors away.
+				CompassComplete: The compass slows to a stop. It recognizes no unknown region nearby.
+			}
+
+			DoorCurioSpiritualityCost: Consumes {0} spirituality
+			DoorCurioNotEnoughSpirituality: Not enough spirituality; {0} required
+
+			Flavor: {
+				GuardianStandFirm: You did not step back.
+				GuardianRescue: "{0} stood between you and death."
+				BloodMoonOmen: The moon reflected in the water is beginning to bleed.
+				EclipseOmen: A piece is missing from the sun, and the shadow is full of eyes.
+				InvasionOmen: Many disorderly footsteps are converging on one place.
+				SlimeRainOmen: The sky feels unusually soft.
+				BossOmen: A vast shadow presses down upon the candle of fate.
+				GraveyardOmen: Someone is knocking from below. It may be best not to answer.
+				RainOmen: An unfinished warning hides among the raindrops.
+				DuskOmen: Something seems to be following the final ray of sunlight.
+				DawnOmen: A pale page of fate is turning in the east.
+				DiceRepeat: The die has rolled {0} {1} times in a row. Fate may be stressing a point.
+				DiceTripleOne: Three ones in a row. Surely the next roll cannot be worse—probably.
+				DiceTripleSix: Three sixes in a row. This die is beginning to look suspicious.
+				DoorClosedBehind: The door behind you closed on its own.
+				MonocleOtherSide: You remember the lens being on the other side.
+			}
+
+			PathwayTownChat: {
+				GuideFool: You look... different from yesterday. Never mind. Stranger things happen here daily.
+				NurseMoon: I cannot decide whether to give you blood or take a sample for research.
+				ArmsDealerHunter: You make my sales and my insurance premiums rise together.
+				GoblinError: I definitely left that wrench here... Why are you smiling?
+				WizardDoor: Doors lead to distant places—and places best left unopened. The second part matters more.
+				TaxCollectorEmperor: Your Majesty, might we discuss this year's tax rate in private?
+				DryadSun: Your light is warm, but the forest dislikes having nowhere to hide.
+				ClothierDemoness: Mirrors sometimes lie. Trust me, I learned that the hard way.
+				TavernkeepGiant: Anyone willing to stand before their companions rarely buys their own drink.
+				PartyGirlWheel: I flipped a coin to decide on tonight's party. It landed heads ten times!
+			}
+
 			SpiritualityExhausted: Spirituality exhausted!
 			RitualComplete: Ritual Complete: {0}
 			ParasiteSuccess: Parasitized {0} (Regen Mode)
@@ -106,7 +163,7 @@ Mods: {
 
 			RitualInstaComplete: {
 				DisplayName: Instant Ritual (Test)
-				Tooltip: Instantly completes the current potion ritual.
+				Tooltip: Instantly completes every pathway ritual (including Door) and resets all skill cooldowns.
 			}
 
 			SpiritualityRefill: {
@@ -749,7 +806,17 @@ Mods: {
 			}
 
 			BlackEmperorCard: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					[c/BA55D3:Divine Authority]
+					Rule Distortion: +30 armor penetration
+					Shadow Shelter: +15% damage, +20 defense, and a 10% chance to dodge
+					Order's Pressure: Take 10% less damage and deal 12% more final damage to enemies within 360 pixels
+					Recorded Authority: Black Emperor abilities cost 20% less spirituality
+
+					[c/FFB060:These powers only answer to a Beyonder of the Black Emperor pathway.]
+					Equipping the card drains 3% maximum spirituality per second.
+					'''
 				DisplayName: Black Emperor Card
 			}
 
@@ -904,7 +971,12 @@ Mods: {
 			}
 
 			Monocle: {
-				Tooltip: ""
+				Tooltip:
+					'''
+					The signature attire of the Error pathway.
+					Its wearer always seems tempted to touch the right eye.
+					You remember the lens always being on this side.
+					'''
 				DisplayName: Monocle
 			}
 
@@ -1061,6 +1133,197 @@ Mods: {
 				Tooltip: ""
 			}
 
+			LawyerPotion: {
+				DisplayName: Lawyer Potion (Sequence 9)
+				Tooltip: A sticky black brew that stains the very air. Only a mortal untouched by the extraordinary may drink it. Opens the Black Emperor pathway.
+			}
+
+			SavagePotion: {
+				DisplayName: Savage Potion (Sequence 8)
+				Tooltip: A translucent black brew with tiny organs drifting in it. Only a Sequence 9 Lawyer may drink it.
+			}
+
+			BriberPotion: {
+				DisplayName: Briber Potion (Sequence 7)
+				Tooltip: A fizzy, deceptively pleasant black brew. Only a Sequence 8 Savage may drink it.
+			}
+
+			CorruptBaronPotion: {
+				DisplayName: Corrupt Baron Potion (Sequence 6)
+				Tooltip: A sweet-smelling, faintly translucent dark brew with a hint of rot beneath. Only a Sequence 7 Briber may drink it.
+			}
+
+			ChaosMentorPotion: {
+				DisplayName: Chaos Mentor Potion (Sequence 5)
+				Tooltip: A pitch-black brew that swirls and pulses on its own. Only a Sequence 6 Corrupt Baron may drink it.
+			}
+
+			FallenEarlPotion: {
+				DisplayName: Fallen Earl Potion (Sequence 4)
+				Tooltip: A half-solid eye forms in the black brew and weeps rot. Only a Sequence 5 Chaos Mentor who has finished the ritual may drink it.
+			}
+
+			RageMagePotion: {
+				DisplayName: Rage Mage Potion (Sequence 3)
+				Tooltip: Crimson magma split into three unequal parts by black slime. Only a Sequence 4 Fallen Earl who survived three ritual battles may drink it.
+			}
+
+			EntropyDukePotion: {
+				DisplayName: Entropy Duke Potion (Sequence 2)
+				Tooltip: Clear liquid in which black script weaves itself into a crown. Only a Sequence 3 Rage Mage who has finished the ritual may drink it.
+			}
+
+			UsurperPrincePotion: {
+				DisplayName: Usurper Prince Potion (Sequence 1)
+				Tooltip: A translucent black brew reflecting a twisted brass figure. Only a Sequence 2 Entropy Duke who has finished the ritual may drink it.
+			}
+
+			SpiritEssence: {
+				DisplayName: Apprentice Pathway Beyonder Characteristic
+				Tooltip:
+					'''
+					A Beyonder characteristic left when a Door pathway Beyonder falls. Higher sequences leave more behind.
+					Use while carrying an active sealed artifact to reduce its Activity by 45.
+					'''
+			}
+
+			SpiritCompass: {
+				DisplayName: Spirit Compass
+				Tooltip: Use in the Spirit World to point toward the nearest unexplored region.\nIt does not point north—only toward what you do not yet know.
+			}
+
+			WallpassingKey: {
+				DisplayName: Wallpassing Key
+				Tooltip:
+					'''
+					Passes through a wall up to 160 pixels thick toward the cursor
+					Cannot open where there is no safe landing point
+					'''
+				NoPassageText: There is no safe footing beyond the door
+			}
+
+			SpatialPocket: {
+				DisplayName: Spatial Pocket
+				Tooltip:
+					'''
+					Opens a private portable space connected to your Piggy Bank
+					Stored items remain in the original Piggy Bank inventory
+					'''
+			}
+
+			TricksterWand: {
+				DisplayName: Trickster Wand
+				Tooltip:
+					'''
+					Randomly fires one of six gem trick bolts
+					Each shot bends slightly in flight
+					'''
+			}
+
+			AstrologerCompass: {
+				DisplayName: Astrologer's Compass
+				Tooltip:
+					'''
+					Reveals treasure, danger, and nearby creatures
+					+4% critical strike chance and +0.05 luck
+					'''
+			}
+
+			RecordingQuill: {
+				DisplayName: Recording Quill
+				Tooltip:
+					'''
+					Records the first enemy struck
+					Reenacts one third of that damage after a short delay
+					'''
+			}
+
+			TravelerBoots: {
+				DisplayName: Traveler's Ankle Boots
+				Tooltip:
+					'''
+					+14% movement speed, improved running and jumping
+					Prevents fall damage
+					'''
+			}
+
+			BlinkDagger: {
+				DisplayName: Blink Dagger
+				Tooltip:
+					'''
+					Blinks to a safe position beyond a struck enemy
+					Searches nearby in cramped terrain and briefly grants immunity
+					'''
+			}
+
+			BanishmentBell: {
+				DisplayName: Banishment Bell
+				Tooltip:
+					'''
+					Pushes and slows enemies within 300 pixels
+					Normal enemies are confused; bosses suffer weaker force
+					'''
+			}
+
+			MirrorDoorShard: {
+				DisplayName: Mirror-Door Shard
+				Tooltip:
+					'''
+					6% damage reduction and longer immunity after being hit
+					Enemies are less likely to focus on you
+					'''
+			}
+
+			StarThreadSpool: {
+				DisplayName: Star-Thread Spool
+				Tooltip:
+					'''
+					+8% magic damage and attack speed
+					+4% magic critical strike chance
+					'''
+			}
+
+			DoorwayChalk: {
+				DisplayName: Doorway Chalk
+				Tooltip:
+					'''
+					First use marks your position; use again to return and erase it
+					Marks do not persist between worlds or sessions
+					'''
+				MarkedText: A return door has been drawn
+				ReturnedText: The return door folds shut
+				BlockedText: Solid blocks now occupy the marked position
+			}
+
+			PocketDoorLantern: {
+				DisplayName: Pocket Door Lantern
+				Tooltip:
+					'''
+					Provides subdued spatial light and danger sense
+					Slightly lowers enemy aggression
+					'''
+			}
+
+			LesserSpiritualityPotion: {
+				DisplayName: Lesser Spirituality Potion
+				Tooltip: Restores a little spirituality. Brewed from a tombstone or an Apprentice pathway characteristic.
+			}
+
+			SpiritualityPotion: {
+				DisplayName: Spirituality Potion
+				Tooltip: Restores some spirituality. Brewed from a tombstone or an Apprentice pathway characteristic.
+			}
+
+			GreaterSpiritualityPotion: {
+				DisplayName: Greater Spirituality Potion
+				Tooltip: Restores most of your spirituality. Brewed from a tombstone or an Apprentice pathway characteristic.
+			}
+
+			SuperSpiritualityPotion: {
+				DisplayName: Super Spirituality Potion
+				Tooltip: Nearly refills your spirituality. Brewed from a tombstone or an Apprentice pathway characteristic.
+			}
+
 			TricksterPotion: {
 				DisplayName: Trickster Potion
 				Tooltip: ""
@@ -1080,12 +1343,34 @@ Mods: {
 				DisplayName: Traveler Potion
 				Tooltip: ""
 			}
+
+			KeyOfStarsPotion: {
+				DisplayName: Key Of Stars Potion
+				Tooltip: ""
+			}
+
+			PlaneswalkerPotion: {
+				DisplayName: Planeswalker Potion
+				Tooltip: ""
+			}
+
+			SecretsSorcererPotion: {
+				DisplayName: Secrets Sorcerer Potion
+				Tooltip: ""
+			}
+
+			WandererPotion: {
+				DisplayName: Wanderer Potion
+				Tooltip: ""
+			}
 		}
 
 		# ==========================================
 		#              Projectiles
 		# ==========================================
 		Projectiles: {
+			RecordingQuillProjectile.DisplayName: Recording Quill
+			RecordedEchoProjectile.DisplayName: Recorded Echo
 			AlchemicalGrenade.DisplayName: Alchemical Grenade
 			BatSwarmProjectile.DisplayName: Vampire Bat
 			SummoningDoorProjectile.DisplayName: Summoning Door
@@ -1146,6 +1431,17 @@ Mods: {
 			PolyhedronDieVisual.DisplayName: Polyhedron Die Visual
 			ZodiacConstellation.DisplayName: Zodiac Constellation
 			CurseStar.DisplayName: Curse Star
+			SpaceShatterProjectile.DisplayName: Space Shatter Projectile
+			SpaceShatterDebrisProjectile.DisplayName: Space Shatter Debris
+			SpatialRiftProjectile.DisplayName: Spatial Rift Projectile
+			DoorAuthorityVisual.DisplayName: Illusory Door
+			DoorRefugeVisual.DisplayName: Hidden Space
+			DoorDomainProjectile.DisplayName: Spatial Domain
+			DoorRecordedEcho.DisplayName: Recorded Echo
+			DoorEchoBolt.DisplayName: Reenacted Starlight
+			ChaosDomainProjectile.DisplayName: Chaos Domain Projectile
+			BanishmentPulseProjectile.DisplayName: Banishment Pulse Projectile
+			StandInProjectile.DisplayName: Stand In Projectile
 		}
 
 		# ==========================================
@@ -1300,6 +1596,41 @@ Mods: {
 					[c/FFD000:Higher sequence = denser star fall, higher per-hit damage]
 					'''
 			}
+
+			BanishedBuff: {
+				DisplayName: Banished Buff
+				Description: Mods.zhashi.Buffs.BanishedBuff.Description
+			}
+
+			MiniaturizedBuff: {
+				DisplayName: Miniaturized Buff
+				Description: Mods.zhashi.Buffs.MiniaturizedBuff.Description
+			}
+
+			SpatialPrisonBuff: {
+				DisplayName: Spatial Prison Buff
+				Description: Mods.zhashi.Buffs.SpatialPrisonBuff.Description
+			}
+
+			TimeSpaceMazeBuff: {
+				DisplayName: Time Space Maze Buff
+				Description: Mods.zhashi.Buffs.TimeSpaceMazeBuff.Description
+			}
+
+			CorruptedDebuff: {
+				DisplayName: Gloom
+				Description: Mods.zhashi.Buffs.CorruptedDebuff.Description
+			}
+
+			BlackEmperorCurseBuff: {
+				DisplayName: The Price of Order
+				Description: With no law standing, nothing is holding this body together: defence halved and incoming damage increased by half.
+			}
+
+			DoorCurseBuff: {
+				DisplayName: Spatial Repulsion
+				Description: You have gone too long without stepping through space; the world behind the door is holding you down. One teleport starts wearing it off.
+			}
 		}
 
 		# ==========================================
@@ -1321,6 +1652,18 @@ Mods: {
 		#              Keybinds
 		# ==========================================
 		Keybinds: {
+			# --- BlackEmperor ---
+			黑皇帝：契约.DisplayName: Black Emperor: Contract
+			黑皇帝：贿赂.DisplayName: Black Emperor: Bribe
+			黑皇帝：扭曲与定义.DisplayName: Black Emperor: Twist & Define
+			黑皇帝：兑现.DisplayName: Black Emperor: Cash In
+			黑皇帝：无法之地.DisplayName: Black Emperor: Lawless Ground
+			黑皇帝：硬闯.DisplayName: Black Emperor: Unstoppable
+			黑皇帝：混乱场.DisplayName: Black Emperor: Chaos Field
+			黑皇帝：赠予.DisplayName: Black Emperor: Grant
+			黑皇帝：放大.DisplayName: Black Emperor: Amplify
+			黑皇帝：狂乱.DisplayName: Black Emperor: Rage
+			黑皇帝：名义.DisplayName: Black Emperor: Titles
 			# --- Hunter ---
 			"红祭司: 形态切换 (火焰/巨人).DisplayName": Hunter: Form Switch (Fire/Giant) (K)
 			"红祭司: 闪现.DisplayName": Hunter: Flash (V)
@@ -1425,6 +1768,27 @@ Mods: {
 			记录官：使用普通记录.DisplayName: 记录官：使用普通记录
 			旅行家：旅行家之门(传送).DisplayName: 旅行家：旅行家之门(传送)
 			旅行家：闪现.DisplayName: 旅行家：闪现
+			秘法师：空间隐藏.DisplayName: 秘法师：空间隐藏
+			秘法师：放逐.DisplayName: 秘法师：放逐
+			门途径：空间牢笼.DisplayName: 门途径：空间牢笼
+			漫游者：撕裂空间.DisplayName: 漫游者：撕裂空间
+			旅法师：维度之视.DisplayName: 旅法师：维度之视
+			旅法师：再现.DisplayName: 旅法师：再现
+			星之匙：时空迷宫.DisplayName: 星之匙：时空迷宫
+			星之匙：空间破碎.DisplayName: 星之匙：空间破碎
+			门：占星术.DisplayName: 门：占星术
+			门：使用普通记录.DisplayName: 门：使用普通记录
+			门：使用神性记录.DisplayName: 门：使用神性记录
+			门：旅行家之门（传送）.DisplayName: 门：旅行家之门（传送）
+			门：闪现.DisplayName: 门：闪现
+			门：空间隐藏.DisplayName: 门：空间隐藏
+			门：放逐.DisplayName: 门：放逐
+			门：空间牢笼.DisplayName: 门：空间牢笼
+			门：撕裂空间.DisplayName: 门：撕裂空间
+			门：维度之视.DisplayName: 门：维度之视
+			门：再现.DisplayName: 门：再现
+			门：时空迷宫.DisplayName: 门：时空迷宫
+			门：空间破碎.DisplayName: 门：空间破碎
 		}
 
 		# ==========================================
@@ -1439,7 +1803,6 @@ Mods: {
 					BaseSettings: Base Settings Header
 					ChallengeSettings: Challenge Settings Header
 					OtherSettings: Other Settings Header
-					超凡生物模式: 超凡生物模式 Header
 				}
 
 				DynamicProgression: {
@@ -1491,18 +1854,6 @@ Mods: {
 						开启后：
 						1. 玩家造成的伤害降低 60%，防御降低 40%
 						2. 只有击败特定 Boss 后才能服用对应序列的魔药
-						'''
-				}
-
-				EnableBeyonderCreatures: {
-					Label: 生物超凡化
-					Tooltip:
-						'''
-						开启后:全游戏所有生成的生物有几率成为某途径某序列的超凡者
-						序列越低=几率越小=强度越高
-						序列9=10%, 序列8=5%, 序列7=1%, ..., 序列0=0.0001%
-						超凡生物拥有强化数值+自动技能+Boss血条+丰厚掉落
-						[序列0生物可以秒杀玩家,慎开]
 						'''
 				}
 			}

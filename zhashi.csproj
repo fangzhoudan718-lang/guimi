@@ -7,11 +7,6 @@
 	<PropertyGroup>
 		
 	</PropertyGroup>
-	<ItemGroup>
-	  <Folder Include="Content\Hunter\" />
-	  <Folder Include="Content\新文件夹\" />
-	</ItemGroup>
-
 	<!-- References -->
 
 </Project>

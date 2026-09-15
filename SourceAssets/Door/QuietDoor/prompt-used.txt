@@ -1,0 +1,14 @@
+Built-in image_gen, 2026-09-14. Original six-frame QuietDoor artwork.
+3 columns x 2 rows, 1536x1024, fixed 512px cells.
+Quiet occult Victorian spatial doorway, weathered dark pewter, old brass keyhole,
+engraved joints, nearly black blue interior with two dim stars.
+Six stages from closed leaves through inward opening into impossible depth.
+Fixed silhouette, central placement, consistent size; no bloom, halo, neon,
+particles, rings, fire or rays. Crisp pixel clusters appropriate to Terraria.
+Outside background solid #FF00FF, not inside the doorway.
+The first output had an unwanted exterior background; a built-in image edit
+replaced only that background with magenta, preserving the doorway interiors.
+Processing: generate2dsprite, 2x3, cell-size512, preserve, fit-scale1,
+trim-border0, key threshold160/edge220, center aligned, all components,
+shared scale, strict QC, 90ms. QC reports source_to_output_scale=1 in all frames.
+Pixel size is preserved; runtime scale sets the in-game size.

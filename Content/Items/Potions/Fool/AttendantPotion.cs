@@ -82,6 +82,8 @@ namespace zhashi.Content.Items.Potions.Fool
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.position);
                 Main.NewText("城镇在你的意志下起舞，诡秘的帷幕已然拉开...", 148, 0, 211);
                 Main.NewText("晋升成功！序列1：诡秘侍者！(天使之王)", 255, 0, 255);
+                // 天使之王落座的那一刻，落幕曲起。联机时所有人同时听到。
+                PromotionPulse.Raise(player, PromotionPulse.Fool, 1);
             }
             return true;
         }

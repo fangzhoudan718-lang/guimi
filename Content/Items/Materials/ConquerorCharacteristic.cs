@@ -45,8 +45,25 @@ namespace zhashi.Content.Items.Materials
 
         public override bool? UseItem(Player player)
         {
+            // 联机时由服务器统一切换世界状态，避免各客户端状态分叉。
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    ModPacket packet = Mod.GetPacket();
+                    packet.Write((byte)LotMNetMsg.RequestConquerorToggle);
+                    packet.Send();
+                }
+                return true;
+            }
+
+            // 服务器由显式请求包处理，避免 UseItem 与请求包各切换一次。
+            if (Main.netMode == NetmodeID.Server)
+                return true;
+
             // 切换开关
             ConquerorSpawnSystem.StopSpawning = !ConquerorSpawnSystem.StopSpawning;
+            ConquerorSpawnSystem.StopSpawningOwner = ConquerorSpawnSystem.StopSpawning ? player.whoAmI : -1;
 
             if (ConquerorSpawnSystem.StopSpawning)
             {

@@ -6,6 +6,8 @@ using zhashi.Content;
 using zhashi.Content.UI;
 using zhashi.Content.Buffs;
 using zhashi.Content.Systems;
+using zhashi.Content.Dimensions;
+using zhashi.Content.Pathways.Door;
 
 namespace zhashi
 {
@@ -17,7 +19,16 @@ namespace zhashi
         SyncFavorability = 2,
         StoryDataSync = 3,
         WheelStateSync = 4,      // 命运途径状态同步(独立包,避免污染原PlayerSync)
-        ProphetActiveSkill = 5   // 先知主动技能广播(对NPC的命运操作)
+        ProphetActiveSkill = 5,  // 先知主动技能广播(对NPC的命运操作)
+        RequestWeatherToggle = 6,
+        RequestConquerorToggle = 7,
+        DoorAbilityRequest = 8,
+        DoorStateSync = 9,
+        DoorDebugResetRequest = 10,
+        SpiritBanishPlayer = 11  // 服务器要求某个玩家走进灵界(放逐玩家)
+        , BlackEmperorStateSync = 12  // 黑皇帝：契约状态同步
+        , BlackEmperorAbilityRequest = 13  // 黑皇帝：主动技能请求(服务器裁定世界改动)
+        , PromotionPulse = 14  // 晋升的动静：一声雷 + 一记震屏，广播给所有人
     }
 
     public class zhashi : Mod
@@ -53,6 +64,7 @@ namespace zhashi
                     int baseDemoness = reader.ReadInt32();
                     int baseWheel = reader.ReadInt32();          // <修复> 命运基础序列
                     int baseDoor = reader.ReadInt32();           // 学徒/门基础序列
+                    int baseBlackEmperor = reader.ReadInt32();    // 黑皇帝基础序列
 
                     // --- [1] 读取当前序列等级 (8个 int) + 灵性 (1个 float) ---
                     int currSeq = reader.ReadInt32();
@@ -64,6 +76,7 @@ namespace zhashi
                     int currDemoness = reader.ReadInt32();
                     int currWheel = reader.ReadInt32();           // <修复> 命运当前序列
                     int currDoor = reader.ReadInt32();            // 学徒/门当前序列
+                    int currBlackEmperor = reader.ReadInt32();     // 黑皇帝当前序列
                     float spiritCurr = reader.ReadSingle();
 
                     // --- [2] 读取寄生与仪式状态 ---
@@ -76,6 +89,30 @@ namespace zhashi
                     int ironProg = reader.ReadInt32();
                     int despairCount = reader.ReadInt32();
                     int afflictTimer = reader.ReadInt32();
+
+                    // --- [2.1] 完整晋升仪式状态 ---
+                    int guardianProg = reader.ReadInt32();
+                    int demonHunterProg = reader.ReadInt32();
+                    int weatherCount = reader.ReadInt32();
+                    int weatherTimer = reader.ReadInt32();
+                    bool weatherComplete = reader.ReadBoolean();
+                    bool conquerorComplete = reader.ReadBoolean();
+                    int attendantProg = reader.ReadInt32();
+                    bool attendantComplete = reader.ReadBoolean();
+                    int parasiteRitual = reader.ReadInt32();
+                    int mentorRitual = reader.ReadInt32();
+                    int trojanRitual = reader.ReadInt32();
+                    int wormRitual = reader.ReadInt32();
+                    int catastropheRitual = reader.ReadInt32();
+                    int misfortuneRitual = reader.ReadInt32();
+                    bool misfortuneMageComplete = reader.ReadBoolean();
+                    int anomalyRitual = reader.ReadInt32();
+                    bool anomalyComplete = reader.ReadBoolean();
+                    int prophetRitual = reader.ReadInt32();
+                    bool prophetComplete = reader.ReadBoolean();
+                    int serpentRitual = reader.ReadInt32();
+                    bool serpentBeatMoonLord = reader.ReadBoolean();
+                    bool serpentComplete = reader.ReadBoolean();
 
                     // --- [3] 核心资源 ---
                     int spiritWorms = reader.ReadInt32();
@@ -118,6 +155,30 @@ namespace zhashi
                     bool disasterForm = reader.ReadBoolean();
                     bool passSteal = reader.ReadBoolean();
 
+                    // --- [11] 理智与其他会影响玩法/表现的开关 ---
+                    float sanity = reader.ReadSingle();
+                    bool losingControl = reader.ReadBoolean();
+                    bool faceless = reader.ReadBoolean();
+                    bool borrowingPower = reader.ReadBoolean();
+                    bool fateDisturbance = reader.ReadBoolean();
+                    bool trojanResurrection = reader.ReadBoolean();
+                    bool stealModeActive = reader.ReadBoolean();
+                    bool cleansingSlash = reader.ReadBoolean();
+                    bool afflictionDemoness = reader.ReadBoolean();
+                    bool mirrorClone = reader.ReadBoolean();
+                    bool misfortuneDomain = reader.ReadBoolean();
+                    bool prophecyMark = reader.ReadBoolean();
+                    bool fateLoop = reader.ReadBoolean();
+                    float fateLoopX = reader.ReadSingle();
+                    float fateLoopY = reader.ReadSingle();
+                    bool dawnArmorBroken = reader.ReadBoolean();
+                    int dawnArmorHP = reader.ReadInt32();
+                    bool armyOfOne = reader.ReadBoolean();
+
+                    // 客户端只能提交自己的玩家状态，防止伪造其他玩家的晋升/资源。
+                    if (Main.netMode == NetmodeID.Server && playernumber != whoAmI)
+                        modPlayer = null;
+
                     if (modPlayer != null)
                     {
                         modPlayer.baseSequence = baseSeq;
@@ -129,6 +190,7 @@ namespace zhashi
                         modPlayer.baseDemonessSequence = baseDemoness;
                         modPlayer.baseWheelSequence = baseWheel;       // <修复>
                         modPlayer.baseDoorSequence = baseDoor;          // 学徒/门
+                        modPlayer.baseBlackEmperorSequence = baseBlackEmperor;  // 黑皇帝
 
                         modPlayer.currentSequence = currSeq;
                         modPlayer.currentMarauderSequence = currMarauder;
@@ -139,6 +201,7 @@ namespace zhashi
                         modPlayer.currentDemonessSequence = currDemoness;
                         modPlayer.currentWheelSequence = currWheel;    // <修复>
                         modPlayer.currentDoorSequence = currDoor;       // 学徒/门
+                        modPlayer.currentBlackEmperorSequence = currBlackEmperor; // 黑皇帝
                         modPlayer.spiritualityCurrent = spiritCurr;
 
                         modPlayer.isParasitizing = isParasitizing;
@@ -150,6 +213,28 @@ namespace zhashi
                         modPlayer.ironBloodRitualProgress = ironProg;
                         modPlayer.despairRitualCount = despairCount;
                         modPlayer.afflictionRitualTimer = afflictTimer;
+                        modPlayer.guardianRitualProgress = guardianProg;
+                        modPlayer.demonHunterRitualProgress = demonHunterProg;
+                        modPlayer.weatherRitualCount = weatherCount;
+                        modPlayer.weatherRitualTimer = weatherTimer;
+                        modPlayer.weatherRitualComplete = weatherComplete;
+                        modPlayer.conquerorRitualComplete = conquerorComplete;
+                        modPlayer.attendantRitualProgress = attendantProg;
+                        modPlayer.attendantRitualComplete = attendantComplete;
+                        modPlayer.parasiteRitualProgress = parasiteRitual;
+                        modPlayer.mentorRitualProgress = mentorRitual;
+                        modPlayer.trojanRitualTimer = trojanRitual;
+                        modPlayer.wormRitualTimer = wormRitual;
+                        modPlayer.catastropheRitualCount = catastropheRitual;
+                        modPlayer.misfortuneRitualTimer = misfortuneRitual;
+                        modPlayer.misfortuneMageRitualComplete = misfortuneMageComplete;
+                        modPlayer.anomalyRitualProgress = anomalyRitual;
+                        modPlayer.anomalyRitualComplete = anomalyComplete;
+                        modPlayer.prophetRitualProgress = prophetRitual;
+                        modPlayer.prophetRitualComplete = prophetComplete;
+                        modPlayer.serpentRitualProgress = serpentRitual;
+                        modPlayer.serpentRitualBeatMoonLord = serpentBeatMoonLord;
+                        modPlayer.serpentRitualComplete = serpentComplete;
 
                         modPlayer.spiritWorms = spiritWorms;
 
@@ -185,9 +270,95 @@ namespace zhashi
 
                         modPlayer.isPassiveStealEnabled = passSteal;
 
+                        modPlayer.sanityCurrent = sanity;
+                        modPlayer.isLosingControl = losingControl;
+                        modPlayer.isFacelessActive = faceless;
+                        modPlayer.isBorrowingPower = borrowingPower;
+                        modPlayer.fateDisturbanceActive = fateDisturbance;
+                        modPlayer.isTrojanResurrection = trojanResurrection;
+                        modPlayer.stealMode = stealModeActive;
+                        modPlayer.isCleansingSlash = cleansingSlash;
+                        modPlayer.isAfflictionDemoness = afflictionDemoness;
+                        modPlayer.mirrorCloneActive = mirrorClone;
+                        modPlayer.isMisfortuneDomainActive = misfortuneDomain;
+                        modPlayer.prophecyMarked = prophecyMark;
+                        modPlayer.fateLoopActive = fateLoop;
+                        modPlayer.fateLoopCenter = new Microsoft.Xna.Framework.Vector2(fateLoopX, fateLoopY);
+                        modPlayer.dawnArmorBroken = dawnArmorBroken;
+                        modPlayer.dawnArmorCurrentHP = dawnArmorHP;
+                        modPlayer.isArmyOfOne = armyOfOne;
+
                         // 如果是服务器收到包，转发给其他客户端
                         if (Main.netMode == NetmodeID.Server)
                             modPlayer.SyncPlayer(-1, whoAmI, false);
+                    }
+                    break;
+
+                case LotMNetMsg.RequestWeatherToggle:
+                    if (Main.netMode == NetmodeID.Server && whoAmI >= 0 && whoAmI < Main.maxPlayers)
+                    {
+                        Player requester = Main.player[whoAmI];
+                        if (requester.active &&
+                            requester.GetModPlayer<LotMPlayer>().currentHunterSequence <= 3 &&
+                            requester.HeldItem.type == ModContent.ItemType<Content.Items.Materials.WeatherRune>())
+                        {
+                            if (Main.raining) Main.StopRain();
+                            else Main.StartRain();
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+                    break;
+
+                case LotMNetMsg.RequestConquerorToggle:
+                    if (Main.netMode == NetmodeID.Server && whoAmI >= 0 && whoAmI < Main.maxPlayers)
+                    {
+                        Player requester = Main.player[whoAmI];
+                        if (requester.active &&
+                            requester.GetModPlayer<LotMPlayer>().currentHunterSequence <= 2 &&
+                            requester.HeldItem.type == ModContent.ItemType<Content.Items.Materials.ConquerorCharacteristic>())
+                        {
+                            ConquerorSpawnSystem.StopSpawning = !ConquerorSpawnSystem.StopSpawning;
+                            ConquerorSpawnSystem.StopSpawningOwner = ConquerorSpawnSystem.StopSpawning ? whoAmI : -1;
+                            NetMessage.SendData(MessageID.WorldData);
+                        }
+                    }
+                    break;
+
+                case LotMNetMsg.DoorAbilityRequest:
+                    DoorPathwayPlayer.ReceiveAbilityRequest(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.DoorStateSync:
+                    DoorPathwayPlayer.ReceiveState(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.SpiritBanishPlayer:
+                    SpiritBanishSystem.ReceivePlayerBanish(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.BlackEmperorStateSync:
+                    Content.Pathways.BlackEmperor.BlackEmperorPlayer.ReceiveLaw(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.BlackEmperorAbilityRequest:
+                    Content.Pathways.BlackEmperor.BlackEmperorPlayer.ReceiveAbilityRequest(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.PromotionPulse:
+                    Content.PromotionPulse.Receive(reader, whoAmI);
+                    break;
+
+                case LotMNetMsg.DoorDebugResetRequest:
+                    if (Main.netMode == NetmodeID.Server && whoAmI >= 0 && whoAmI < Main.maxPlayers)
+                    {
+                        Player requester = Main.player[whoAmI];
+                        if (requester.active && requester.HeldItem.ModItem is Content.Items.Debug.RitualInstaComplete)
+                        {
+                            DoorPathwayPlayer door = requester.GetModPlayer<DoorPathwayPlayer>();
+                            door.CompleteAllRitualsForDebug();
+                            door.ResetAllCooldowns();
+                            door.SyncState();
+                        }
                     }
                     break;
 

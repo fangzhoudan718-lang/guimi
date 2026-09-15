@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using System;
 using Terraria.ID;
+using Terraria.GameInput;
 using zhashi.Content;
 
 // 引用魔药命名空间
@@ -19,6 +20,9 @@ using zhashi.Content.Items.Potions.Marauder;
 using zhashi.Content.Items.Potions.Sun;
 using zhashi.Content.Items.Potions.Demoness;
 using zhashi.Content.Items.Potions.Wheel;
+using zhashi.Content.Pathways.BlackEmperor;
+using zhashi.Content.Items.Potions.Door;
+using zhashi.Content.Pathways.Door;
 
 namespace zhashi.Content.UI
 {
@@ -36,6 +40,24 @@ namespace zhashi.Content.UI
         private string _cachedText = "";
         private int _lastPotionId = -1;
         private int _hoverTimer = 0;
+
+        private static string BoundKey(ModKeybind keybind, string fallback)
+        {
+            if (keybind == null) return fallback;
+            var keyboard = keybind.GetAssignedKeys(InputMode.Keyboard);
+            var gamepad = keybind.GetAssignedKeys(InputMode.XBoxGamepad);
+            if (keyboard.Count > 0 && gamepad.Count > 0) return $"{string.Join("/", keyboard)} · {string.Join("/", gamepad)}";
+            if (keyboard.Count > 0) return string.Join("/", keyboard);
+            if (gamepad.Count > 0) return string.Join("/", gamepad);
+            return "未绑定";
+        }
+
+        /// <summary>仪式条件的小对勾：绿勾 = 满足，灰框 = 还差。</summary>
+        private static string Tick(bool ok) => ok ? "[c/00FF00:✔]" : "[c/808080:⬜]";
+
+        private static string CooldownState(int frames) => frames > 0
+            ? $"[c/FF8888:CD {frames / 60f:F1}s]"
+            : "[c/00FF00:(就绪)]";
 
         public override void OnInitialize()
         {
@@ -350,7 +372,31 @@ namespace zhashi.Content.UI
                     case 7: return ModContent.ItemType<Content.Items.Potions.Door.AstrologerPotion>();
                     case 6: return ModContent.ItemType<Content.Items.Potions.Door.RecorderPotion>();
                     case 5: return ModContent.ItemType<Content.Items.Potions.Door.TravelerPotion>();
-                    default: return ModContent.ItemType<Content.Items.Potions.Door.ApprenticePotion>();
+                    case 4: return ModContent.ItemType<SecretsSorcererPotion>();
+                    case 3: return ModContent.ItemType<WandererPotion>();
+                    case 2: return ModContent.ItemType<PlaneswalkerPotion>();
+                    case 1: return ModContent.ItemType<KeyOfStarsPotion>();
+                    default: return 0;
+                }
+            }
+            // 10. 黑皇帝途径 (BlackEmperor)
+            // 左上角面板就是靠这个函数取图标的：返回 0 会让整块简介都不显示。
+            // 图标跟着玩家当前序列走，逐序列返回对应魔药；还没做出来的序列先回退到序列九的瓶型，
+            // 保证面板不会因为返回 0 而整块消失。
+            if (p.currentBlackEmperorSequence <= 9)
+            {
+                switch (p.currentBlackEmperorSequence)
+                {
+                    case 9: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.LawyerPotion>();
+                    case 8: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.SavagePotion>();
+                    case 7: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.BriberPotion>();
+                    case 6: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.CorruptBaronPotion>();
+                    case 5: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.ChaosMentorPotion>();
+                    case 4: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.FallenEarlPotion>();
+                    case 3: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.RageMagePotion>();
+                    case 2: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.EntropyDukePotion>();
+                    case 1: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.UsurperPrincePotion>();
+                    default: return ModContent.ItemType<Content.Items.Potions.BlackEmperor.LawyerPotion>();
                 }
             }
             return 0;
@@ -521,6 +567,7 @@ namespace zhashi.Content.UI
 
                     text += $"- [技能] 守护姿态 (按住按键){guardStatus}: \n";
                     text += "    > 牺牲移动能力，换取防御+80与30%免伤\n";
+                    text += "    > 可替320像素内的友方玩家挡下一次致命伤（每名被守护者60秒冷却）\n";
                     text += "- [被动] 基础防御+20 / 免疫混乱\n";
                 }
 
@@ -1469,6 +1516,22 @@ namespace zhashi.Content.UI
             // 9. 学徒/门 途径 (Door)
             else if (p.currentDoorSequence <= 9)
             {
+                string keyOpen = BoundKey(LotMKeybinds.Door_OpenDoor, "E");
+                string keyTrickSwitch = BoundKey(LotMKeybinds.Door_TrickSwitch, "T");
+                string keyTrickCast = BoundKey(LotMKeybinds.Door_TrickCast, "R");
+                string keyAstrology = BoundKey(LotMKeybinds.Door_Astrology, "G");
+                string keyRecordNormal = BoundKey(LotMKeybinds.Door_RecordNormal, "F");
+                string keyRecordDivine = BoundKey(LotMKeybinds.Door_RecordDivine, "C");
+                string keyGate = BoundKey(LotMKeybinds.Door_TravelerGate, "J");
+                string keyBlink = BoundKey(LotMKeybinds.Door_Blink, "K");
+                string keySecret = BoundKey(LotMKeybinds.Door_SecretSpace, "Z");
+                string keyBanish = BoundKey(LotMKeybinds.Door_Banish, "X");
+                string keyPrison = BoundKey(LotMKeybinds.Door_SpatialPrison, "Q");
+                string keyTear = BoundKey(LotMKeybinds.Door_SpaceTear, "V");
+                string keySight = BoundKey(LotMKeybinds.Door_DimensionalSight, "B");
+                string keyReenact = BoundKey(LotMKeybinds.Door_Reenact, "N");
+                string keyMaze = BoundKey(LotMKeybinds.Door_TimeSpaceMaze, "M");
+                string keyShatter = BoundKey(LotMKeybinds.Door_SpaceShatter, "H");
                 text += $"[c/E8C878:学徒/门途径 序列{p.currentDoorSequence}]\n"; // 金黄色
 
                 if (p.currentDoorSequence <= 9) // 学徒
@@ -1478,7 +1541,7 @@ namespace zhashi.Content.UI
                     text += "- [被动] 自由的足迹: 移动速度+20% / 挖掘速度+20%\n";
                     string doorState = p.doorOpenCooldown > 0
                         ? $"[c/FF8888:CD {p.doorOpenCooldown / 60f:F1}s]" : "[c/00FF00:(就绪)]";
-                    text += $"- [主动] 开门 ([c/FFFF00:E]): 10灵性, 穿过面前1-5格厚的常规墙壁 (3秒CD) {doorState}\n";
+                    text += $"- [主动] 开门 ([c/FFFF00:{keyOpen}]): 10灵性, 穿过面前1-5格厚的常规墙壁 (3秒CD) {doorState}\n";
                     text += "  [c/A0A0A0:墙壁过厚(>5格)或墙的另一边是固体时无法穿越]\n";
                 }
                 if (p.currentDoorSequence <= 8) // 戏法大师
@@ -1487,7 +1550,7 @@ namespace zhashi.Content.UI
                     text += "- [被动] 戏法之躯: 生命+50(累计+100) / 法术伤+10% / 暴击+5 / 法力+60 / 移速+30% / 跳跃增强\n";
                     string trickState = p.trickCooldown > 0
                         ? $"[c/FF8888:CD {p.trickCooldown / 60f:F1}s]" : "[c/00FF00:(就绪)]";
-                    text += $"- [主动] 戏法 ([c/FFFF00:切换T / 释放R]): 每次20灵性 {trickState}\n";
+                    text += $"- [主动] 戏法 ([c/FFFF00:切换 {keyTrickSwitch} / 释放 {keyTrickCast}]): 每次20灵性 {trickState}\n";
                     text += $"  当前选中: [c/FFE878:{LotMPlayer.TrickNames[p.selectedTrick]}] ({p.selectedTrick + 1}/11)\n";
                     text += "  [c/A0A0A0:闪光/黑幕/转移气体/巨响/冰冻射线/电击/造雾/刮风/点火/摔倒术/驱物]\n";
                     string escState = p.trickEscapeCooldown > 0
@@ -1508,7 +1571,7 @@ namespace zhashi.Content.UI
                     text += "- [被动] 灵性干扰: 每5秒1/3几率让附近敌人陷入混乱\n";
                     string astroState = p.astrologyCooldown > 0
                         ? $"[c/FF8888:CD {p.astrologyCooldown / 60f:F0}s]" : "[c/00FF00:(就绪)]";
-                    text += $"- [主动] 占星术 ([c/FFFF00:G]): 300灵性,15秒预兆增益(伤害+25%/暴击+25/减伤+10%) {astroState}\n";
+                    text += $"- [主动] 占星术 ([c/FFFF00:{keyAstrology}]): 300灵性,15秒预兆增益(伤害+25%/暴击+25/减伤+10%) {astroState}\n";
                     if (p.astrologyActiveTimer > 0)
                         text += $"  [c/FFD850:✦ 占星激活中: {p.astrologyActiveTimer / 60f:F1}s]\n";
                 }
@@ -1519,8 +1582,8 @@ namespace zhashi.Content.UI
                     text += "- [被动] 我来到我看见我记录: 击杀有非凡能力的敌人(在能力库内)记录其符号\n";
                     text += "  [c/A0A0A0:借用蠕动饥饿能力库 | 凡兽100%/半神30%/神性5% | 自动去重]\n";
 
-                    text += $"- [主动] 普通记录 ([c/FFFF00:F]): 储存 [c/FFE878:{p.recorderNormalList.Count}/{LotMPlayer.RECORDER_NORMAL_MAX}]\n";
-                    text += "  单按 F = 循环切换选中 | Shift+F = 释放当前选中的能力\n";
+                    text += $"- [主动] 普通记录 ([c/FFFF00:{keyRecordNormal}]): 储存 [c/FFE878:{p.recorderNormalList.Count}/{LotMPlayer.RECORDER_NORMAL_MAX}]\n";
+                    text += $"  单按 {keyRecordNormal} = 循环切换 | Shift+{keyRecordNormal} = 释放记录\n";
                     if (p.recorderNormalList.Count > 0)
                     {
                         int idx = p.recorderSelectedNormal % p.recorderNormalList.Count;
@@ -1529,7 +1592,7 @@ namespace zhashi.Content.UI
                         text += $"  当前选中: [c/FFE878:{name}] ({idx + 1}/{p.recorderNormalList.Count})\n";
                     }
 
-                    text += $"- [主动] 神性记录 ([c/FFFF00:C]): 储存 [c/D080FF:{p.recorderDivineList.Count}/{p.GetRecorderDivineMax()}]\n";
+                    text += $"- [主动] 神性记录 ([c/FFFF00:{keyRecordDivine}]): 储存 [c/D080FF:{p.recorderDivineList.Count}/{p.GetRecorderDivineMax()}]\n";
                     if (p.recorderDivineList.Count > 0)
                     {
                         int idx = p.recorderSelectedDivine % p.recorderDivineList.Count;
@@ -1550,12 +1613,252 @@ namespace zhashi.Content.UI
                     text += "- [被动] 记录强化: 神性记录上限从1提升至4个\n";
                     string gateState = p.travelerGateCooldown > 0
                         ? $"[c/FF8888:CD {p.travelerGateCooldown / 60f:F0}s]" : "[c/00FF00:(就绪)]";
-                    text += $"- [主动] 旅行家之门 ([c/FFFF00:J]): 500灵性, 打开地图后点击任意位置全图传送 (30秒CD) {gateState}\n";
+                    text += $"- [主动] 旅行家之门 ([c/FFFF00:{keyGate}]): 打开地图后点击位置传送；消耗/CD随序列强化 {gateState}\n";
                     if (p.travelerGateAwaitingMapClick)
-                        text += "  [c/FFD000:▶ 等待地图点击中 (再按J取消)]\n";
+                        text += $"  [c/FFD000:▶ 等待地图点击中 (再按{keyGate}取消)]\n";
                     string blinkState = p.travelerBlinkCooldown > 0
                         ? $"[c/FF8888:CD {p.travelerBlinkCooldown / 60f:F1}s]" : "[c/00FF00:(就绪)]";
-                    text += $"- [主动] 闪现 ([c/FFFF00:K]): 50灵性, 朝鼠标方向短距闪现30格 (1秒CD) {blinkState}\n";
+                    text += $"- [主动] 闪现 ([c/FFFF00:{keyBlink}]): 50灵性，距离和冷却随序列强化 {blinkState}\n";
+                    DoorPathwayPlayer ritualDoor = p.Player.GetModPlayer<DoorPathwayPlayer>();
+                    text += $"- [晋升仪式] 将敌对Boss削弱至20%以下，靠近后尝试使用秘法师魔药启动封印 [{(ritualDoor.secretSealRitualComplete ? "已完成" : "未完成")}]\n";
+                }
+                DoorPathwayPlayer door = p.Player.GetModPlayer<DoorPathwayPlayer>();
+                float doorCostFactor = p.isDoorCardEquipped ? 0.8f : 1f;
+                if (p.currentDoorSequence <= 4)
+                {
+                    text += "\n序列四: [c/D8A0FF:秘法师]\n";
+                    text += "- [被动] 守秘: 存在感被抹去，难以被常规感应与神秘学追踪锁定\n";
+                    text += $"- [技能] 空间隐藏 ([c/FFFF00:{keySecret}]): {300 * doorCostFactor:F0}灵性。从门后取来一块私人空间藏身，接触与弹幕都碰不到你；原地不动、不出手便可一直滞留，再按一次回到现实 {CooldownState(door.secretSpaceCooldown)}\n";
+                    if (door.secretSpaceActive) text += $"- [隐藏中] 已持续 {door.secretSpaceElapsed / 3600}:{door.secretSpaceElapsed / 60 % 60:00}:{door.secretSpaceElapsed % 60:00}，按 {keySecret} 离开；移动或出手会立刻解除\n";
+                    text += $"- [技能] 放逐 ([c/FFFF00:{keyBanish}]): {450 * doorCostFactor:F0}灵性。开门把目标丢进灵界：已经败于你手的存在会被直接流放，未曾败过的Boss以位格硬抗，只被门扉钉住两秒 {CooldownState(door.banishCooldown)}\n";
+                    text += "    > 敌对生物优先；玩家需双方都开启PvP才会被门扉送往灵界\n";
+                    text += $"- [仪式] 灵界、血月高空、任意四柱影响区: {door.WandererSceneCount}/{DoorPathwayPlayer.WandererSceneTarget}\n";
+                }
+                if (p.currentDoorSequence <= 3)
+                {
+                    text += "\n序列三: [c/A878FF:漫游者]\n";
+                    text += "- [被动] 融入空间: 免疫击退与摔落，水下与异度环境亦能自如行动\n";
+                    text += $"- [技能] 空间牢笼 ([c/FFFF00:{keyPrison}]): {500 * doorCostFactor:F0}灵性。在目光所及之处从现实中割下一块空间，内里换成另一个世界的星空；圈内的生物仍能行动，却再也走不出去。维持需要持续灌注灵性，再按一次即可收起 {CooldownState(door.spatialPrisonCooldown)}\n";
+                    if (door.spatialPrisonActive) text += "- [维持中] 割离领域展开中，每次按键可收起\n";
+                    text += $"- [技能] 撕裂空间 ([c/FFFF00:{keyTear}]): {500 * doorCostFactor:F0}灵性。在目光所及之处撕开一道通往异界的锋锐裂口，刃口可以割伤敌人；裂口会在原地停留许久，身体碰到它的人会被随机抛向另一道裂口 {CooldownState(door.spaceTearCooldown)}\n";
+                    text += $"- [仪式] 星外传说: {door.TravelerLegendCount}/{DoorPathwayPlayer.TravelerLegendTarget}\n";
+                }
+                if (p.currentDoorSequence <= 2)
+                {
+                    text += "\n序列二: [c/80C8FF:旅法师]\n";
+                    text += "- [被动] 自我符号与传送权柄: 以自身为符号，更高效地借星界往来，并初步执掌传送\n";
+                    text += $"- [技能] 维度之视 ([c/FFFF00:{keySight}]): {500 * doorCostFactor:F0}灵性。在鼠标处张开约200像素的维度竖瞳，把作用范围内的敌人玩具化：先收进空间口袋，随后长时间缩小、虚弱；只要它们还是玩具，再按此键就能把它们挪到鼠标所在之处 {CooldownState(door.dimensionalSightCooldown)}\n";
+                    text += $"- [技能] 人物再现 ([c/FFFF00:{keyReenact}]): {700 * doorCostFactor:F0}灵性。重现记录中的身影，让它们替你重演一次生前的攻击 {CooldownState(door.reenactCooldown)}\n";
+                    text += $"- [场景] Shift + {keyReenact} 记下当前位置；Ctrl + {keyReenact} 回到记录之地，与再现共享冷却，仅限同一世界与空间\n";
+                    text += $"- [场景状态] {(door.hasRecordedScene ? "已记录（跨空间不能返回）" : "尚未记录")}\n";
+                    text += $"- [仪式] 星系之行: {(door.starKeyPulsarRitualComplete ? "已完成" : "未完成")}\n";
+                }
+                if (p.currentDoorSequence <= 1)
+                {
+                    text += "\n序列一: [c/FFF0A0:星之匙]\n";
+                    text += "- [被动] 定位权柄: 自身永不迷失，敌人却再难锁定你的位置\n";
+                    text += $"- [技能] 时空迷宫 ([c/FFFF00:{keyMaze}]): {10000 * doorCostFactor:F0}灵性。十二扇门围成圆环绕目标旋转，圈内的生物——包括Boss——都像钟表指针一样被拨着绕圆心打转 {CooldownState(door.mazeCooldown)}\n";
+                    text += $"- [技能] 空间破碎 ([c/FFFF00:{keyShatter}]): {50000 * doorCostFactor:F0}灵性。空间在目标处塌成黑洞，吸附范围覆盖整个屏幕；生物、弹幕、树木、植物、家具与可破坏物块都会被粉碎并拖向奇点，最终凝为一点。请勿在家中使用。 {CooldownState(door.shatterCooldown)}\n";
+                }
+            }
+
+            // 10. 黑皇帝途径（独立判断：玩家可能同时拥有其它途径，但黑皇帝一定要显示出来）
+            if (p.currentBlackEmperorSequence <= 9)
+            {
+                BlackEmperorPlayer be = p.Player.GetModPlayer<BlackEmperorPlayer>();
+                string keyContract = BoundKey(LotMKeybinds.BlackEmperor_Contract, ",");
+                string keyBribe = BoundKey(LotMKeybinds.BlackEmperor_Bribe, ".");
+                string keyTwist = BoundKey(LotMKeybinds.BlackEmperor_Twist, "/");
+                string keyEntropy = BoundKey(LotMKeybinds.BlackEmperor_Entropy, ";");
+                string keyLawless = BoundKey(LotMKeybinds.BlackEmperor_Lawless, "[");
+                string keyUnstoppable = BoundKey(LotMKeybinds.BlackEmperor_Unstoppable, "]");
+                string keyChaos = BoundKey(LotMKeybinds.BlackEmperor_Chaos, "\\");
+                string keyGift = BoundKey(LotMKeybinds.BlackEmperor_Gift, "'");
+                string keyAmplify = BoundKey(LotMKeybinds.BlackEmperor_Amplify, "=");
+                string keyRage = BoundKey(LotMKeybinds.BlackEmperor_Rage, "-");
+                string keyTitle = BoundKey(LotMKeybinds.BlackEmperor_Title, "~");
+                float onceCost = be.LawCost;   // 本序列一次技能的基础消耗（已计亵渎之牌折扣）
+
+                text += $"\n[c/D2AA78:黑皇帝途径 序列{p.currentBlackEmperorSequence}]\n";
+
+                if (be.CardOrderPressureActive)
+                    text += $"[c/BA55D3:亵渎之牌 · 秩序威压生效：受到伤害 -{BlackEmperorPlayer.CardOrderPressureDamageReduction:P0}，对 {BlackEmperorPlayer.CardOrderPressureRadius:F0}px 内敌人最终伤害 +{BlackEmperorPlayer.CardOrderPressureDamageBonus:P0}，技能灵性消耗 -20%]\n";
+
+                // 实时状态行
+                if (be.activeLaw == BlackEmperorLaw.None)
+                    text += $"- [契约] 尚未立下律令（{keyContract} 宣告，Shift + {keyContract} 换一条）\n";
+                else
+                    text += $"- [契约] 正在维持《{BlackEmperorPlayer.LawName(be.activeLaw)}》剩余 {be.lawTimer / 60f:F1} 秒（{keyContract} 解除）\n";
+                if (be.lawCooldown > 0) text += $"  [c/FF8888:契约冷却 {be.lawCooldown / 60f:F0}s]\n";
+                if (be.unstoppableTimer > 0) text += $"  [c/FFD850:✦ 硬闯中：{be.unstoppableTimer / 60f:F1}s]\n";
+                if (p.currentBlackEmperorSequence <= 8)
+                {
+                    if (be.lawBreakerReady) text += "  [c/00FF00:✦ 以力破法已就绪：下一次违约会被硬扛]\n";
+                    else text += $"  [c/AAAAAA:以力破法充能 {be.lawBreakerCharge}/{BlackEmperorPlayer.LawBreakerChargeRequired}]\n";
+                }
+
+                // ── 序列九 律师 ──
+                text += "序列九: [c/C8A882:律师]\n";
+                text += "- [被动] 善辩: 敌人更不容易盯上你\n";
+                text += "- [被动] 抓漏洞: 攻击带有减益的敌人时伤害提高\n";
+                text += $"- [技能] 立下律令 ([c/FFFF00:{keyContract}]): {onceCost:F0} 灵性。Shift + 同键切换律令，再按一次解除\n";
+                text += "    > 《禁足》 12 秒内不离开 300 px：近战攻击被完全格挡并反弹 60%；走远则自损 15% 最大生命\n";
+                text += "    > 《禁止接近》 220 px 内敌人被推开并持续受伤，你离开宣告点 500 px 律令失效\n";
+                if (p.currentBlackEmperorSequence <= 6) text += "    > 《审判》标记被告，命中五次即定罪（定罪目标被杀时额外掉落）\n";
+                if (p.currentBlackEmperorSequence <= 4) text += "    > 《等价交换》造成伤害的一部分转为治疗（随序列提高），代价是受到的伤害 +20%\n";
+                if (p.currentBlackEmperorSequence <= 3) text += "    > 《秩序倾覆》禁止贿赂；攻击附带目标减益层数的额外伤害\n";
+
+                // ── 序列八 野蛮人 ──
+                if (p.currentBlackEmperorSequence <= 8)
+                {
+                    text += "序列八: [c/A08858:野蛮人]\n";
+                    text += "- [被动] 体魄: 生命 +40 / 防御 +6 / 免疫混乱\n";
+                    text += $"- [技能] 无法之地 ([c/FFFF00:{keyLawless}]): {onceCost:F0} 灵性。朝鼠标方向扫出一记重击；Boss 吃较弱击退并多受 45% 伤害\n";
+                    text += $"- [技能] 硬闯 ([c/FFFF00:{keyUnstoppable}]): {onceCost:F0} 灵性。三秒内不被打断，并立刻清除所有控制类减益\n";
+                    text += $"- [被动] 以力破法: 无法之地每命中一次充能，攒 {BlackEmperorPlayer.LawBreakerChargeRequired} 次可硬扛一次契约反噬\n";
+                }
+
+                if (p.currentBlackEmperorSequence <= 7)
+                {
+                    BlackEmperorBribeMode bribeMode = (BlackEmperorBribeMode)be.bribeMode;
+                    text += "序列七: [c/B08850:贿赂者]\n";
+                    text += $"- [技能] 贿赂 ([c/FFFF00:{keyBribe}]): {be.BribeCost:F0} 灵性 + 1 枚钱币；Shift/Ctrl + 同键切换模式，当前：[c/00FFFF:{BlackEmperorPlayer.BribeModeName(bribeMode)}]\n";
+                    text += "    > 削弱: 目标对你造成的伤害 -30%（4/6/8/12 秒）\n";
+                    text += "    > 魅惑: 目标变成友方，转而去打它的同类（6/9/12/18 秒）；Boss 同样生效，但控制时长缩短\n";
+                    text += "    > 狂妄: 目标转而攻击最近的同类，但仍然会打你（5/8/10/15 秒）\n";
+                    text += "    > 关联: 你受到的伤害有一半由它承担（6/8/12/16 秒）\n";
+                    text += "    > 括号内依次是铜 / 银 / 金 / 铂金币的时长——[c/FFD850:面额越大越强]，并会消耗 1 枚该面额的钱\n";
+                    text += "    > 对城镇 NPC 使用：花 1 枚钱币换来一段时间的庇护（幸运 +0.5、减伤 +8%）\n";
+                    if (be.bribeCooldown > 0) text += $"  [c/FF8888:贿赂冷却 {be.bribeCooldown / 60f:F0}s]\n";
+                    if (be.townFavorTimer > 0) text += $"  [c/00FF00:✦ 城镇庇护 {be.townFavorTimer / 3600f:F0} 分钟]\n";
+                }
+                if (p.currentBlackEmperorSequence <= 6)
+                {
+                    text += "序列六: [c/B07AC8:腐化男爵]\n";
+                    text += $"- [技能] 扭曲 ([c/FFFF00:{keyTwist}]): {be.TwistCost:F0} 灵性。改写身边「这是谁的攻击」与「哪边才是前进」\n";
+                    text += "    > 范围内的敌对弹幕会改换归属，掉头去打它们原来的主人\n";
+                    text += "    > 范围内的敌人会被扭掉意图，一段时间里背离你；Boss 同样会被拨动，但持续时间与位移幅度较低\n";
+                    text += "- [被动] 腐蚀: 身边的生灵自己会一点点变得阴暗，层数越高打人越轻、挨打越痛、动作越慢；离开你之后才开始褪\n";
+                    text += "- [被动] 身体: 生命 +25 / 防御 +3 / 减伤 +4%（与序列八的体魄叠加）\n";
+                    if (be.twistCooldown > 0) text += $"  [c/FF8888:扭曲冷却 {be.twistCooldown / 60f:F0}s]\n";
+                    // 仪式写在「你现在这一档」下面：这里记的是从序列六往上走需要做的事。
+                    string chaosRitualState = be.chaosRitualComplete ? "[c/00FF00:已完成]" : "[c/FFA500:未完成]";
+                    text += $"- [晋升仪式·混乱导师] 城市地底的秩序: 连着三个夜晚，每夜在洞穴层或更深处了结足够多的敌人 {chaosRitualState}\n";
+                    text += $"    > 城镇里有人住（至少 {BlackEmperorPlayer.ChaosRitualTownNpcTarget} 位居民）: {Tick(be.TownNpcCountNow >= BlackEmperorPlayer.ChaosRitualTownNpcTarget)} 当前 {be.TownNpcCountNow} 位\n";
+                    text += $"    > 你身处洞穴层或更深处: {Tick(be.InDeepCavern)}\n";
+                    text += $"    > 今夜战果 {be.chaosRitualKills}/{BlackEmperorPlayer.ChaosRitualKillsPerNight} · 连夜的进度 {be.chaosRitualNights}/{BlackEmperorPlayer.ChaosRitualNightTarget}\n";
+                    text += "    > [c/FF8888:夜里对城镇居民动手，连夜的账会作废]\n";
+                }
+                if (p.currentBlackEmperorSequence <= 5)
+                {
+                    text += "序列五: [c/9A6AB0:混乱导师]\n";
+                    text += $"- [技能] 混乱场 ([c/FFFF00:{keyChaos}]): {be.ChaosCost:F0} 灵性。以自己为圆心割下一块地，你站在正中央，看着里面的另一个世界缓缓自转；再按一次收起 {CooldownState(be.chaosCooldown)}\n";
+                    text += "    > 场内没有「正确的距离」：敌人会算错方位、朝错误的方向迈步，还可能把同伴错认成你\n";
+                    text += "    > 飞进场内的敌对弹幕有机会忽然认错主人；站在场里连攻击本身都可能落空\n";
+                    text += $"- [技能] 扭曲概念 (Shift + [c/FFFF00:{keyTwist}]，序列一之后改用 Ctrl + 同键): {be.TwistCost:F0} 灵性。把目标的「承受」改写掉，你受的伤与沾上的诅咒都由它分走一半；再按一次松开\n";
+                    text += "- [被动] 威严: 生命 +30 / 防御 +4 / 减伤 +5%，周围的生灵不自觉放低身段\n";
+                    if (be.chaosFieldActive) text += $"  [c/FFD850:✦ 混乱场展开中 {be.chaosFieldTimer / 60f:F1}s]\n";
+                    if (be.conceptTicks > 0) text += $"  [c/D8A0FF:✦ 扭曲概念 · 目标替分担 {be.conceptTicks / 60f:F1}s]\n";
+                }
+
+                if (p.currentBlackEmperorSequence <= 4)
+                {
+                    // 序列五这一栏下面记的，是从这里往上走要做的事——堕落伯爵的仪式。
+                    string earlState = be.CorruptedTownCount >= BlackEmperorPlayer.CorruptedTownTarget && be.policyImplemented
+                        ? "[c/00FF00:已完成]" : "[c/FFA500:未完成]";
+                    text += $"- [晋升仪式·堕落伯爵] 一个国家的中高层: 拉拢七位不同的城镇居民，再在城里推行一项政策 {earlState}\n";
+                    text += $"    > 已拉拢的居民: {Tick(be.CorruptedTownCount >= BlackEmperorPlayer.CorruptedTownTarget)} {be.CorruptedTownCount}/{BlackEmperorPlayer.CorruptedTownTarget}（不同的人各算一位，用贿赂键）\n";
+                    text += $"    > 政策落地: {Tick(be.policyImplemented)}（在城里把一条律令维持到自然结束，不许解除或违约）\n";
+                }
+                if (p.currentBlackEmperorSequence <= 4)
+                {
+                    text += "序列四: [c/B08AE0:堕落伯爵]\n";
+                    text += $"- [技能] 赠予 ([c/FFFF00:{keyGift}]): {be.GiftCost:F0} 灵性。把一种负面状态直接送出去；Shift + 同键切换，当前：[c/00FFFF:{BlackEmperorPlayer.GiftModeName((BlackEmperorGiftMode)be.giftMode)}] {CooldownState(be.giftCooldown)}\n";
+                    text += "    > 消极怠工: 出手只剩六成半，动作也发沉；Boss 同样生效但幅度与时长降低\n";
+                    text += "    > 贪婪急切: 眼里只剩钱，不再打你，挨打时从口袋里掉钱；Boss 也会短暂中招\n";
+                    text += "    > 丧失斗志: 不敢靠近你，而且承受的伤害提高；Boss 同样生效但幅度与时长降低\n";
+                    text += $"- [技能] 放大 ([c/FFFF00:{keyAmplify}]): {be.AmplifyCost:F0} 灵性。下一次命中被放大一次；Shift + 同键切换，当前：[c/00FFFF:{BlackEmperorPlayer.AmplifyModeName((BlackEmperorAmplifyMode)be.amplifyMode)}] {CooldownState(be.amplifyCooldown)}\n";
+                    text += "    > 处决: 目标越虚弱，这一下越重\n";
+                    text += "    > 束缚: 把目标原地抱住，短时间里动弹不得（Boss 只会被拖慢）\n";
+                    if (be.amplifyReady) text += "  [c/FFD850:✦ 放大已就绪，等着下一次命中]\n";
+                    text += "- [被动] 利用: 离地后按住跳跃键可以滞空；自己的增益走得更慢，减益走得更快\n";
+                    text += "- [被动] 规则领域: 律令落下的地方会改写规矩，圈内敌人出手更轻、挨打更痛\n";
+                    text += "- [被动] 半神之躯: 生命 +40 / 防御 +6 / 减伤 +5% / 免疫摔落伤害\n";
+                    // 序列四这一栏下面记的，是从这里往上走要做的事——狂乱法师的仪式。
+                    string rageState = be.RageRitualComplete ? "[c/00FF00:已完成]" : "[c/FFA500:未完成]";
+                    text += $"- [晋升仪式·狂乱法师] 被改写过的仪式: 在三场不同的 Boss 战里亲手扬起狂乱，并且活着打完 {rageState}\n";
+                    text += $"    > 已完成的场次: {be.RageRitualProgress}/{BlackEmperorPlayer.RageRitualTarget}（同一个 Boss 只算一次）\n";
+                    text += $"    > 本场已经扬起过狂乱: {Tick(be.rageRitualArmed)}";
+                    if (be.rageRitualFailed) text += " [c/FF8888:本场已经死过，作废了]";
+                    text += "\n    > 扬起狂乱时附近必须有 Boss，中途死一次这场就作废\n";
+                }
+
+                if (p.currentBlackEmperorSequence <= 3)
+                {
+                    text += "序列三: [c/C08AF0:狂乱法师]\n";
+                    text += $"- [技能] 狂乱 ([c/FFFF00:{keyRage}]): {be.RageCost:F0} 灵性。扬起一阵谁也算不准的波动：自己随机吃到一两份增益；范围内的敌人（含 Boss）立刻不分敌我、互相撕咬，而且在这段时间里对你手软 {CooldownState(be.rageCooldown)}\n";
+                    text += "- [被动] 扭曲强化: 扭曲的范围与持续时间都提高，被扭过意图的目标再也停不下来\n";
+                    text += "- [被动] 半神之躯: 生命 +40 / 防御 +6\n";
+                    // 序列三这一栏下面记的，是从这里往上走要做的事——熵之公爵的仪式。
+                    string entropyRitualState = be.EntropyRitualComplete ? "[c/00FF00:已完成]" : "[c/FFA500:未完成]";
+                    text += $"- [晋升仪式·熵之公爵] 乱世归心: 在乱世之夜，站在城镇里引爆一次满层的熵 {entropyRitualState}\n";
+                    text += $"    > 熵已叠满: {Tick(be.entropyStacks >= BlackEmperorPlayer.EntropyMaxStacks)} {be.entropyStacks}/{BlackEmperorPlayer.EntropyMaxStacks}（交战中每 3 秒 +1，只涨不掉）\n";
+                    text += $"    > 身处城镇: {Tick(be.EntropyRitualInTown)}（游戏认的城镇范围，或身边有居民）\n";
+                    text += $"    > 乱世之夜: {Tick(BlackEmperorPlayer.EntropyRitualUnrest)}（血月 / 入侵 / 霜月 / 南瓜月 / 日食）\n";
+                    text += $"    > 三项齐了就按 [c/FFFF00:{keyEntropy}] 兑现，一次即成\n";
+                }
+                if (p.currentBlackEmperorSequence <= 2)
+                {
+                    text += "序列二: [c/D0A8F0:熵之公爵]\n";
+                    text += $"- [被动] 熵: 交战中每三秒叠一层（上限 {BlackEmperorPlayer.EntropyMaxStacks}）。每层让你伤害 +1%、防御 +1，同时往周围的东西身上撒一份随机减益；十层以上还会有人当场「寂灭」\n";
+                    text += $"    > 当前层数: [c/00FFFF:{be.entropyStacks}/{BlackEmperorPlayer.EntropyMaxStacks}]\n";
+                    text += $"- [技能] 兑现 ([c/FFFF00:{keyEntropy}]): {be.EntropyCost:F0} 灵性。把攒下的熵一次掷出去：伤害随层数递增，另外掷出一个随机结果——定身、互相残杀、回血、把人推开、或者换来三种增益 {CooldownState(be.entropyCooldown)}\n";
+                    text += "- [代价] 兑现之后五秒里，灵性回复只有一半\n";
+                    if (be.entropyBacklashTicks > 0) text += $"  [c/FF8888:空虚中 {be.entropyBacklashTicks / 60f:F1}s]\n";
+                    text += "- [被动] 极致利用: 无视部分重力；空中再按一次跳跃，可以踩着规则本身往前冲\n";
+                    text += "- [被动] 半神之躯: 生命 +40 / 防御 +8 / 减伤 +5%\n";
+                    // 序列二这一栏下面记的，是从这里往上走要做的事——弑序亲王的仪式。
+                    string usurpState = be.UsurpRitualComplete ? "[c/00FF00:已完成]" : "[c/FFA500:未完成]";
+                    text += $"- [晋升仪式·弑序亲王] 以自身秩序取代原本的秩序: 空手站在城镇里，把一条律令维持到自然结束；三个昼夜各记一次 {usurpState}\n";
+                    text += $"    > 手里空着（不是最强者的姿态）: {Tick(be.HandsEmpty)}\n";
+                    text += $"    > 身边至少三位居民: {Tick(be.NearbyTownCount >= 3)} 当前 {be.NearbyTownCount} 位\n";
+                    text += $"    > 已记下的昼夜: {be.usurpRitualDays}/{BlackEmperorPlayer.UsurpRitualTarget}（每个昼夜只记一次，律令必须自然走完）\n";
+                }
+                if (p.currentBlackEmperorSequence <= 1)
+                {
+                    text += "序列一: [c/E0C070:弑序亲王]\n";
+                    text += $"- [技能] 定义 (Shift + [c/FFFF00:{keyTwist}]): 换一条定义，换一种说法，世界照办。当前：[c/00FFFF:{BlackEmperorPlayer.DefinitionName((BlackEmperorDefinition)be.definitionMode)}]\n";
+                    text += $"    > {BlackEmperorPlayer.DefinitionEffect((BlackEmperorDefinition)be.definitionMode)}\n";
+                    text += "    > 敌人: 说谁是敌人，你对它的伤害提高一成\n";
+                    text += "    > 贿赂: 你的每一次攻击都被当成一笔贿赂，命中即削弱目标\n";
+                    text += "    > 腐败者: 被你碰过的敌人成为腐败者，挨打更痛、死后掉得更多\n";
+                    text += "    > 替身: 在身旁制造一具与你外观相同的实体，会自行行走、跟随与越过障碍；致命伤到来时由它真正死去，你保留 20% 生命并获得 2 秒保护，九十秒后重塑\n";
+                    if (be.definitionMode == (int)BlackEmperorDefinition.StandIn)
+                        text += be.standInCooldown > 0
+                            ? $"      [c/FF8888:替身重塑中 {be.standInCooldown / 60f:F1}s]\n"
+                            : "      [c/00FF00:替身已在场，可承担一次死亡]\n";
+                    text += $"- [技能] 扭曲 ([c/FFFF00:{keyTwist}]): 范围与持续时间再上一档；Boss 在所有序列都能被拨动，序列一效果最强\n";
+                    text += $"- [技能] 扭曲概念 (Ctrl + [c/FFFF00:{keyTwist}]): 把目标的「承受」改写掉，你受的伤由它分走一半\n";
+                    text += "- [被动] 律令升级: 律令持续 +50%、冷却 -20%，律令期间免疫冰冻、缠绕、缓慢、混乱与石化\n";
+                    text += "- [被动] 弑序亲王之躯: 生命 +50 / 防御 +10 / 减伤 +5%\n";
+                }
+                // ── 名义 / 称号：黑皇帝途径专属，序列九就能开始收集 ──
+                text += "\n[c/FFD850:名义 · 称号（黑皇帝途径专属，序列九即可收集）]\n";
+                text += $"- 当前称号: 《{BlackEmperorTitles.Name(be.Worn)}》 [{keyTitle} 更换 · Ctrl+{keyTitle} 反向 · Shift+{keyTitle} 使用能力]\n";
+                text += $"    > {BlackEmperorTitles.Effect(be.Worn)}\n";
+                if (BlackEmperorTitles.HasActive(be.Worn))
+                    text += $"    > [主动] {BlackEmperorTitles.ActiveName(be.Worn)} {CooldownState(be.titleSkillCooldown)}\n";
+                string titleProgress = be.TitleProgressText();
+                if (titleProgress.Length > 0)
+                    text += $"    > 获取条件: {BlackEmperorTitles.Requirement(be.Worn)}（{titleProgress}）\n";
+                text += "- 已解锁 / 未解锁:\n";
+                for (int titleIndex = 0; titleIndex < BlackEmperorTitles.Count; titleIndex++)
+                {
+                    BlackEmperorTitle titleEntry = (BlackEmperorTitle)titleIndex;
+                    if (be.HasTitle(titleEntry))
+                        text += $"    [c/00FF00:✔ {BlackEmperorTitles.Name(titleEntry)}]\n";
+                    else
+                        text += $"    [c/808080:· {BlackEmperorTitles.Name(titleEntry)} — {BlackEmperorTitles.Requirement(titleEntry)}]\n";
                 }
             }
 

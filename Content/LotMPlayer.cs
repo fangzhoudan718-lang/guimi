@@ -11,7 +11,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Audio;
 using zhashi;
 using zhashi.Content;
 using zhashi.Content.Projectiles;
@@ -24,7 +23,6 @@ using ReLogic.Utilities;
 using zhashi.Content.Configs;
 using Terraria.Graphics.Effects;
 using Terraria.Localization;
-using Terraria.DataStructures;
 using SubworldLibrary; 
 using zhashi.Content.Dimensions; 
 using zhashi.Content.DaqianLu;
@@ -107,6 +105,7 @@ namespace zhashi.Content
         public int baseDemonessSequence = 10;
         public int baseWheelSequence = 10;
         public int baseDoorSequence = 10;
+        public int baseBlackEmperorSequence = 10;
 
 
         public int currentSequence = 10;       // 巨人途径 
@@ -119,10 +118,13 @@ namespace zhashi.Content
         public int currentDemonessSequence = 10; // 刺客途径
         public int currentWheelSequence = 10; // 命运途径
         public int currentDoorSequence = 10;  // 学徒/门途径
+        public int currentBlackEmperorSequence = 10; // 黑皇帝途径（律师→弑序亲王）
 
         // === 学徒/门 途径技能字段 ===
         public int doorOpenCooldown = 0;          // "开门"穿墙CD (180帧=3秒)
         public const int DOOR_OPEN_CD_MAX = 180;
+        public int doorEchoTimer = 0;             // 连续开门彩蛋的判定窗口
+        public int doorEchoCount = 0;
 
         // === 序列8 戏法大师 ===
         public int selectedTrick = 0;             // 当前选中的戏法 0-11
@@ -146,8 +148,15 @@ namespace zhashi.Content
         public const int RECORDER_NORMAL_MAX = 20;
         public List<int> recorderDivineList = new List<int>();   // 神性记录NPC ID列表(上限1)
         public const int RECORDER_DIVINE_MAX = 1;
-        /// <summary>实际神性记录上限(序列5+提升到4)</summary>
-        public int GetRecorderDivineMax() => recorderDivineMaxOverride > 0 ? recorderDivineMaxOverride : RECORDER_DIVINE_MAX;
+        /// <summary>记录能力随门途径位格提升；高序列“再现”需要足够的神性记录容量。</summary>
+        public int GetRecorderDivineMax()
+        {
+            if (currentDoorSequence <= 1) return 20;
+            if (currentDoorSequence <= 2) return 12;
+            if (currentDoorSequence <= 3) return 8;
+            if (currentDoorSequence <= 4) return 6;
+            return recorderDivineMaxOverride > 0 ? recorderDivineMaxOverride : RECORDER_DIVINE_MAX;
+        }
         public int recorderSelectedNormal = 0;     // 当前选中的普通记录索引
         public int recorderSelectedDivine = 0;     // 当前选中的神性记录索引
         public int recorderCooldown = 0;           // 使用CD(10秒)
@@ -194,12 +203,14 @@ namespace zhashi.Content
 
 
 
-        public bool IsBeyonder => currentSequence < 10 || currentHunterSequence < 10 || currentMoonSequence < 10 || currentFoolSequence < 10 || currentMarauderSequence < 10 || currentSunSequence < 10 || currentDemonessSequence < 10 || currentWheelSequence < 10 || currentDoorSequence < 10;
+        public bool IsBeyonder => currentSequence < 10 || currentHunterSequence < 10 || currentMoonSequence < 10 || currentFoolSequence < 10 || currentMarauderSequence < 10 || currentSunSequence < 10 || currentDemonessSequence < 10 || currentWheelSequence < 10 || currentDoorSequence < 10 || currentBlackEmperorSequence < 10;
 
         // 灵性系统
         public float spiritualityCurrent = 100;
         public int spiritualityMax = 100;
         public int spiritualityRegenTimer = 0; 
+        /// <summary>熵之公爵「兑现」之后的空虚：一段时间里灵性回复减半。</summary>
+        public bool spiritualityRegenHalved;
 
         // --- 巨人途径技能状态 ---
         public bool dawnArmorActive = false;
@@ -209,6 +220,7 @@ namespace zhashi.Content
         public int dawnArmorCooldownTimer = 0;
         public const int DAWN_ARMOR_COOLDOWN_MAX = 900;
         public bool isGuardianStance = false;
+        public int guardianRescueCooldown = 0;    // 被守护者侧冷却，防止多人叠加无限免死
         public bool isMercuryForm = false;
         public int twilightResurrectionCooldown = 0;
         public const int TWILIGHT_RESURRECTION_MAX = 18000;
@@ -226,7 +238,14 @@ namespace zhashi.Content
         public bool isCalamityGiant = false;
         public int glacierCooldown = 0;
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
-        { 
+        {
+            // 门途径的超凡者死去会析出学徒途径非凡特性：序列越高，数量越多（序列九 1 枚 → 序列一 9 枚）。
+            if (Main.netMode != NetmodeID.MultiplayerClient && currentDoorSequence <= 9)
+            {
+                int amount = 10 - System.Math.Clamp(currentDoorSequence, 1, 9);
+                Item.NewItem(Player.GetSource_Death(), Player.getRect(), ModContent.ItemType<Content.Items.Materials.SpiritEssence>(), amount);
+            }
+
             if (currentHunterSequence == 5)
             {
                 if (ironBloodRitualProgress > 0)
@@ -373,6 +392,8 @@ namespace zhashi.Content
         public const int FATE_NULLIFY_CD_MAX = 1800;    // 60帧 * 30秒
         public int fateDiceCooldown = 0;                // 命运骰子冷却 (30秒)
         public const int FATE_DICE_CD_MAX = 1800;       // 60帧 * 30秒
+        public int lastFateDiceResult = 0;               // 连号彩蛋，不持久化、不影响点数
+        public int fateDiceStreak = 0;
         public int fateBlessingActiveTimer = 0;         // 骰子点数4 - 命运庇护剩余时间
         public int anomalyDebuffStack = 0;              // 缓存当前减益数量(用于Luck计算)
         // 记录玩家上一帧血量百分比，用于检测"绝境逆转"仪式
@@ -498,6 +519,10 @@ namespace zhashi.Content
         public int sanityRegenTimer = 0;
         public bool isLosingControl = false; // 是否处于失控状态
 
+        // 个人仪式由所属客户端记录，再通过 ModPlayer 同步给服务器。
+        // 这样可避免远端玩家在每台客户端上重复累加同一份进度。
+        private bool IsLocalRitualAuthority => Main.netMode != NetmodeID.Server && Player.whoAmI == Main.myPlayer;
+
         // ===================================================
         // 2. 数据存档与读取
         // ===================================================
@@ -514,6 +539,7 @@ namespace zhashi.Content
             tag["DemonessSequence"] = baseDemonessSequence;
             tag["WheelSequence"] = baseWheelSequence;
             tag["DoorSequence"] = baseDoorSequence;
+            tag["BlackEmperorSequence"] = baseBlackEmperorSequence;
             tag["RecorderNormalList"] = recorderNormalList;
             tag["RecorderDivineList"] = recorderDivineList;
 
@@ -522,6 +548,8 @@ namespace zhashi.Content
             tag["GuardianRitual"] = guardianRitualProgress;
             tag["DemonHunterRitual"] = demonHunterRitualProgress;
             tag["IronBloodRitual"] = ironBloodRitualProgress;
+            tag["WeatherRitualCount"] = weatherRitualCount;
+            tag["WeatherRitualTimer"] = weatherRitualTimer;
             tag["WeatherRitualComplete"] = weatherRitualComplete;
             tag["ConquerorRitual"] = conquerorRitualComplete;
             tag["ResurrectionCooldown"] = twilightResurrectionCooldown;
@@ -546,6 +574,8 @@ namespace zhashi.Content
             tag["DespairKills"] = despairRitualCount;
             tag["CatastropheRitual"] = catastropheRitualCount;
             tag["RealmActive"] = isRealmOfMysteriesActive;
+            tag["MisfortuneRitualTimer"] = misfortuneRitualTimer;
+            tag["MisfortuneMageRitualComplete"] = misfortuneMageRitualComplete;
 
             // 序列3 怪人 仪式
             tag["AnomalyRitual"] = anomalyRitualProgress;
@@ -581,6 +611,7 @@ namespace zhashi.Content
             if (tag.ContainsKey("DemonessSequence")) baseDemonessSequence = tag.GetInt("DemonessSequence");
             if (tag.ContainsKey("WheelSequence")) baseWheelSequence = tag.GetInt("WheelSequence");
             if (tag.ContainsKey("DoorSequence")) baseDoorSequence = tag.GetInt("DoorSequence");
+            if (tag.ContainsKey("BlackEmperorSequence")) baseBlackEmperorSequence = tag.GetInt("BlackEmperorSequence");
             if (tag.ContainsKey("RecorderNormalList")) recorderNormalList = tag.GetList<int>("RecorderNormalList") as List<int>;
             if (tag.ContainsKey("RecorderDivineList")) recorderDivineList = tag.GetList<int>("RecorderDivineList") as List<int>;
             if (recorderNormalList == null) recorderNormalList = new List<int>();
@@ -590,6 +621,8 @@ namespace zhashi.Content
             if (tag.ContainsKey("GuardianRitual")) guardianRitualProgress = tag.GetInt("GuardianRitual");
             if (tag.ContainsKey("DemonHunterRitual")) demonHunterRitualProgress = tag.GetInt("DemonHunterRitual");
             if (tag.ContainsKey("IronBloodRitual")) ironBloodRitualProgress = tag.GetInt("IronBloodRitual");
+            if (tag.ContainsKey("WeatherRitualCount")) weatherRitualCount = tag.GetInt("WeatherRitualCount");
+            if (tag.ContainsKey("WeatherRitualTimer")) weatherRitualTimer = tag.GetInt("WeatherRitualTimer");
             if (tag.ContainsKey("WeatherRitualComplete")) weatherRitualComplete = tag.GetBool("WeatherRitualComplete");
             if (tag.ContainsKey("ConquerorRitual")) conquerorRitualComplete = tag.GetBool("ConquerorRitual");
             if (tag.ContainsKey("ResurrectionCooldown")) twilightResurrectionCooldown = tag.GetInt("ResurrectionCooldown");
@@ -613,6 +646,8 @@ namespace zhashi.Content
             if (tag.ContainsKey("DespairKills")) despairRitualCount = tag.GetInt("DespairKills");
             if (tag.ContainsKey("CatastropheRitual")) catastropheRitualCount = tag.GetInt("CatastropheRitual");
             if (tag.ContainsKey("RealmActive")) isRealmOfMysteriesActive = tag.GetBool("RealmActive");
+            if (tag.ContainsKey("MisfortuneRitualTimer")) misfortuneRitualTimer = tag.GetInt("MisfortuneRitualTimer");
+            if (tag.ContainsKey("MisfortuneMageRitualComplete")) misfortuneMageRitualComplete = tag.GetBool("MisfortuneMageRitualComplete");
 
             // 序列3 怪人 仪式
             if (tag.ContainsKey("AnomalyRitual")) anomalyRitualProgress = tag.GetInt("AnomalyRitual");
@@ -660,6 +695,7 @@ namespace zhashi.Content
             packet.Write(baseDemonessSequence);   // 刺客基础
             packet.Write(baseWheelSequence);      // 命运基础
             packet.Write(baseDoorSequence);       // 学徒/门基础
+            packet.Write(baseBlackEmperorSequence); // 黑皇帝基础
 
             // --- [1] 基础数值 (7个) ---
             packet.Write(currentSequence);
@@ -671,6 +707,7 @@ namespace zhashi.Content
             packet.Write(currentDemonessSequence);
             packet.Write(currentWheelSequence);
             packet.Write(currentDoorSequence);
+            packet.Write(currentBlackEmperorSequence);
             packet.Write(spiritualityCurrent); // float
 
             // --- [2] 寄生与仪式 (8个) ---
@@ -683,6 +720,30 @@ namespace zhashi.Content
             packet.Write(ironBloodRitualProgress);   // 猎人序列4
             packet.Write(despairRitualCount);        // 魔女序列4
             packet.Write(afflictionRitualTimer);
+
+            // --- [2.1] 完整晋升仪式状态 ---
+            packet.Write(guardianRitualProgress);
+            packet.Write(demonHunterRitualProgress);
+            packet.Write(weatherRitualCount);
+            packet.Write(weatherRitualTimer);
+            packet.Write(weatherRitualComplete);
+            packet.Write(conquerorRitualComplete);
+            packet.Write(attendantRitualProgress);
+            packet.Write(attendantRitualComplete);
+            packet.Write(parasiteRitualProgress);
+            packet.Write(mentorRitualProgress);
+            packet.Write(trojanRitualTimer);
+            packet.Write(wormRitualTimer);
+            packet.Write(catastropheRitualCount);
+            packet.Write(misfortuneRitualTimer);
+            packet.Write(misfortuneMageRitualComplete);
+            packet.Write(anomalyRitualProgress);
+            packet.Write(anomalyRitualComplete);
+            packet.Write(prophetRitualProgress);
+            packet.Write(prophetRitualComplete);
+            packet.Write(serpentRitualProgress);
+            packet.Write(serpentRitualBeatMoonLord);
+            packet.Write(serpentRitualComplete);
 
             // --- [3] 核心资源 (1个) ---
             packet.Write(spiritWorms);
@@ -727,6 +788,26 @@ namespace zhashi.Content
 
             packet.Write(isPassiveStealEnabled);
 
+            // --- [11] 理智与其他会影响玩法/表现的开关 ---
+            packet.Write(sanityCurrent);
+            packet.Write(isLosingControl);
+            packet.Write(isFacelessActive);
+            packet.Write(isBorrowingPower);
+            packet.Write(fateDisturbanceActive);
+            packet.Write(isTrojanResurrection);
+            packet.Write(stealMode);
+            packet.Write(isCleansingSlash);
+            packet.Write(isAfflictionDemoness);
+            packet.Write(mirrorCloneActive);
+            packet.Write(isMisfortuneDomainActive);
+            packet.Write(prophecyMarked);
+            packet.Write(fateLoopActive);
+            packet.Write(fateLoopCenter.X);
+            packet.Write(fateLoopCenter.Y);
+            packet.Write(dawnArmorBroken);
+            packet.Write(dawnArmorCurrentHP);
+            packet.Write(isArmyOfOne);
+
             packet.Send(toWho, fromWho);
         }
 
@@ -744,6 +825,7 @@ namespace zhashi.Content
             clone.baseDemonessSequence = baseDemonessSequence;
             clone.baseWheelSequence = baseWheelSequence;
             clone.baseDoorSequence = baseDoorSequence;
+            clone.baseBlackEmperorSequence = baseBlackEmperorSequence;
 
             // [1]
             clone.currentSequence = currentSequence;
@@ -755,6 +837,7 @@ namespace zhashi.Content
             clone.currentDemonessSequence = currentDemonessSequence;
             clone.currentWheelSequence = currentWheelSequence;
             clone.currentDoorSequence = currentDoorSequence;
+            clone.currentBlackEmperorSequence = currentBlackEmperorSequence;
             clone.spiritualityCurrent = spiritualityCurrent;
 
             // [2]
@@ -767,6 +850,28 @@ namespace zhashi.Content
             clone.ironBloodRitualProgress = ironBloodRitualProgress;
             clone.despairRitualCount = despairRitualCount;
             clone.afflictionRitualTimer = afflictionRitualTimer;
+            clone.guardianRitualProgress = guardianRitualProgress;
+            clone.demonHunterRitualProgress = demonHunterRitualProgress;
+            clone.weatherRitualCount = weatherRitualCount;
+            clone.weatherRitualTimer = weatherRitualTimer;
+            clone.weatherRitualComplete = weatherRitualComplete;
+            clone.conquerorRitualComplete = conquerorRitualComplete;
+            clone.attendantRitualProgress = attendantRitualProgress;
+            clone.attendantRitualComplete = attendantRitualComplete;
+            clone.parasiteRitualProgress = parasiteRitualProgress;
+            clone.mentorRitualProgress = mentorRitualProgress;
+            clone.trojanRitualTimer = trojanRitualTimer;
+            clone.wormRitualTimer = wormRitualTimer;
+            clone.catastropheRitualCount = catastropheRitualCount;
+            clone.misfortuneRitualTimer = misfortuneRitualTimer;
+            clone.misfortuneMageRitualComplete = misfortuneMageRitualComplete;
+            clone.anomalyRitualProgress = anomalyRitualProgress;
+            clone.anomalyRitualComplete = anomalyRitualComplete;
+            clone.prophetRitualProgress = prophetRitualProgress;
+            clone.prophetRitualComplete = prophetRitualComplete;
+            clone.serpentRitualProgress = serpentRitualProgress;
+            clone.serpentRitualBeatMoonLord = serpentRitualBeatMoonLord;
+            clone.serpentRitualComplete = serpentRitualComplete;
 
             // [3]
             clone.spiritWorms = spiritWorms;
@@ -809,11 +914,39 @@ namespace zhashi.Content
             clone.isDisasterForm = isDisasterForm;     
 
             clone.isPassiveStealEnabled = isPassiveStealEnabled;
+            clone.sanityCurrent = sanityCurrent;
+            clone.isLosingControl = isLosingControl;
+            clone.isFacelessActive = isFacelessActive;
+            clone.isBorrowingPower = isBorrowingPower;
+            clone.fateDisturbanceActive = fateDisturbanceActive;
+            clone.isTrojanResurrection = isTrojanResurrection;
+            clone.stealMode = stealMode;
+            clone.isCleansingSlash = isCleansingSlash;
+            clone.isAfflictionDemoness = isAfflictionDemoness;
+            clone.mirrorCloneActive = mirrorCloneActive;
+            clone.isMisfortuneDomainActive = isMisfortuneDomainActive;
+            clone.prophecyMarked = prophecyMarked;
+            clone.fateLoopActive = fateLoopActive;
+            clone.fateLoopCenter = fateLoopCenter;
+            clone.dawnArmorBroken = dawnArmorBroken;
+            clone.dawnArmorCurrentHP = dawnArmorCurrentHP;
+            clone.isArmyOfOne = isArmyOfOne;
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             LotMPlayer clone = clientPlayer as LotMPlayer;
+
+            // 连续变化的资源/计时器最多每 15 帧同步一次，避免维持技能时每帧发送完整快照。
+            bool continuousChanged =
+                Math.Abs(clone.spiritualityCurrent - spiritualityCurrent) > 0.1f ||
+                Math.Abs(clone.sanityCurrent - sanityCurrent) > 0.1f ||
+                clone.afflictionRitualTimer != afflictionRitualTimer ||
+                clone.weatherRitualTimer != weatherRitualTimer ||
+                clone.trojanRitualTimer != trojanRitualTimer ||
+                clone.wormRitualTimer != wormRitualTimer ||
+                clone.misfortuneRitualTimer != misfortuneRitualTimer ||
+                clone.dawnArmorCurrentHP != dawnArmorCurrentHP;
 
             bool changed =
                 clone.baseSequence != baseSequence ||
@@ -824,6 +957,8 @@ namespace zhashi.Content
                 clone.baseSunSequence != baseSunSequence ||
                 clone.baseDemonessSequence != baseDemonessSequence ||
                 clone.baseWheelSequence != baseWheelSequence ||
+                clone.baseDoorSequence != baseDoorSequence ||
+                clone.baseBlackEmperorSequence != baseBlackEmperorSequence ||
 
                 clone.currentSequence != currentSequence ||
                 clone.currentMarauderSequence != currentMarauderSequence ||
@@ -833,7 +968,7 @@ namespace zhashi.Content
                 clone.currentSunSequence != currentSunSequence ||
                 clone.currentDemonessSequence != currentDemonessSequence ||
                 clone.currentWheelSequence != currentWheelSequence ||
-                Math.Abs(clone.spiritualityCurrent - spiritualityCurrent) > 0.1f ||
+                clone.currentDoorSequence != currentDoorSequence ||
 
                 clone.isParasitizing != isParasitizing ||
                 clone.parasiteTargetIndex != parasiteTargetIndex ||
@@ -843,7 +978,24 @@ namespace zhashi.Content
                 clone.judgmentProgress != judgmentProgress ||
                 clone.ironBloodRitualProgress != ironBloodRitualProgress ||
                 clone.despairRitualCount != despairRitualCount ||
-                clone.afflictionRitualTimer != afflictionRitualTimer ||
+                clone.guardianRitualProgress != guardianRitualProgress ||
+                clone.demonHunterRitualProgress != demonHunterRitualProgress ||
+                clone.weatherRitualCount != weatherRitualCount ||
+                clone.weatherRitualComplete != weatherRitualComplete ||
+                clone.conquerorRitualComplete != conquerorRitualComplete ||
+                clone.attendantRitualProgress != attendantRitualProgress ||
+                clone.attendantRitualComplete != attendantRitualComplete ||
+                clone.parasiteRitualProgress != parasiteRitualProgress ||
+                clone.mentorRitualProgress != mentorRitualProgress ||
+                clone.catastropheRitualCount != catastropheRitualCount ||
+                clone.misfortuneMageRitualComplete != misfortuneMageRitualComplete ||
+                clone.anomalyRitualProgress != anomalyRitualProgress ||
+                clone.anomalyRitualComplete != anomalyRitualComplete ||
+                clone.prophetRitualProgress != prophetRitualProgress ||
+                clone.prophetRitualComplete != prophetRitualComplete ||
+                clone.serpentRitualProgress != serpentRitualProgress ||
+                clone.serpentRitualBeatMoonLord != serpentRitualBeatMoonLord ||
+                clone.serpentRitualComplete != serpentRitualComplete ||
 
                 clone.spiritWorms != spiritWorms ||
 
@@ -875,9 +1027,25 @@ namespace zhashi.Content
                 clone.isSunMessenger != isSunMessenger ||
                 clone.isApocalypseForm != isApocalypseForm ||
                 clone.isDisasterForm != isDisasterForm ||
+                clone.isPassiveStealEnabled != isPassiveStealEnabled ||
+                clone.isLosingControl != isLosingControl ||
+                clone.isFacelessActive != isFacelessActive ||
+                clone.isBorrowingPower != isBorrowingPower ||
+                clone.fateDisturbanceActive != fateDisturbanceActive ||
+                clone.isTrojanResurrection != isTrojanResurrection ||
+                clone.stealMode != stealMode ||
+                clone.isCleansingSlash != isCleansingSlash ||
+                clone.isAfflictionDemoness != isAfflictionDemoness ||
+                clone.mirrorCloneActive != mirrorCloneActive ||
+                clone.isMisfortuneDomainActive != isMisfortuneDomainActive ||
+                clone.prophecyMarked != prophecyMarked ||
+                clone.fateLoopActive != fateLoopActive ||
+                clone.fateLoopCenter != fateLoopCenter ||
+                clone.dawnArmorBroken != dawnArmorBroken ||
+                clone.isArmyOfOne != isArmyOfOne;
 
-
-                clone.isPassiveStealEnabled != isPassiveStealEnabled;
+            if (continuousChanged && (Main.GameUpdateCount + (uint)Player.whoAmI) % 15u == 0u)
+                changed = true;
 
             if (changed)
             {
@@ -903,6 +1071,11 @@ namespace zhashi.Content
             if (fateNullifyCooldown > 0) fateNullifyCooldown--;
             if (fateDiceCooldown > 0) fateDiceCooldown--;
             if (wheelOnHitCooldown > 0) wheelOnHitCooldown--;
+            if (guardianRescueCooldown > 0) guardianRescueCooldown--;
+            if (doorEchoTimer > 0)
+                doorEchoTimer--;
+            else
+                doorEchoCount = 0;
 
             // 命运庇护(骰子点数4)持续与到期处理
             if (fateBlessingActiveTimer > 0)
@@ -924,7 +1097,7 @@ namespace zhashi.Content
 
             // "见证三次绝境逆转" 仪式检测 (只在序列4且仪式未完成时记录)
             // 思路: 进入 <10% 血量 (deepDanger) 后, 若血量恢复回 60%+ 则计 1 次
-            if (baseWheelSequence == 4 && !anomalyRitualComplete && Player.statLifeMax2 > 0)
+            if (IsLocalRitualAuthority && baseWheelSequence == 4 && !anomalyRitualComplete && Player.statLifeMax2 > 0)
             {
                 float lifePercent = (float)Player.statLife / Player.statLifeMax2;
 
@@ -1494,7 +1667,7 @@ namespace zhashi.Content
                 if (currentMarauderSequence == 2)
                 {
                     // 条件：欺瞒领域开启 + 处于城镇中 (周围有NPC)
-                    if (isDeceitDomainActive && Player.townNPCs >= 3f)
+                    if (IsLocalRitualAuthority && isDeceitDomainActive && Player.townNPCs >= 3f)
                     {
                         wormRitualTimer++;
 
@@ -1616,6 +1789,7 @@ namespace zhashi.Content
             currentDemonessSequence = baseDemonessSequence;
             currentWheelSequence = baseWheelSequence;
             currentDoorSequence = baseDoorSequence;
+            currentBlackEmperorSequence = baseBlackEmperorSequence;
 
             instigatorEffect = false;
             witchIceEffect = false;
@@ -1748,7 +1922,7 @@ namespace zhashi.Content
                     Main.NewText("嫁接中断。", 150, 150, 150);
                 }
             }
-            if (weatherRitualTimer > 0)
+            if (IsLocalRitualAuthority && weatherRitualTimer > 0)
             {
                 weatherRitualTimer--;
                 if (weatherRitualTimer == 0 && !weatherRitualComplete)
@@ -1830,20 +2004,8 @@ namespace zhashi.Content
         // ===================================================
         private void ApplySequenceStats()
         {
-            float worldMult = Systems.BalanceSystem.GetWorldTierMultiplier();
-
-            if (ModContent.GetInstance<Configs.LotMConfig>().EnableWorldRestriction)
-            {
-                float powerCap = 1.0f;
-
-                // 设定阶段上限
-                if (!Main.hardMode) powerCap = 0.15f;      // 肉山前：最多发挥 15% 实力
-                else if (!NPC.downedMoonlord) powerCap = 0.6f; // 月后前：最多发挥 60% 实力
-                else powerCap = 1.0f;                      // 毕业后：100% 实力
-
-                // 强制压制 worldMult
-                if (worldMult > powerCap) worldMult = powerCap;
-            }
+            // 动态世界等级 ×（开启位格压制时的阶段上限），统一从 BalanceSystem 取
+            float worldMult = Systems.BalanceSystem.GetEffectiveWorldMultiplier();
 
             float giantMult = GetSequenceMultiplier(currentSequence);
             float hunterMult = GetSequenceMultiplier(currentHunterSequence);
@@ -4186,6 +4348,37 @@ namespace zhashi.Content
                     if (Main.GameUpdateCount % 1800 == 0)
                         CombatText.NewText(Player.getRect(), Color.Gold, "命运长河翻涌,星辰陨落...", true);
                 }
+                // 【新增】8. 门途径：[空间的排斥]
+                // 一段时间不用瞬移就会被压慢，最慢只剩两成移速；
+                // 用过瞬移之后随时间慢慢退回正常（强度由 DoorPathwayPlayer 维护）。
+                if (currentDoorSequence <= 9)
+                {
+                    var door = Player.GetModPlayer<Pathways.Door.DoorPathwayPlayer>();
+                    float repel = door.spaceRepelStrength;
+
+                    if (repel > 0.001f)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Content.Buffs.Curse.DoorCurseBuff>(), 2);
+                        Player.moveSpeed *= 1f - repel;                  // 最高慢 80%
+                        Player.maxRunSpeed *= 1f - repel * 0.5f;
+
+                        if (Main.GameUpdateCount % 240 == 0)
+                            CombatText.NewText(Player.getRect(), new Color(150, 185, 225),
+                                $"空间在排斥你... -{repel * 100f:F0}%", true);
+                    }
+                }
+
+                // 【新增】9. 黑皇帝途径：[秩序的代价]
+                // 这条路的身体是秩序撑起来的：身上没有律令，防御减半，受到的伤害多一半。
+                // （受伤那半边在 ModifyHurt 里）
+                if (currentBlackEmperorSequence <= 9 && !HoldingBlackEmperorLaw())
+                {
+                    Player.AddBuff(ModContent.BuffType<Content.Buffs.Curse.BlackEmperorCurseBuff>(), 2);
+                    Player.statDefense *= 0.5f;
+
+                    if (Main.GameUpdateCount % 600 == 0)
+                        CombatText.NewText(Player.getRect(), new Color(185, 155, 215), "没有秩序托着你...", true);
+                }
             }
             // ==========================================
             // 痛苦魔女：仪式与能力逻辑
@@ -4206,7 +4399,7 @@ namespace zhashi.Content
                     onFireBlock = true;
                 }
 
-                if (onFireBlock)
+                if (IsLocalRitualAuthority && onFireBlock)
                 {
                     afflictionRitualTimer++;
                     // 每分钟提示一次
@@ -4591,7 +4784,7 @@ namespace zhashi.Content
                                     Dust.NewDust(target.position, target.width, target.height, DustID.GoldFlame, 0, 0, 0, default, 1.0f);
 
                                 // --- 仪式逻辑 (这里面可能原本包含了一个 int k 的循环) ---
-                                if (currentMarauderSequence == 5 && parasiteRitualProgress < PARASITE_RITUAL_TARGET)
+                                if (IsLocalRitualAuthority && currentMarauderSequence == 5 && parasiteRitualProgress < PARASITE_RITUAL_TARGET)
                                 {
                                     parasiteRitualProgress++;
                                     if (parasiteRitualProgress >= PARASITE_RITUAL_TARGET)
@@ -4846,7 +5039,7 @@ namespace zhashi.Content
 
                 if (nerf)
                 {
-                    float worldMult = Systems.BalanceSystem.GetWorldTierMultiplier();
+                    float worldMult = Systems.BalanceSystem.GetEffectiveWorldMultiplier();
                     int damageCap = (int)(5000 * worldMult);
 
                     // 基础附加：Boss 1%, 小怪 10%
@@ -4895,7 +5088,7 @@ namespace zhashi.Content
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers) { if (currentHunterSequence <= 5) modifiers.CritDamage += 0.5f; if (currentWheelSequence <= 3) modifiers.CritDamage += 0.3f; if (currentWheelSequence <= 2) modifiers.CritDamage += 0.2f; if (currentWheelSequence <= 1) modifiers.CritDamage += 0.3f; }
         private void CheckExecution(NPC target) { if (currentHunterSequence <= 5 && !target.boss && target.life < target.lifeMax * 0.2f) target.SimpleStrikeNPC(9999, 0); }
-        private void CheckRitualKill(NPC target) { if (target.life <= 0) { if (currentSequence == 5 && demonHunterRitualProgress < DEMON_HUNTER_RITUAL_TARGET) { if (target.type == NPCID.RedDevil) { demonHunterRitualProgress++; } } }
+        private void CheckRitualKill(NPC target) { if (!IsLocalRitualAuthority) return; if (target.life <= 0) { if (currentSequence == 5 && demonHunterRitualProgress < DEMON_HUNTER_RITUAL_TARGET) { if (target.type == NPCID.RedDevil) { demonHunterRitualProgress++; } } }
             if (currentMarauderSequence == 4 && mentorRitualProgress < MENTOR_RITUAL_TARGET)
             {
                 if (target.HasBuff(BuffID.Confused))
@@ -4947,7 +5140,7 @@ namespace zhashi.Content
             }
         }
         public override void PostHurt(Player.HurtInfo info) { if (currentSequence <= 6 && dawnArmorActive && !dawnArmorBroken) { dawnArmorCurrentHP -= info.Damage; if (dawnArmorCurrentHP <= 0) { dawnArmorCurrentHP = 0; dawnArmorActive = false; dawnArmorBroken = true; dawnArmorCooldownTimer = DAWN_ARMOR_COOLDOWN_MAX; Main.NewText("铠甲已重铸", 100, 255, 100); } }
-            if (currentSequence == 6 && guardianRitualProgress < GUARDIAN_RITUAL_TARGET)
+            if (IsLocalRitualAuthority && currentSequence == 6 && guardianRitualProgress < GUARDIAN_RITUAL_TARGET)
             {
                 bool npcNearby = false;
                 foreach (NPC npc in Main.ActiveNPCs)
@@ -5257,8 +5450,49 @@ namespace zhashi.Content
 
 
         // 【美神被动】
+        /// <summary>黑皇帝途径的神性副作用要问的一句：身上是否立着律令。</summary>
+        private bool HoldingBlackEmperorLaw()
+        {
+            if (currentBlackEmperorSequence > 9) return true;
+            return Player.GetModPlayer<Pathways.BlackEmperor.BlackEmperorPlayer>().activeLaw
+                != Pathways.BlackEmperor.BlackEmperorLaw.None;
+        }
+
+        /// <summary>
+        /// 黑皇帝途径的神性副作用：[秩序的代价]。
+        /// 没有律令托着的时候，受到的伤害多一半；防御减半在 ApplySequenceStats 那份副作用里。
+        /// </summary>
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+            if (!ModContent.GetInstance<Configs.LotMConfig>().EnableDivineCurse) return;
+            if (currentBlackEmperorSequence <= 9 && !HoldingBlackEmperorLaw())
+                modifiers.FinalDamage *= 1.5f;
+        }
+
         public override bool FreeDodge(Player.HurtInfo info)
         {
+            // 守护者的小彩蛋：附近保持守护姿态的队友可替玩家挡下一次致命伤。
+            // 免死冷却记录在被救者身上，多个守护者也无法反复刷新。
+            if (Player.whoAmI == Main.myPlayer && info.Damage >= Player.statLife &&
+                guardianRescueCooldown <= 0 && TryGuardianRescue(out Player guardian))
+            {
+                guardianRescueCooldown = 3600;
+                Player.SetImmuneTimeForAllTypes(60);
+                SoundEngine.PlaySound(SoundID.Item37, guardian.Center);
+                CombatText.NewText(guardian.getRect(), new Color(235, 225, 190),
+                    Language.GetTextValue("Mods.zhashi.Messages.Flavor.GuardianStandFirm"), true);
+                Main.NewText(Language.GetTextValue("Mods.zhashi.Messages.Flavor.GuardianRescue",
+                    guardian.name), new Color(220, 215, 185));
+                for (int i = 0; i < 14; i++)
+                {
+                    Dust dust = Dust.NewDustPerfect(Player.Center,
+                        i % 3 == 0 ? DustID.Enchanted_Gold : DustID.SilverCoin,
+                        Main.rand.NextVector2Circular(2.5f, 2.5f), 80, default, 0.9f);
+                    dust.noGravity = true;
+                }
+                return true;
+            }
+
             // --- 序列7 占星人 "灵性直觉" ---
             // 受到任何>10%最大血的伤害时,概率30%自动闪避(灵性预警),60秒CD
             if (currentDoorSequence <= 7 && astrologyIntuitionCooldown <= 0
@@ -5546,6 +5780,110 @@ namespace zhashi.Content
                 return true;
 
             return base.FreeDodge(info);
+        }
+
+        private bool TryGuardianRescue(out Player guardian)
+        {
+            guardian = null;
+            float bestDistance = 320f;
+            foreach (Player candidate in Main.ActivePlayers)
+            {
+                if (candidate.whoAmI == Player.whoAmI || candidate.dead || candidate.hostile || Player.hostile)
+                    continue;
+                if (Player.team != 0 && candidate.team != 0 && Player.team != candidate.team)
+                    continue;
+
+                LotMPlayer candidateLotM = candidate.GetModPlayer<LotMPlayer>();
+                float distance = candidate.Distance(Player.Center);
+                if (candidateLotM.currentSequence <= 5 && candidateLotM.isGuardianStance && distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    guardian = candidate;
+                }
+            }
+            return guardian != null;
+        }
+
+        private bool TryGetContextualOmen(out string omen, out Color color)
+        {
+            string key = null;
+            color = new Color(170, 160, 205);
+
+            if (Main.bloodMoon)
+            {
+                key = "BloodMoonOmen";
+                color = new Color(205, 85, 95);
+            }
+            else if (Main.eclipse)
+            {
+                key = "EclipseOmen";
+                color = new Color(190, 150, 80);
+            }
+            else if (Main.invasionType > 0)
+            {
+                key = "InvasionOmen";
+                color = new Color(210, 130, 90);
+            }
+            else if (Main.slimeRain)
+            {
+                key = "SlimeRainOmen";
+                color = new Color(100, 175, 220);
+            }
+            else if (HasNearbyBoss())
+            {
+                key = "BossOmen";
+                color = new Color(190, 95, 135);
+            }
+            else if (Player.ZoneGraveyard)
+            {
+                key = "GraveyardOmen";
+            }
+            else if (Main.raining)
+            {
+                key = "RainOmen";
+                color = new Color(125, 165, 205);
+            }
+            else if (Main.dayTime && Main.time > 48600d)
+            {
+                key = "DuskOmen";
+            }
+            else if (!Main.dayTime && Main.time > 27000d)
+            {
+                key = "DawnOmen";
+                color = new Color(225, 205, 140);
+            }
+
+            omen = key == null ? null : Language.GetTextValue($"Mods.zhashi.Messages.Flavor.{key}");
+            return omen != null;
+        }
+
+        private bool HasNearbyBoss()
+        {
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.boss && npc.Distance(Player.Center) < 4000f)
+                    return true;
+            }
+            return false;
+        }
+
+        private void UpdateFateDiceStreak(int result)
+        {
+            fateDiceStreak = result == lastFateDiceResult ? fateDiceStreak + 1 : 1;
+            lastFateDiceResult = result;
+            if (fateDiceStreak < 2)
+                return;
+
+            string key;
+            if (result == 1 && fateDiceStreak >= 3)
+                key = "DiceTripleOne";
+            else if (result == 6 && fateDiceStreak >= 3)
+                key = "DiceTripleSix";
+            else
+                key = "DiceRepeat";
+
+            Main.NewText(Language.GetTextValue($"Mods.zhashi.Messages.Flavor.{key}", result, fateDiceStreak),
+                new Color(180, 150, 220));
         }
 
         // 7. 按键
@@ -5939,7 +6277,7 @@ namespace zhashi.Content
                                 // 这样防止对着同一个NPC重复刷进度
                                 if (!t.HasBuff(ModContent.BuffType<Buffs.MarionetteTownNPCBuff>()))
                                 {
-                                    if (currentFoolSequence == 2 && attendantRitualProgress < ATTENDANT_RITUAL_TARGET)
+                                    if (IsLocalRitualAuthority && currentFoolSequence == 2 && attendantRitualProgress < ATTENDANT_RITUAL_TARGET)
                                     {
                                         attendantRitualProgress++;
                                         if (attendantRitualProgress >= ATTENDANT_RITUAL_TARGET)
@@ -6226,6 +6564,8 @@ namespace zhashi.Content
                     }
 
                     Main.NewText($"占卜结果: {resultText}", textColor);
+                    if (TryGetContextualOmen(out string omen, out Color omenColor))
+                        Main.NewText($"◆ {omen}", omenColor);
                 }
                 else if (divinationCooldown > 0)
                 {
@@ -6776,7 +7116,9 @@ namespace zhashi.Content
                     int startTileX = (int)(startPos.X / 16f) + dir; // 玩家面向方向的第一格
                     int startTileY = (int)(startPos.Y / 16f);
                     int wallThickness = 0;
-                    int maxScan = 8; // 最多扫描8格墙(超过就视为"山", 不能穿)
+                    // 高序列强化：秘法师能跨过大型建筑；漫游者几乎能突破所有常规屏障。
+                    int maxScan = currentDoorSequence <= 3 ? 80 : currentDoorSequence <= 4 ? 24 : 8;
+                    int maxAllowedThickness = currentDoorSequence <= 3 ? 64 : currentDoorSequence <= 4 ? 20 : 5;
 
                     // 找连续的实心墙壁
                     bool foundWallStart = false;
@@ -6820,9 +7162,9 @@ namespace zhashi.Content
                         // 不消耗CD和灵性 - 恢复灵性
                         spiritualityCurrent += 10;
                     }
-                    else if (wallThickness > 5)
+                    else if (wallThickness > maxAllowedThickness)
                     {
-                        Main.NewText("墙壁太厚 (>5格), 这不再是\"常规墙壁\",无法穿越。", 255, 100, 100);
+                        Main.NewText($"屏障过厚 (>{maxAllowedThickness}格)，当前层次还无法突破。", 255, 100, 100);
                         spiritualityCurrent += 10;
                     }
                     else
@@ -6856,7 +7198,7 @@ namespace zhashi.Content
                         else
                         {
                             // === 执行穿墙 ===
-                            doorOpenCooldown = DOOR_OPEN_CD_MAX;
+                            doorOpenCooldown = currentDoorSequence <= 3 ? 15 : currentDoorSequence <= 4 ? 45 : DOOR_OPEN_CD_MAX;
 
                             // 起点效果
                             Vector2 fromPos = Player.Center;
@@ -6870,6 +7212,8 @@ namespace zhashi.Content
                             // 传送
                             Player.position = toPos - Player.Size / 2f;
                             Player.velocity = Vector2.Zero;
+                            // 开门也算「用过瞬移」：空间的排斥会从这一刻开始消退
+                            Player.GetModPlayer<Pathways.Door.DoorPathwayPlayer>().NoteTeleportUsed();
 
                             // 短暂无敌防止穿出来被秒
                             Player.immune = true;
@@ -6878,6 +7222,17 @@ namespace zhashi.Content
                             // === 视觉/音效 ===
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.DoorOpen, fromPos);
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, toPos);
+
+                            doorEchoCount = doorEchoTimer > 0 ? doorEchoCount + 1 : 1;
+                            doorEchoTimer = 600;
+                            if (doorEchoCount >= 3)
+                            {
+                                doorEchoCount = 0;
+                                doorEchoTimer = 0;
+                                SoundEngine.PlaySound(SoundID.DoorClosed, fromPos);
+                                Main.NewText(Language.GetTextValue("Mods.zhashi.Messages.Flavor.DoorClosedBehind"),
+                                    new Color(155, 135, 195));
+                            }
 
                             if (Main.myPlayer == Player.whoAmI)
                             {
@@ -7030,7 +7385,9 @@ namespace zhashi.Content
                         Vector2 dir = (mousePos - Player.Center).SafeNormalize(Vector2.UnitX);
                         Vector2 shootPos = Player.Center;
                         Vector2 shootVel = dir * 14f;
-                        int dmg = 80;  // 普通能力固定基数(简化)
+                        int dmg = currentDoorSequence <= 1 ? 2200 : currentDoorSequence <= 2 ? 1300 :
+                                  currentDoorSequence <= 3 ? 750 : currentDoorSequence <= 4 ? 420 :
+                                  currentDoorSequence <= 5 ? 220 : 80;
 
                         if (CreepingHunger.IsSpecialSkillNPC_Static(npcType))
                         {
@@ -7106,7 +7463,9 @@ namespace zhashi.Content
 
                     Vector2 mousePos = Main.MouseWorld;
                     Vector2 dir = (mousePos - Player.Center).SafeNormalize(Vector2.UnitX);
-                    int dmg = 300; // 神性能力固定高伤害
+                    int dmg = currentDoorSequence <= 1 ? 5200 : currentDoorSequence <= 2 ? 3000 :
+                              currentDoorSequence <= 3 ? 1800 : currentDoorSequence <= 4 ? 1000 :
+                              currentDoorSequence <= 5 ? 600 : 300;
 
                     if (CreepingHunger.IsSpecialSkillNPC_Static(npcType))
                     {
@@ -7224,10 +7583,11 @@ namespace zhashi.Content
                     target = new Vector2(safeX * 16f + 8f, safeY * 16f);
                     targetTL = target - Player.Size / 2f;
 
-                    // 消耗灵性
-                    if (!TryConsumeSpirituality(500))
+                    // 高序列逐步掌控传送权柄，消耗与冷却显著降低。
+                    int gateCost = currentDoorSequence <= 1 ? 100 : currentDoorSequence <= 2 ? 200 : currentDoorSequence <= 3 ? 300 : currentDoorSequence <= 4 ? 400 : 500;
+                    if (!TryConsumeSpirituality(gateCost))
                     {
-                        Main.NewText("灵性不足 (旅行家之门需 500 点)", 255, 50, 50);
+                        Main.NewText($"灵性不足 (旅行家之门需 {gateCost} 点)", 255, 50, 50);
                         travelerGateAwaitingMapClick = false;
                         Main.mapFullscreen = false;
                         return;
@@ -7235,7 +7595,8 @@ namespace zhashi.Content
 
                     travelerGateAwaitingMapClick = false;
                     Main.mapFullscreen = false;  // 关闭地图
-                    travelerGateCooldown = TRAVELER_GATE_CD;
+                    travelerGateCooldown = currentDoorSequence <= 1 ? 60 : currentDoorSequence <= 2 ? 300 : currentDoorSequence <= 3 ? 600 : currentDoorSequence <= 4 ? 1200 : TRAVELER_GATE_CD;
+                    Player.GetModPlayer<Pathways.Door.DoorPathwayPlayer>().NoteTeleportUsed();
                     Vector2 from = Player.Center;
 
                     // === 起点门 ===
@@ -7288,7 +7649,7 @@ namespace zhashi.Content
                 {
                     Vector2 dir = (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.UnitX);
                     // 闪现30格 = 480像素 (限制不超过鼠标位置)
-                    float maxBlink = 480f;
+                    float maxBlink = currentDoorSequence <= 1 ? 2400f : currentDoorSequence <= 2 ? 1600f : currentDoorSequence <= 3 ? 960f : currentDoorSequence <= 4 ? 720f : 480f;
                     float toMouse = Vector2.Distance(Player.Center, Main.MouseWorld);
                     float blinkDist = System.Math.Min(maxBlink, toMouse);
 
@@ -7312,7 +7673,8 @@ namespace zhashi.Content
                     }
                     else
                     {
-                        travelerBlinkCooldown = TRAVELER_BLINK_CD;
+                        travelerBlinkCooldown = currentDoorSequence <= 1 ? 5 : currentDoorSequence <= 2 ? 10 : currentDoorSequence <= 3 ? 15 : currentDoorSequence <= 4 ? 30 : TRAVELER_BLINK_CD;
+                        Player.GetModPlayer<Pathways.Door.DoorPathwayPlayer>().NoteTeleportUsed();
                         Vector2 from = Player.Center;
 
                         // 起点拖尾粒子
@@ -7361,6 +7723,7 @@ namespace zhashi.Content
                     }
 
                     Main.NewText($"骰子落地: {diceResult} 点", 255, 215, 0);
+                    UpdateFateDiceStreak(diceResult);
 
                         switch (diceResult)
                         {
@@ -9335,6 +9698,17 @@ namespace zhashi.Content
             if (currentDoorSequence <= 2) max = Math.Max(max, 100000);
             if (currentDoorSequence <= 1) max = Math.Max(max, 200000);
 
+            //10.黑皇帝途径：控制与削弱为主，灵活度换强度，灵性阶梯与门途径一致。
+            if (currentBlackEmperorSequence <= 9) max = Math.Max(max, 200);
+            if (currentBlackEmperorSequence <= 8) max = Math.Max(max, 300);
+            if (currentBlackEmperorSequence <= 7) max = Math.Max(max, 500);
+            if (currentBlackEmperorSequence <= 6) max = Math.Max(max, 1000);
+            if (currentBlackEmperorSequence <= 5) max = Math.Max(max, 2000);
+            if (currentBlackEmperorSequence <= 4) max = Math.Max(max, 5000);
+            if (currentBlackEmperorSequence <= 3) max = Math.Max(max, 20000);
+            if (currentBlackEmperorSequence <= 2) max = Math.Max(max, 100000);
+            if (currentBlackEmperorSequence <= 1) max = Math.Max(max, 200000);
+
 
 
             spiritualityMax = max;
@@ -9359,6 +9733,9 @@ namespace zhashi.Content
                 // 月亮途径高序列回复加成
                 if (currentMoonSequence <= 2) regen += (spiritualityMax * 0.04f);
 
+                // 熵之公爵兑现之后的空虚：这五秒里回复只有一半。
+                if (spiritualityRegenHalved) regen *= 0.5f;
+
                 spiritualityCurrent += regen;
 
                 // 确保不超过上限
@@ -9367,7 +9744,7 @@ namespace zhashi.Content
         }
         private void HandleDawnArmorLogic() { if (dawnArmorBroken) { dawnArmorCooldownTimer--; if (dawnArmorCooldownTimer <= 0) { dawnArmorBroken = false; dawnArmorCurrentHP = MaxDawnArmorHP; Main.NewText("铠甲已重铸", 100, 255, 100); } } else if (!dawnArmorActive && dawnArmorCurrentHP < MaxDawnArmorHP && Main.GameUpdateCount % 2 == 0) dawnArmorCurrentHP++; }
         private void SpawnVisualDust() { for (int i = 0; i < 40; i++) Dust.NewDustPerfect(Player.Center, DustID.GoldFlame, Main.rand.NextVector2Circular(5f, 5f), 100, default, 2.0f).noGravity = true; }
-        private void CheckConquerorRitual() { if (currentHunterSequence == 2 && !conquerorRitualComplete && ConquerorSpawnSystem.StopSpawning) { bool enemyExists = false; for (int i = 0; i < Main.maxNPCs; i++) { NPC npc = Main.npc[i]; if (npc.active && !npc.friendly && !npc.townNPC && npc.lifeMax > 5 && !npc.dontTakeDamage) { enemyExists = true; break; } } if (!enemyExists) { conquerorRitualComplete = true; Main.NewText("这片大陆已无敌手... 征服的意志已达成！", 255, 0, 0); SoundEngine.PlaySound(SoundID.Roar, Player.position); } } }
+        private void CheckConquerorRitual() { if (IsLocalRitualAuthority && currentHunterSequence == 2 && !conquerorRitualComplete && ConquerorSpawnSystem.StopSpawning) { bool enemyExists = false; for (int i = 0; i < Main.maxNPCs; i++) { NPC npc = Main.npc[i]; if (npc.active && !npc.friendly && !npc.townNPC && npc.lifeMax > 5 && !npc.dontTakeDamage) { enemyExists = true; break; } } if (!enemyExists) { conquerorRitualComplete = true; Main.NewText("这片大陆已无敌手... 征服的意志已达成！", 255, 0, 0); SoundEngine.PlaySound(SoundID.Roar, Player.position); } } }
 
         public override void PostUpdate()
         {
@@ -9487,7 +9864,7 @@ namespace zhashi.Content
                 Player.lifeRegen += 10;
 
                 // 序列3 仪式
-                if (currentMarauderSequence == 3)
+                if (IsLocalRitualAuthority && currentMarauderSequence == 3)
                 {
                     trojanRitualTimer++;
                     if (trojanRitualTimer % 1800 == 0) Main.NewText($"正在编织命运... ({trojanRitualTimer / 60}s / 300s)", 150, 150, 255);
@@ -10064,7 +10441,7 @@ namespace zhashi.Content
                 Vector2 velocity = Vector2.Normalize(target.Center - spawnPos) * 15f;
 
                 // 【修复处】统一计算 damage，移除了重复声明
-                int damage = (int)(50 * Systems.BalanceSystem.GetWorldTierMultiplier());
+                int damage = (int)(50 * Systems.BalanceSystem.GetEffectiveWorldMultiplier());
                 if (Player.luck > 0)
                 {
                     damage = (int)(damage * (1f + Player.luck * 0.5f));
@@ -10147,7 +10524,7 @@ namespace zhashi.Content
             // 【修复处】使用 stormRadius 替代容易冲突的 radius，统一定义 damage
             bool isDemigod = currentWheelSequence <= 4;
             float stormRadius = isDemigod ? 800f : 450f;
-            int stormDamage = (int)((isDemigod ? 200 : 80) * Systems.BalanceSystem.GetWorldTierMultiplier());
+            int stormDamage = (int)((isDemigod ? 200 : 80) * Systems.BalanceSystem.GetEffectiveWorldMultiplier());
 
             bool hitAny = false;
 

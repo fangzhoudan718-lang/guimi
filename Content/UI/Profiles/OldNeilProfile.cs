@@ -12,6 +12,9 @@ using zhashi.Content.Items.Potions.Sun;
 using zhashi.Content.Items.Potions.Moon;
 using zhashi.Content.Items.Potions.Hunter;
 using zhashi.Content.Items.Potions.Demoness;
+using zhashi.Content.Items.Potions.Wheel;
+using zhashi.Content.Items.Potions.Door;
+using zhashi.Content.Items.Potions.BlackEmperor;
 
 
 namespace zhashi.Content.UI.Profiles
@@ -31,7 +34,7 @@ namespace zhashi.Content.UI.Profiles
 
             // ★★★ 修复点1：将 0 改为 10 ★★★
             // 如果还没领过魔药 且 还是凡人(序列10)
-            if (!story.HasReceivedStarterPotion && lotmPlayer.currentSequence == 10)
+            if (!story.HasReceivedStarterPotion && !lotmPlayer.IsBeyonder)
             {
                 return "邓恩跟我说了，你是一个很有潜力的新人。\n既然加入了值夜者，你就需要选择一条非凡途径。\n不用担心，教会虽然主要掌握‘黑夜’途径，但我们也有其他途径的配方和材料。\n你想好要成为什么样的非凡者了吗？";
             }
@@ -53,7 +56,7 @@ namespace zhashi.Content.UI.Profiles
             var lotmPlayer = Main.LocalPlayer.GetModPlayer<LotMPlayer>();
 
             // 只有当玩家是“序列10 (凡人)”时才显示选项
-            if (!story.HasReceivedStarterPotion && lotmPlayer.currentSequence == 10)
+            if (!story.HasReceivedStarterPotion && !lotmPlayer.IsBeyonder)
             {
                 // 1. 愚者 (占卜家)
                 ui.AddButton("我想成为【占卜家】(愚者途径)", () => {
@@ -108,6 +111,30 @@ namespace zhashi.Content.UI.Profiles
                     GivePotion(npc, ui, story,
                         ModContent.ItemType<AssassinPotion>(),
                         "【刺客】？（他的表情有些古怪，但还是笑呵呵的）\n...很强的途径。"
+                    );
+                });
+
+                // 8. 命运 (怪物)
+                ui.AddButton("我想成为【怪物】(命运途径)", () => {
+                    GivePotion(npc, ui, story,
+                        ModContent.ItemType<MonsterPotion>(),
+                        "【怪物】……这个名字听起来危险，但它真正指向的是概率与命运。\n你会比常人更容易察觉好运和灾祸的流向。\n记住，窥见命运并不代表能够轻视命运。"
+                    );
+                });
+
+                // 9. 门 (学徒)
+                ui.AddButton("我想成为【学徒】(门途径)", () => {
+                    GivePotion(npc, ui, story,
+                        ModContent.ItemType<ApprenticePotion>(),
+                        "【学徒】……象征门、空间与远行的途径。\n最初你只能打开近处的门，但终有一天，星空也无法阻拦你的脚步。\n旅行时务必牢记自己的坐标，也不要随意回应门后的呼唤。"
+                    );
+                });
+
+                // 10. 黑皇帝 (律师)
+                ui.AddButton("我想成为【律师】(黑皇帝途径)", () => {
+                    GivePotion(npc, ui, story,
+                        ModContent.ItemType<LawyerPotion>(),
+                        "【律师】……擅长发现秩序的漏洞，并将规则化作自己的武器。\n你将从言辞、契约与贿赂入手，逐步理解秩序背后的力量。\n利用规则之前，务必确认自己承担得起代价。"
                     );
                 });
             }

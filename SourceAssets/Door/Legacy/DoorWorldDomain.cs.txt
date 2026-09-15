@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.UI;
+using zhashi.Content.Pathways.Door;
+using zhashi.Content.Projectiles.Door;
+
+namespace zhashi.Content.Effects.Door
+{
+    /// <summary>
+    /// The world behind the door (门后世界).
+    ///
+    /// While the player is hidden inside their door - or standing inside their own time-space maze -
+    /// the world stops looking like Terraria and becomes the pathway's domain: a different sky with a
+    /// dead moon, hard-edged spire silhouettes, low scrolling fog, drifting motes and a vignette that
+    /// closes the view in. Layering follows the idea behind CalamityOverhaul's Kikasa domain
+    /// (sky + colour grade + decoration + fog), done with plain textures so it needs no shader and
+    /// cannot break on other installs.
+    ///
+    /// Art direction is Terraria-native: few tones, hard pixel edges, dithered transitions, no bloom.
+    /// </summary>
+    public class DoorWorldDomain : ModSystem
+    {
+        private static float strength;
+        private static Asset<Texture2D> sky, spires, fog, vignette, mote;
+
+        /// <summary>True while the domain overlay is visible at all.</summary>
+        public static bool Active => strength > 0.004f;
+
+        /// <summary>0..1 how far the local player is inside the door world.</summary>
+        public static float Strength => strength;
+
+        private static Asset<Texture2D> Load(string name) =>
+            ModContent.Request<Texture2D>("zhashi/Content/Effects/Door/Textures/" + name, AssetRequestMode.ImmediateLoad);
+
+        private static void EnsureTextures()
+        {
+            if (Main.dedServ || sky != null) return;
+            sky = Load("DomainSky");
+            spires = Load("DomainSpires");
+            fog = Load("DomainFog");
+            vignette = Load("DomainVignette");
+            mote = Load("DoorMote");
+        }
+
+        public override void Unload() => sky = spires = fog = vignette = mote = null;
+
+        /// <summary>How deep the local player currently is into the domain.</summary>
+        private static float TargetStrength()
+        {
+            Player player = Main.LocalPlayer;
+            if (player == null || !player.active) return 0f;
+            if (player.GetModPlayer<DoorPathwayPlayer>().secretSpaceTimer > 0) return 1f;
+            // Standing inside your own time-space maze counts as being half inside the other world.
+            foreach (Projectile p in Main.ActiveProjectiles)
+            {
+                if (!p.active || p.owner != Main.myPlayer) continue;
+                if (p.type != ModContent.ProjectileType<DoorDomainProjectile>()) continue;
+                if ((int)p.ai[0] != 2) continue;
+                if (player.Distance(p.Center) < p.ai[1]) return 0.62f;
+            }
+            return 0f;
+        }
+
+        public override void PostUpdateEverything()
+        {
+            if (Main.dedServ || Main.gameMenu)
+            {
+                strength = 0f;
+                return;
+            }
+            float target = TargetStrength();
+            // Entering is slower than leaving: the domain closes in, then lets go.
+            float speed = target > strength ? 1f / 75f : 1f / 45f;
+            strength = MathHelper.Clamp(strength + (target > strength ? speed : -speed), 0f, 1f);
+            if (target > 0f) EnsureTextures();
+        }
+
+        public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
+        {
+            if (!Active) return;
+            backgroundColor = Color.Lerp(backgroundColor, new Color(7, 6, 18), strength);
+            tileColor = Color.Lerp(tileColor, new Color(176, 170, 214), strength * 0.72f);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            if (index == -1) return;
+            layers.Insert(index, new LegacyGameInterfaceLayer("zhashi:DoorWorldDomain",
+                delegate { DrawDomain(Main.spriteBatch); return true; }, InterfaceScaleType.UI));
+        }
+
+        private static void DrawTiled(SpriteBatch sb, Texture2D texture, float screenWidth, float scrollX, float top, float height, Color color)
+        {
+            float scale = height / texture.Height;
+            float drawWidth = texture.Width * scale;
+            if (drawWidth < 4f) return;
+            float start = -(scrollX % drawWidth);
+            if (start > 0f) start -= drawWidth;
+            for (float x = start; x < screenWidth; x += drawWidth)
+                sb.Draw(texture, new Vector2(x, top), null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        }
+
+        private void DrawDomain(SpriteBatch sb)
+        {
+            if (!Active || Main.dedServ || Main.gameMenu) return;
+            EnsureTextures();
+            if (sky == null) return;
+            float s = strength;
+            float w = Main.screenWidth, h = Main.screenHeight;
+            float scrollX = Main.screenPosition.X;
+            float t = Main.GameUpdateCount;
+
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp,
+                DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.UIScaleMatrix);
+
+            // 1. The other sky, drifting very slowly.
+            float drift = (float)Math.Sin(t / 900.0) * 14f;
+            sb.Draw(sky.Value, new Rectangle((int)(-w * 0.08f + drift), (int)(-h * 0.12f), (int)(w * 1.16f), (int)(h * 1.20f)),
+                Color.White * s);
+
+            // 2. Two spire layers at different parallax speeds give the place depth.
+            DrawTiled(sb, spires.Value, w, scrollX * 0.045f + t * 0.04f, h * 0.30f, h * 0.92f, Color.White * (0.92f * s));
+            DrawTiled(sb, spires.Value, w, scrollX * 0.125f + t * 0.09f, h * 0.46f, h * 1.05f,
+                Color.White * (0.72f * s));
+
+            // 3. Low fog rolling across the ground.
+            DrawTiled(sb, fog.Value, w, -scrollX * 0.20f + t * 0.30f, h * 0.60f, h * 0.44f,
+                new Color(150, 142, 196) * (0.60f * s));
+
+            // 4. Motes drifting upward, wrapped to the screen.
+            if (mote != null)
+            {
+                Vector2 origin = mote.Value.Size() / 2f;
+                for (int i = 0; i < 18; i++)
+                {
+                    float seed = i * 137.5f;
+                    float px = ((seed * 53f + scrollX * (0.08f + (i % 3) * 0.05f)) % (w + 140f) + (w + 140f)) % (w + 140f) - 70f;
+                    float py = ((h * (0.10f + (i * 97f % 100) / 140f) - t * (0.22f + (i % 5) * 0.11f)) % (h + 140f) + (h + 140f)) % (h + 140f) - 70f;
+                    float scale = 0.16f + (i % 4) * 0.05f;
+                    sb.Draw(mote.Value, new Vector2(px, py), null, new Color(206, 202, 240) * (0.40f * s),
+                        0f, origin, scale, SpriteEffects.None, 0f);
+                }
+            }
+
+            // 5. Cold colour grade, then the vignette closing the view in.
+            sb.Draw(sky.Value, new Rectangle(0, 0, (int)w, (int)h), new Color(58, 44, 108) * (0.22f * s));
+            sb.Draw(vignette.Value, new Rectangle(0, 0, (int)w, (int)h), Color.White * (0.90f * s));
+
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState,
+                DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+        }
+    }
+}

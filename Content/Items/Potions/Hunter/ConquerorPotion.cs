@@ -96,6 +96,9 @@ namespace zhashi.Content.Items.Potions.Hunter
 
             // 恢复刷怪 (这是您特有的系统逻辑，保留)
             ConquerorSpawnSystem.StopSpawning = false;
+            ConquerorSpawnSystem.StopSpawningOwner = -1;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.WorldData);
 
             return true;
         }

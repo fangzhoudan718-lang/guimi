@@ -37,13 +37,15 @@ namespace zhashi.Content.Items.Potions.Door
             if (player.whoAmI == Main.myPlayer)
             {
                 var modPlayer = player.GetModPlayer<LotMPlayer>();
+                if (modPlayer.baseDoorSequence != RequiredSequence) return false;
                 modPlayer.baseDoorSequence = 5;
                 modPlayer.currentDoorSequence = 5;
-
+                if (Main.netMode == NetmodeID.MultiplayerClient) modPlayer.SyncPlayer(-1, -1, false);
+                PromotionPulse.Raise(player, PromotionPulse.Door);
                 SoundEngine.PlaySound(SoundID.Item104, player.position);
                 Main.NewText("你站在世界的中央,任何位置都能成为你的下一步。", 220, 180, 255);
                 Main.NewText("晋升成功：序列5 旅行家！", 255, 215, 0);
-                Main.NewText("能力: 旅行家之门 [J] / 闪现 [K] / 无形之手(物品自动吸取) / 神性记录槽+3", 220, 200, 150);
+                Main.NewText($"能力: 旅行家之门 [{LotMKeybinds.GetBindingText(LotMKeybinds.Door_TravelerGate)}] / 闪现 [{LotMKeybinds.GetBindingText(LotMKeybinds.Door_Blink)}] / 无形之手 / 神性记录强化", 220, 200, 150);
             }
             return true;
         }
@@ -53,11 +55,11 @@ namespace zhashi.Content.Items.Potions.Door
             CreateDualRecipe(
                 ModContent.ItemType<DoorCard>(),
                 (ItemID.BottledWater, 1),
-                (ItemID.MagicMirror, 1),       // 魔镜(传送原型)
-                (ItemID.Compass, 1),           // 指南针(定位)
-                (ItemID.FallenStar, 5),        // 坠落之星(灵性载体)
-                (ItemID.SoulofFlight, 5),      // 翼之魂(瞬移)
-                (ItemID.GoldCoin, 5)           // 金币(财富)
+                (ItemID.Worm, 1),              // 对应魔虫主材料
+                (ItemID.FrostCore, 1),         // 对应无影魔狼心脏
+                (ItemID.HallowedBar, 10),      // 对应受困幽灵残留的高阶载体
+                (ItemID.BlackInk, 3),          // 绘制星图
+                (ItemID.SoulofFlight, 10)      // 穿行灵界
             );
         }
     }

@@ -29,12 +29,6 @@ namespace zhashi.Content.Configs
         [DefaultValue(false)]
         public bool EnableDivineCurse;
 
-        [Header("超凡生物模式")]
-        [Label("生物超凡化")]
-        [Tooltip("开启后:全游戏所有生成的生物有几率成为某途径某序列的超凡者\n序列越低=几率越小=强度越高\n序列9=10%, 序列8=5%, 序列7=1%, ..., 序列0=0.0001%\n超凡生物拥有强化数值+自动技能+Boss血条+丰厚掉落\n[序列0生物可以秒杀玩家,慎开]")]
-        [DefaultValue(false)]
-        public bool EnableBeyonderCreatures;
-
         [Header("$Mods.zhashi.Configs.LotMConfig.Headers.OtherSettings")]
 
         [DefaultValue(false)]

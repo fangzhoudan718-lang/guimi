@@ -9,6 +9,7 @@ using Terraria.GameContent.Generation;
 using Microsoft.Xna.Framework;
 using zhashi.Content.Items;
 using zhashi.Content.Items.Materials;
+using zhashi.Content.Items.SpiritTools;
 
 namespace zhashi.Content.Dimensions
 {
@@ -293,6 +294,23 @@ namespace zhashi.Content.Dimensions
             chest.item[slot].SetDefaults(rareItem);
             slot++;
 
+            // 灵界独有探索收益，不再只是复制主世界箱子。
+            chest.item[slot].SetDefaults(NPC.downedPlantBoss ? ItemID.Ectoplasm : ItemID.FallenStar);
+            chest.item[slot].stack = NPC.downedPlantBoss ? WorldGen.genRand.Next(2, 5) : WorldGen.genRand.Next(1, 4);
+            slot++;
+
+            if (NPC.downedPlantBoss && WorldGen.genRand.NextBool(10))
+            {
+                chest.item[slot].SetDefaults(ModContent.ItemType<WhisperOfSpiritWorld>());
+                slot++;
+            }
+
+            if (WorldGen.genRand.NextBool(14))
+            {
+                chest.item[slot].SetDefaults(ModContent.ItemType<SpiritCompass>());
+                slot++;
+            }
+
             // 2. 武器/辅助
             if (WorldGen.genRand.NextBool())
             {
@@ -385,6 +403,9 @@ namespace zhashi.Content.Dimensions
                 int slot = 0;
                 chest.item[slot].SetDefaults(ModContent.ItemType<BlasphemySlate>());
                 chest.item[slot].stack = WorldGen.genRand.Next(1, 3);
+                slot++;
+                chest.item[slot].SetDefaults(NPC.downedPlantBoss ? ItemID.Ectoplasm : ItemID.FallenStar);
+                chest.item[slot].stack = NPC.downedPlantBoss ? WorldGen.genRand.Next(3, 6) : WorldGen.genRand.Next(1, 4);
                 slot++;
                 chest.item[slot].SetDefaults(ItemID.GoldCoin);
                 chest.item[slot].stack = WorldGen.genRand.Next(10, 50);

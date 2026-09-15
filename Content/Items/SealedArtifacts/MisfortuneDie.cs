@@ -33,7 +33,8 @@ namespace zhashi.Content.Items.SealedArtifacts
             var modPlayer = player.GetModPlayer<LotMPlayer>();
 
             // 只有当还未完成时才增加，封顶 86400
-            if (modPlayer.misfortuneRitualTimer < LotMPlayer.MISFORTUNE_RITUAL_TARGET)
+            if (Main.netMode != NetmodeID.Server && player.whoAmI == Main.myPlayer &&
+                modPlayer.misfortuneRitualTimer < LotMPlayer.MISFORTUNE_RITUAL_TARGET)
             {
                 modPlayer.misfortuneRitualTimer++;
             }

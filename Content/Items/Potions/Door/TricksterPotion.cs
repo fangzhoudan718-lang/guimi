@@ -37,13 +37,15 @@ namespace zhashi.Content.Items.Potions.Door
             if (player.whoAmI == Main.myPlayer)
             {
                 var modPlayer = player.GetModPlayer<LotMPlayer>();
+                if (modPlayer.baseDoorSequence != RequiredSequence) return false;
                 modPlayer.baseDoorSequence = 8;
                 modPlayer.currentDoorSequence = 8;
-
+                if (Main.netMode == NetmodeID.MultiplayerClient) modPlayer.SyncPlayer(-1, -1, false);
+                PromotionPulse.Raise(player, PromotionPulse.Door);
                 SoundEngine.PlaySound(SoundID.Item25, player.position);
                 Main.NewText("你学会了无数奇特的小戏法,如同马戏团里最受欢迎的表演者...", 220, 200, 120);
                 Main.NewText("晋升成功：序列8 戏法大师！", 255, 215, 0);
-                Main.NewText("能力: [切换戏法键/默认T] 选择, [释放戏法键/默认R] 表演 (可在控件改键)。", 220, 220, 100);
+                Main.NewText($"能力: [{LotMKeybinds.GetBindingText(LotMKeybinds.Door_TrickSwitch)}]切换戏法，[{LotMKeybinds.GetBindingText(LotMKeybinds.Door_TrickCast)}]释放戏法。", 220, 220, 100);
                 Main.NewText("12种戏法: 闪光/黑幕/转移气体/巨响/冰冻射线/电击/造雾/刮风/点火/摔倒术/驱物/逃脱(自动)", 200, 200, 200);
             }
             return true;
@@ -54,10 +56,10 @@ namespace zhashi.Content.Items.Potions.Door
             CreateDualRecipe(
                 ModContent.ItemType<DoorCard>(),
                 (ItemID.BottledWater, 1),
-                (ItemID.Torch, 10),                // 火把(点火/闪光)
-                (ItemID.Glass, 10),                // 玻璃(各种戏法道具)
-                (ItemID.Silk, 5),                  // 丝绸(黑幕/魔术幕布)
-                (ItemID.Bottle, 3)                 // 瓶子(气体戏法)
+                (ItemID.SharkFin, 1),              // 对应深海枪鱼之血
+                (ItemID.Cobweb, 20),               // 对应线球草
+                (ItemID.Fireblossom, 1),           // 对应盛开的红栗花
+                (ItemID.Stinger, 3)                // 对应食灵者胃袋，避免邪恶世界类型锁
             );
         }
     }

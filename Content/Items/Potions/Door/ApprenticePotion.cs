@@ -36,21 +36,17 @@ namespace zhashi.Content.Items.Potions.Door
             if (player.whoAmI == Main.myPlayer)
             {
                 var modPlayer = player.GetModPlayer<LotMPlayer>();
-
-                // 防止双修
-                if (modPlayer.IsBeyonder && modPlayer.baseDoorSequence == 10)
-                {
-                    Main.NewText("你的灵性已定型，无法开启第二条途径！", 255, 50, 50);
-                    return true;
-                }
+                // CanUseItem 是正常入口；这里再次校验，避免联机延迟或其他模组直接调用造成跨途径/降级。
+                if (modPlayer.baseDoorSequence != 10 || modPlayer.IsBeyonder) return false;
 
                 modPlayer.baseDoorSequence = 9;
                 modPlayer.currentDoorSequence = 9;
-
+                if (Main.netMode == NetmodeID.MultiplayerClient) modPlayer.SyncPlayer(-1, -1, false);
+                PromotionPulse.Raise(player, PromotionPulse.Door);
                 SoundEngine.PlaySound(SoundID.DoorOpen, player.position);
                 Main.NewText("一扇虚幻的门在你心中开启,你听见了远方的脚步声...", 200, 180, 100);
                 Main.NewText("晋升成功：序列9 学徒！", 255, 215, 0);
-                Main.NewText("能力: 短按 [开门键 / 默认E] 穿过附近的墙壁。", 220, 220, 100);
+                Main.NewText($"能力: 按 [{LotMKeybinds.GetBindingText(LotMKeybinds.Door_OpenDoor)}] 开门，穿过附近墙壁。", 220, 220, 100);
             }
             return true;
         }
@@ -60,9 +56,10 @@ namespace zhashi.Content.Items.Potions.Door
             CreateDualRecipe(
                 ModContent.ItemType<DoorCard>(),
                 (ItemID.BottledWater, 1),
-                (ItemID.Wood, 5),                  // 木头(门的象征)
-                (ItemID.SilverCoin, 5),            // 银币(学徒的束脩)
-                (ItemID.Compass, 1)                // 指南针(寻路工具)
+                (ItemID.Worm, 1),                  // 对应吞食宝石的蠕虫
+                (ItemID.Amethyst, 1),              // 对应幻影水晶
+                (ItemID.Deathweed, 1),             // 对应尸体上生长的花
+                (ItemID.MudBlock, 5)               // 对应受灵界污染的土壤
             );
         }
     }
