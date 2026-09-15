@@ -1,8 +1,6 @@
 site_name: 诡秘之主 · 泰拉瑞亚模组 Wiki
 site_description: 十条非凡途径、序列能力、魔药配方与晋升仪式
 site_url: https://fangzhoudan718-lang.github.io/guimi/
-repo_url: https://github.com/fangzhoudan718-lang/guimi
-repo_name: fangzhoudan718-lang/guimi
 edit_uri: ""
 copyright: 模组作者保留所有权利 · 内容随版本更新
 
@@ -90,7 +88,6 @@ nav:
       - 门途径神奇物品: Items-and-Curios.md
       - 封印物与活性: Sealed-Artifacts.md
   - 系统与操作:
-      - 按键对照: Keybinds.md
       - NPC 好感度: Favorability.md
       - 常见问题: FAQ.md
 

@@ -18,7 +18,6 @@
 | 想挑一条途径 | [十途径总览](Pathways-Overview.md) |
 | 卡在某个序列 | [晋升仪式一览](Rituals.md) |
 | 缺材料、找配方 | [魔药与配方](Potions-and-Recipes.md) |
-| 技能按不出来 | [按键对照](Keybinds.md) |
 | 想找神奇物品 | [神奇物品与道具](Items-and-Curios.md) |
 | 封印物在闹腾 | [封印物与活性](Sealed-Artifacts.md) |
 
@@ -51,5 +50,4 @@
 - [封印物与活性](Sealed-Artifacts.md) —— 活性机制、厄运爆发与压制办法
 - [神奇物品与道具](Items-and-Curios.md) —— 门途径十二件神奇物品
 - [NPC 好感度](Favorability.md) —— 好感度怎么升、有什么用
-- [按键对照](Keybinds.md) —— 全部默认按键
 - [常见问题](FAQ.md)
