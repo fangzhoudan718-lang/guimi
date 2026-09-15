@@ -1,0 +1,6 @@
+# MkDocs 站点构建产物（由 GitHub Actions 生成，不入库）
+site/
+
+# Python 缓存
+__pycache__/
+*.pyc

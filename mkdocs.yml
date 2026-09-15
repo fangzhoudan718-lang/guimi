@@ -1,0 +1,102 @@
+site_name: 诡秘之主 · 泰拉瑞亚模组 Wiki
+site_description: 十条非凡途径、序列能力、魔药配方与晋升仪式
+site_url: https://fangzhoudan718-lang.github.io/guimi/
+repo_url: https://github.com/fangzhoudan718-lang/guimi
+repo_name: fangzhoudan718-lang/guimi
+edit_uri: ""
+copyright: 模组作者保留所有权利 · 内容随版本更新
+
+theme:
+  name: material
+  language: zh
+  font: false
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: lotm
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色（灰雾）
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.tooltips
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/lotm.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      permalink_title: 复制本段链接
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.caret
+  - pymdownx.mark
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+      separator: '[\s\u200b\-]'
+
+nav:
+  - 首页: index.md
+  - 新手入门: Getting-Started.md
+  - 非凡途径:
+      - 十途径总览: Pathways-Overview.md
+      - 命运途径: Pathway-Wheel.md
+      - 魔女途径: Pathway-Demoness.md
+      - 错误途径: Pathway-Marauder.md
+      - 愚者途径: Pathway-Fool.md
+      - 巨人途径: Pathway-Giant.md
+      - 红祭司途径: Pathway-Hunter.md
+      - 月亮途径: Pathway-Moon.md
+      - 太阳途径: Pathway-Sun.md
+      - 门途径: Pathway-Door.md
+      - 黑皇帝途径: Pathway-BlackEmperor.md
+  - 晋升与魔药:
+      - 晋升仪式一览: Rituals.md
+      - 魔药与配方: Potions-and-Recipes.md
+  - 物品资料:
+      - 材料与消耗品: Items-Materials.md
+      - 武器: Items-Weapons.md
+      - 亵渎之牌: Items-Cards.md
+      - 饰品防具与杂项: Items-Misc.md
+      - 门途径神奇物品: Items-and-Curios.md
+      - 封印物与活性: Sealed-Artifacts.md
+  - 系统与操作:
+      - 按键对照: Keybinds.md
+      - NPC 好感度: Favorability.md
+      - 常见问题: FAQ.md
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/bilibili
+      link: https://space.bilibili.com/433573566
+      name: B 站

@@ -1,0 +1,342 @@
+/* =====================================================================
+   诡秘之主 主题样式
+   配色取自原作意象：灰雾、愚者的紫、黄铜的机械感、血月的暗红。
+   ===================================================================== */
+
+:root {
+  --lotm-fog:        #a8a3b8;
+  --lotm-fog-dim:    #6d687e;
+  --lotm-brass:      #c9a227;
+  --lotm-brass-soft: #e0c469;
+  --lotm-violet:     #7e5fc4;
+  --lotm-violet-lit: #a98cd8;
+  --lotm-blood:      #a02a3c;
+  --lotm-ink:        #0b0a10;
+}
+
+/* ---------- 深色：灰雾之夜 ---------- */
+[data-md-color-scheme="slate"] {
+  --md-hue: 265;
+
+  --md-default-bg-color:        #12101a;
+  --md-default-fg-color:        #d9d4e3;
+  --md-default-fg-color--light: #b3adc4;
+  --md-default-fg-color--lighter: #8b86a0;
+  --md-default-fg-color--lightest: #2a2636;
+
+  --md-primary-fg-color:        #1a1726;
+  --md-primary-bg-color:        #e6e0f0;
+  --md-accent-fg-color:         var(--lotm-brass-soft);
+
+  --md-typeset-a-color:         var(--lotm-violet-lit);
+  --md-code-bg-color:           #1b1826;
+  --md-code-fg-color:           #e2dcc9;
+  --md-typeset-table-color:     #2a2636;
+  --md-typeset-mark-color:      rgba(201, 162, 39, 0.28);
+
+  --md-admonition-bg-color:     #191624;
+  --md-footer-bg-color:         #0d0c13;
+  --md-footer-bg-color--dark:   #08070c;
+
+  --lotm-surface:   #1a1726;
+  --lotm-surface-2: #211d2e;
+  --lotm-line:      #2e2a3d;
+  --lotm-heading:   #efe9f7;
+}
+
+/* ---------- 浅色：羊皮纸与黄铜 ---------- */
+[data-md-color-scheme="lotm"] {
+  --md-hue: 40;
+
+  --md-default-bg-color:        #f5f1e7;
+  --md-default-fg-color:        #2b2620;
+  --md-default-fg-color--light: #5a5147;
+  --md-default-fg-color--lighter: #8a7f70;
+  --md-default-fg-color--lightest: #e2dac9;
+
+  --md-primary-fg-color:        #2b2440;
+  --md-primary-bg-color:        #f5f1e7;
+  --md-accent-fg-color:         #8a6a1f;
+
+  --md-typeset-a-color:         #5b3f8f;
+  --md-code-bg-color:           #ece5d6;
+  --md-code-fg-color:           #40372a;
+  --md-typeset-table-color:     #e2dac9;
+  --md-typeset-mark-color:      rgba(201, 162, 39, 0.32);
+
+  --md-admonition-bg-color:     #fbf8f1;
+  --md-footer-bg-color:         #2b2440;
+  --md-footer-bg-color--dark:   #1e1a2e;
+
+  --lotm-surface:   #fbf8f1;
+  --lotm-surface-2: #f0ead9;
+  --lotm-line:      #ddd4c0;
+  --lotm-heading:   #241f33;
+}
+
+/* =====================================================================
+   字体：不依赖网络字体，直接用系统自带的宋体 / 黑体
+   ===================================================================== */
+body,
+.md-typeset {
+  font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB",
+               "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-header__title,
+.md-nav__title,
+.md-tabs__link,
+.md-footer__title {
+  font-family: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC",
+               "STSong", "SimSun", Georgia, serif;
+  letter-spacing: 0.02em;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  color: var(--lotm-heading);
+  font-weight: 700;
+}
+
+/* 标题下的黄铜细线 */
+.md-typeset h1 {
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--lotm-brass);
+}
+
+.md-typeset h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid color-mix(in srgb, var(--lotm-brass) 45%, transparent);
+}
+
+/* =====================================================================
+   灰雾：页面底部的雾气光晕
+   ===================================================================== */
+.md-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60% 45% at 12% 0%,
+      color-mix(in srgb, var(--lotm-violet) 22%, transparent) 0%, transparent 70%),
+    radial-gradient(55% 40% at 92% 8%,
+      color-mix(in srgb, var(--lotm-brass) 14%, transparent) 0%, transparent 72%),
+    radial-gradient(80% 55% at 50% 108%,
+      color-mix(in srgb, var(--lotm-fog) 16%, transparent) 0%, transparent 75%);
+}
+
+.md-main,
+.md-header,
+.md-tabs,
+.md-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 页头：深紫底 + 黄铜下沿 */
+.md-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--lotm-brass) 40%, transparent);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+  background: linear-gradient(180deg, #1c1830 0%, #14111f 100%);
+}
+
+.md-tabs {
+  border-bottom: 1px solid color-mix(in srgb, var(--lotm-brass) 28%, transparent);
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--lotm-brass-soft);
+}
+
+/* =====================================================================
+   正文排版
+   ===================================================================== */
+.md-typeset {
+  line-height: 1.75;
+  font-size: 0.75rem;
+}
+
+.md-typeset .md-typeset__table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* 表格：深色底 + 黄铜表头 */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--lotm-line);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  font-size: 0.68rem;
+}
+
+.md-typeset table:not([class]) th {
+  background: color-mix(in srgb, var(--lotm-brass) 18%, var(--lotm-surface-2));
+  color: var(--lotm-heading);
+  border-bottom: 1px solid color-mix(in srgb, var(--lotm-brass) 55%, transparent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:nth-child(2n) {
+  background: color-mix(in srgb, var(--lotm-surface) 60%, transparent);
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background: color-mix(in srgb, var(--lotm-violet) 12%, transparent);
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid var(--lotm-line);
+  vertical-align: top;
+}
+
+/* 引用块：原作引文 */
+.md-typeset blockquote {
+  border-left: 3px solid var(--lotm-violet);
+  background: color-mix(in srgb, var(--lotm-violet) 8%, transparent);
+  color: var(--md-default-fg-color--light);
+  padding: 0.5em 1em;
+}
+
+/* 行内代码：当作物品名 */
+.md-typeset code {
+  background: color-mix(in srgb, var(--lotm-brass) 16%, var(--lotm-surface));
+  color: color-mix(in srgb, var(--lotm-brass-soft) 70%, var(--md-default-fg-color));
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+}
+
+/* 提示框配色 */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0 0 0 4px;
+  border-color: var(--lotm-violet);
+  background: var(--md-admonition-bg-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: var(--lotm-blood);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-color: var(--lotm-brass);
+}
+
+/* 侧边栏当前项 */
+.md-nav__link--active,
+.md-nav__link--active:focus,
+.md-nav__link--active:hover {
+  color: var(--lotm-brass-soft);
+  font-weight: 700;
+}
+
+[data-md-color-scheme="lotm"] .md-nav__link--active {
+  color: #8a6a1f;
+}
+
+/* 搜索框 */
+.md-search__input {
+  background: color-mix(in srgb, var(--lotm-surface) 80%, transparent);
+}
+
+/* 卷轴条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--lotm-brass) 45%, var(--lotm-surface-2));
+  border-radius: 6px;
+}
+
+/* =====================================================================
+   首页：门户式开屏
+   ===================================================================== */
+.lotm-hero {
+  position: relative;
+  margin: -0.6rem -0.8rem 1.6rem;
+  padding: 3.2rem 1.5rem 2.6rem;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--lotm-brass) 35%, transparent);
+  border-radius: 4px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 120% at 50% -20%,
+      color-mix(in srgb, var(--lotm-violet) 32%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--lotm-surface-2) 88%, transparent),
+      var(--lotm-surface));
+}
+
+.lotm-hero::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--lotm-brass), transparent);
+}
+
+.lotm-hero h1 {
+  border: none;
+  margin: 0 0 0.35em;
+  font-size: 1.9rem;
+  color: var(--lotm-heading);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--lotm-violet) 55%, transparent);
+}
+
+.lotm-hero .lotm-hero__sub {
+  margin: 0;
+  color: var(--lotm-brass-soft);
+  font-family: "Songti SC", "STSong", "SimSun", Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.lotm-hero .lotm-hero__meta {
+  margin-top: 1.1rem;
+  font-size: 0.62rem;
+  color: var(--md-default-fg-color--lighter);
+  letter-spacing: 0.06em;
+}
+
+/* =====================================================================
+   物品表格：让名称列更像卡牌
+   ===================================================================== */
+.md-typeset table:not([class]) td:first-child {
+  font-weight: 600;
+  color: var(--lotm-heading);
+}
+
+/* 序列号列 */
+.md-typeset table:not([class]) td:first-child:not(:last-child) {
+  white-space: nowrap;
+}
+
+/* 页脚 */
+.md-footer {
+  border-top: 1px solid color-mix(in srgb, var(--lotm-brass) 30%, transparent);
+}

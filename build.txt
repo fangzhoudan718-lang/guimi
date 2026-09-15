@@ -5,4 +5,4 @@ homepage = https://space.bilibili.com/433573566
 side = Both
 strongDependencies = StructureHelper, SubworldLibrary
 modReferences = StructureHelper, SubworldLibrary
-buildIgnore = .git*, .vs*, .vscode*, bin*, obj*, SourceAssets*, *.csproj.user, *.gitattributes, *.gitignore, Content/**/*.md
+buildIgnore = .git*, .vs*, .vscode*, bin*, obj*, SourceAssets*, *.csproj.user, *.gitattributes, *.gitignore, Content/**/*.md, docs*, mkdocs.yml, requirements-docs.txt, site*

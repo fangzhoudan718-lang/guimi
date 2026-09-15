@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="诡秘之主">
+  <rect x="11" y="5" width="42" height="54" rx="5" ry="5"
+        fill="none" stroke="#c9a227" stroke-width="3"/>
+  <circle cx="32" cy="30" r="12" fill="none" stroke="#7e5fc4" stroke-width="3"/>
+  <ellipse cx="32" cy="30" rx="3.2" ry="8.4" fill="#c9a227"/>
+  <path d="M24 51h16" stroke="#c9a227" stroke-width="2.4" stroke-linecap="round" opacity="0.75"/>
+  <path d="M32 9.5l1.5 3.2 3.2 1.5-3.2 1.5L32 19l-1.5-3.3-3.2-1.5 3.2-1.5z"
+        fill="#c9a227" opacity="0.9"/>
+</svg>
